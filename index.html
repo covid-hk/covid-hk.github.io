@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app>
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -20,33 +20,14 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
   <!-- jQuery csv -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.11/jquery.csv.min.js" crossorigin="anonymous"></script>
-  <!-- AngularJS 1.6.9 -->
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <!-- AngularJS 1.8.0 -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
   <!-- Custom -->
   <!--<link rel="stylesheet" href="css/styles.css?v=1.0">-->
-  <!--<script src="js/scripts.js?v=1.0"></script>-->
+  <script src="building_list.js?v=1.0"></script>
 </head>
 <body>
+  <!-- http://maps.google.com/maps?q=name+dist -->
   <!--<script src="js/jquery.js" type="text/javascript"></script>-->
-  <script>
-    $(document).ready(function() {
-	  getBuildingListCsv();
-    });
-
-    function getBuildingListCsv() {
-      $.ajax({
-        type: "GET",
-        // https://data.gov.hk/tc-data/dataset/hk-dh-chpsebcddr-novel-infectious-agent
-		// http://www.chp.gov.hk/files/misc/building_list_chi.csv
-        url: "building_list_chi.csv",
-        dataType: "text",
-        success: function(response)
-        {
-          let obj = $.csv.toObjects(response);
-          console.log(obj);
-        }
-      });
-    }
-  </script>
 </body>
 </html>
