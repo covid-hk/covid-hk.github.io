@@ -1,0 +1,212 @@
+
+.hidden {
+  display: none;
+}
+
+/* Start of Radio Button CSS */
+/* https://codepen.io/mblode/pen/gGIAm/ */
+
+.button-wrap {
+  text-align: center;
+}
+
+.button-label {
+  display: inline-block;
+  padding: 1em 2em;
+  margin: 0.5em;
+  cursor: pointer;
+  color: #292929;
+  border-radius: 0.25em;
+  background: #efefef;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2), inset 0 -3px 0 rgba(0, 0, 0, 0.22);
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.button-label {
+  font-size: 1em;
+  font-family: "Lato", sans-serif;
+}
+.button-label:hover {
+  background: #d6d6d6;
+  color: #101010;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2), inset 0 -3px 0 rgba(0, 0, 0, 0.32);
+}
+.button-label:active {
+  -webkit-transform: translateY(2px);
+          transform: translateY(2px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2), inset 0px -1px 0 rgba(0, 0, 0, 0.22);
+}
+@media (max-width: 40em) {
+  .button-label {
+    padding: 0em 1em 3px;
+    margin: 0.25em;
+  }
+}
+
+#district-cnw:checked + .button-label {
+  background: #0860a8;
+  color: #efefef;
+}
+#district-cnw:checked + .button-label:hover {
+  background: #0860a8;
+  color: #e2e2e2;
+}
+
+#district-e:checked + .button-label {
+  background: #0860a8;
+  color: #efefef;
+}
+#district-e:checked + .button-label:hover {
+  background: #0860a8;
+  color: #e2e2e2;
+}
+
+#district-is:checked + .button-label {
+  background: #fe7f1d;
+  color: #efefef;
+}
+#district-is:checked + .button-label:hover {
+  background: #fe7f1d;
+  color: #e2e2e2;
+}
+
+#district-kc:checked + .button-label {
+  background: #9a3b26;
+  color: #efefef;
+}
+#district-kc:checked + .button-label:hover {
+  background: #9a3b26;
+  color: #e2e2e2;
+}
+
+#district-knt:checked + .button-label {
+  background: #fe7f1d;
+  color: #efefef;
+}
+#district-knt:checked + .button-label:hover {
+  background: #fe7f1d;
+  color: #e2e2e2;
+}
+
+#district-kt:checked + .button-label {
+  background: #1a9431;
+  color: #efefef;
+}
+#district-kt:checked + .button-label:hover {
+  background: #1a9431;
+  color: #e2e2e2;
+}
+
+#district-n:checked + .button-label {
+  background: #5eb6e4;
+  color: #efefef;
+}
+#district-n:checked + .button-label:hover {
+  background: #5eb6e4;
+  color: #e2e2e2;
+}
+
+#district-s:checked + .button-label {
+  background: #b5bd00;
+  color: #efefef;
+}
+#district-s:checked + .button-label:hover {
+  background: #b5bd00;
+  color: #e2e2e2;
+}
+
+#district-sk:checked + .button-label {
+  background: #6b208b;
+  color: #efefef;
+}
+#district-sk:checked + .button-label:hover {
+  background: #6b208b;
+  color: #e2e2e2;
+}
+
+#district-ssp:checked + .button-label {
+  background: #ff0000;
+  color: #efefef;
+}
+#district-ssp:checked + .button-label:hover {
+  background: #ff0000;
+  color: #e2e2e2;
+}
+
+#district-st:checked + .button-label {
+  background: #5eb6e4;
+  color: #efefef;
+}
+#district-st:checked + .button-label:hover {
+  background: #5eb6e4;
+  color: #e2e2e2;
+}
+
+#district-tm:checked + .button-label {
+  background: #a40084;
+  color: #efefef;
+}
+#district-tm:checked + .button-label:hover {
+  background: #a40084;
+  color: #e2e2e2;
+}
+
+#district-tp:checked + .button-label {
+  background: #5eb6e4;
+  color: #efefef;
+}
+#district-tp:checked + .button-label:hover {
+  background: #5eb6e4;
+  color: #e2e2e2;
+}
+
+#district-tw:checked + .button-label {
+  background: #a40084;
+  color: #efefef;
+}
+#district-tw:checked + .button-label:hover {
+  background: #a40084;
+  color: #e2e2e2;
+}
+
+#district-wc:checked + .button-label {
+  background: #0860a8;
+  color: #efefef;
+}
+#district-wc:checked + .button-label:hover {
+  background: #0860a8;
+  color: #e2e2e2;
+}
+
+#district-wts:checked + .button-label {
+  background: #1a9431;
+  color: #efefef;
+}
+#district-wts:checked + .button-label:hover {
+  background: #1a9431;
+  color: #e2e2e2;
+}
+
+#district-yl:checked + .button-label {
+  background: #a40084;
+  color: #efefef;
+}
+#district-yl:checked + .button-label:hover {
+  background: #a40084;
+  color: #e2e2e2;
+}
+
+#district-ytm:checked + .button-label {
+  background: #ff0000;
+  color: #efefef;
+}
+#district-ytm:checked + .button-label:hover {
+  background: #ff0000;
+  color: #e2e2e2;
+}
+
+/* End of Radio Button CSS */
