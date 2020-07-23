@@ -1,4 +1,4 @@
-var domain = "http://colorpalette.ddns.net/"; //"https://covid-hk.github.io/";
+var domain = "https://colorpalette.ddns.net/"; //"https://covid-hk.github.io/";
 var building_list_chi = [];
 var building_list_eng = [];
 var building_list = [];
