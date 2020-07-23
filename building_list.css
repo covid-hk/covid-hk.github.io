@@ -52,6 +52,7 @@ body {
     padding-left: 5px;
   }
   .button-label {
+    padding: 1.5em 1em;
     font-size: small;
   }
 }
@@ -76,7 +77,8 @@ body {
 }
 @media (max-width: 40em) {
   .button-label {
-    padding: 0em 1em 3px;
+    /*padding: 0em 1em 3px;*/
+    padding: 2em 1em;
     margin: 0.25em;
   }
 }
