@@ -5,24 +5,24 @@ var building_list = [];
 var building_list_dedup = [];
 
 var map_dist = [];
-map_dist['北區'] = {'ch':'北區', 'en':'North', 'id':'N'};
-map_dist['大埔'] = {'ch':'大埔', 'en':'Tai Po', 'id':'TP'};
-map_dist['沙田'] = {'ch':'沙田', 'en':'Sha Tin', 'id':'ST'};
-map_dist['西貢'] = {'ch':'西貢', 'en':'Sai Kung', 'id':'SK'};
-map_dist['屯門'] = {'ch':'屯門', 'en':'Tuen Mun', 'id':'TM'};
-map_dist['元朗'] = {'ch':'元朗', 'en':'Yuen Long', 'id':'YL'};
-map_dist['荃灣'] = {'ch':'荃灣', 'en':'Tsuen Wan', 'id':'TW'};
-map_dist['葵青'] = {'ch':'葵青', 'en':'Kwai Tsing', 'id':'KNT'};
-map_dist['離島'] = {'ch':'離島', 'en':'Islands', 'id':'IS'};
-map_dist['油尖旺'] = {'ch':'油尖旺', 'en':'Yau Tsim Mong', 'id':'YTM'};
-map_dist['深水埗'] = {'ch':'深水埗', 'en':'Sham Shui Po', 'id':'SSP'};
-map_dist['九龍城'] = {'ch':'九龍城', 'en':'Kowloon City', 'id':'KC'};
-map_dist['黃大仙'] = {'ch':'黃大仙', 'en':'Wong Tai Sin', 'id':'WTS'};
-map_dist['觀塘'] = {'ch':'觀塘', 'en':'Kwun Tong', 'id':'KT'};
-map_dist['中西區'] = {'ch':'中西區', 'en':'Central & Western', 'id':'CNW'};
-map_dist['灣仔'] = {'ch':'灣仔', 'en':'Wan Chai', 'id':'WC'};
-map_dist['東區'] = {'ch':'東區', 'en':'Eastern', 'id':'E'};
-map_dist['南區'] = {'ch':'南區', 'en':'Southern', 'id':'S'};
+map_dist['北區'] = {'ch':'北區', 'en':'North', 'id':'N', 'case':[]};
+map_dist['大埔'] = {'ch':'大埔', 'en':'Tai Po', 'id':'TP', 'case':[]};
+map_dist['沙田'] = {'ch':'沙田', 'en':'Sha Tin', 'id':'ST', 'case':[]};
+map_dist['西貢'] = {'ch':'西貢', 'en':'Sai Kung', 'id':'SK', 'case':[]};
+map_dist['屯門'] = {'ch':'屯門', 'en':'Tuen Mun', 'id':'TM', 'case':[]};
+map_dist['元朗'] = {'ch':'元朗', 'en':'Yuen Long', 'id':'YL', 'case':[]};
+map_dist['荃灣'] = {'ch':'荃灣', 'en':'Tsuen Wan', 'id':'TW', 'case':[]};
+map_dist['葵青'] = {'ch':'葵青', 'en':'Kwai Tsing', 'id':'KNT', 'case':[]};
+map_dist['離島'] = {'ch':'離島', 'en':'Islands', 'id':'IS', 'case':[]};
+map_dist['油尖旺'] = {'ch':'油尖旺', 'en':'Yau Tsim Mong', 'id':'YTM', 'case':[]};
+map_dist['深水埗'] = {'ch':'深水埗', 'en':'Sham Shui Po', 'id':'SSP', 'case':[]};
+map_dist['九龍城'] = {'ch':'九龍城', 'en':'Kowloon City', 'id':'KC', 'case':[]};
+map_dist['黃大仙'] = {'ch':'黃大仙', 'en':'Wong Tai Sin', 'id':'WTS', 'case':[]};
+map_dist['觀塘'] = {'ch':'觀塘', 'en':'Kwun Tong', 'id':'KT', 'case':[]};
+map_dist['中西區'] = {'ch':'中西區', 'en':'Central & Western', 'id':'CNW', 'case':[]};
+map_dist['灣仔'] = {'ch':'灣仔', 'en':'Wan Chai', 'id':'WC', 'case':[]};
+map_dist['東區'] = {'ch':'東區', 'en':'Eastern', 'id':'E', 'case':[]};
+map_dist['南區'] = {'ch':'南區', 'en':'Southern', 'id':'S', 'case':[]};
 
 var map_type = [];
 map_type['住宅'] = {'ch':'住宅', 'en':'Residential'};
@@ -68,6 +68,13 @@ $(document).ready(function() {
 
   getBuildingListCsv();
 });
+
+function cleanSearchBox() {
+  if ($("#search-keyword").val() != '') {
+    $("#search-keyword").val('');
+    refreshUI();
+  }
+}
 
 function refreshUI() {
   setCookie("covid_hk_district_id", $('input[name="input-district"]:checked').val(), 7);
@@ -231,6 +238,21 @@ function mergeBuildingList() {
     else if (building_list_dedup[i]['case'].length > 2) {
       building_list_dedup[i]['badge'] = 'warning';
     }
+  }
+
+  // Calculate cases per district
+  for (let i = 0; i < building_list_dedup.length; i++) {
+    let dist_ch = building_list_dedup[i]['dist']['ch'];
+    map_dist[dist_ch]['case'] = map_dist[dist_ch]['case'].concat(building_list_dedup[i]['case']);
+  }
+  for (let dist_ch in map_dist) {
+    // dedup case id list
+    map_dist[dist_ch]['case'] = map_dist[dist_ch]['case'].filter(function(item, pos, self) {
+      return self.indexOf(item) == pos;
+    })
+    map_dist[dist_ch]['case'].sort();
+    // Append case count per district to district label
+    $("#label-district-" + map_dist[dist_ch]['id'].toLowerCase()).append('<br/>(' + map_dist[dist_ch]['case'].length + ')');
   }
 
   // Sort data by badge level (info > warning > danger)
