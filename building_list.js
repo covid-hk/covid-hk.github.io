@@ -1,4 +1,4 @@
-var domain = "https://covid-hk.github.io/"; //"https://covid-hk.github.io/";
+var domain = "https://covid-hk.github.io/"; //"https://covid-hk.github.io/";"http://colorpalette.ddns.net/"
 var building_list_chi = [];
 var building_list_eng = [];
 var building_list = [];
