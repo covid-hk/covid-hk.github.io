@@ -7,6 +7,12 @@ body {
   text-align: center;
 }
 
+/* Bootstrap 4 style grid as table */
+/* https://www.codeply.com/go/IDBemcEAyL */
+.grid-striped .row:nth-of-type(odd) {
+  background-color: rgba(0,0,0,.05);
+}
+
 /* Start of Radio Button CSS */
 /* https://codepen.io/mblode/pen/gGIAm/ */
 
