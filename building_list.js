@@ -230,9 +230,12 @@ function mergeBuildingList() {
       return self.indexOf(item) == pos;
     })
     building_list_dedup[i]['case'].sort();
-    // badge = case group (info, warning, danger)
+    // badge = case group (info, warning, danger, dark)
     building_list_dedup[i]['badge'] = 'info';
-    if (building_list_dedup[i]['case'].length > 9) {
+    if (building_list_dedup[i]['case'].length > 19) {
+      building_list_dedup[i]['badge'] = 'dark';
+    }
+    else if (building_list_dedup[i]['case'].length > 9) {
       building_list_dedup[i]['badge'] = 'danger';
     }
     else if (building_list_dedup[i]['case'].length > 2) {
@@ -252,10 +255,10 @@ function mergeBuildingList() {
     })
     map_dist[dist_ch]['case'].sort();
     // Append case count per district to district label
-    $("#label-district-" + map_dist[dist_ch]['id'].toLowerCase()).append('<br/>(' + map_dist[dist_ch]['case'].length + ')');
+    $("#label-district-" + map_dist[dist_ch]['id'].toLowerCase()).append('<br/><span class="badge badge-secondary">' + map_dist[dist_ch]['case'].length + '</span>');
   }
 
-  // Sort data by badge level (info > warning > danger)
+  // Sort data by badge level (info > warning > danger > dark)
   building_list_dedup.sort(function(a, b) {
     if (getBadgePriority(a['badge']) < getBadgePriority(b['badge'])) {
       return -1;
@@ -273,15 +276,18 @@ function mergeBuildingList() {
 function getBadgePriority(badge) {
   let priority = 10;
   switch (badge) {
+    case 'dark':
+      priority = 1;
+      break;
     case 'danger':
-      priority = 0;
+      priority = 2;
       break;
     case 'warning':
-      priority = 1;
+      priority = 3;
       break;
     case 'info':
     default:
-      priority = 2;
+      priority = 9;
       break;
   }
   return priority;
@@ -300,7 +306,7 @@ function constructBuildingListTable(data) {
       if(index == 0) {
         html += '<div class="row py-2 font-weight-bold">';
         html += '<div class="col-3">';
-        html += '地區<br/>District';
+        html += '最後日期<br/>Last date';
         html += '</div>';
         html += '<div class="col-6">';
         html += '大廈名單<br/>Building name';
@@ -317,7 +323,7 @@ function constructBuildingListTable(data) {
           row['buil']['en'].includes(keyword))) {
         html += '<div class="row py-2">';
         html += '<div class="col-3">';
-        html += row['dist']['ch'] + '<br/>' + row['dist']['en'];
+        html += (row['date'] == '' ? '' : (moment(row['date'], 'YYYY-MM-DD').format('M月D日') + '<br/>' + moment(row['date'], 'YYYY-MM-DD').format('MMM Do')));
         html += '</div>';
         html += '<div class="col-6">';
         html += '<a href="http://maps.google.com/maps?q=' + row['buil']['ch'] + '+' + row['dist']['ch'] + '" target="_blank">' + row['buil']['ch'] + '</a>';
