@@ -14,7 +14,7 @@
   <meta http-equiv="Expires" content="0">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
-  <meta name="author" content="covid-hk.github.io">
+  <meta name="author" content="AmazyHK">
   <meta name="description" content="過去14天內曾有疑似/確診個案居住過的住宅大廈; 或過去 14 天內曾出現兩宗或以上疑似/確診個案的非住宅大廈 | Residential buildings in which probable/confirmed cases have resided in the past 14 days or non-residential building with 2 or more probable/confirmed cases in the past 14 days">
   <meta name="revisit-after" content="7 days">
   <meta name="robots" content="follow,index">
@@ -52,81 +52,81 @@
     </div>
     <div class="row button-wrap">
       <div class="col">
-        <input class="hidden radio-label" type="radio" name="input-district" id="district-tm" value="TM" onclick="if(this.checked){refreshUI()}"/>
+        <input class="hidden radio-label" type="radio" name="input-district" id="district-tm" value="TM" onclick="if(this.checked){cleanSearchBox(1)}"/>
         <label class="button-label" id="label-district-tm" for="district-tm">屯門<br/>Tuen Mun</label>
       </div>
       <div class="col">
-        <input class="hidden radio-label" type="radio" name="input-district" id="district-yl" value="YL" onclick="if(this.checked){refreshUI()}"/>
+        <input class="hidden radio-label" type="radio" name="input-district" id="district-yl" value="YL" onclick="if(this.checked){cleanSearchBox(1)}"/>
         <label class="button-label" id="label-district-yl" for="district-yl">元朗<br/>Yuen Long</label>
       </div>
       <div class="col">
-        <input class="hidden radio-label" type="radio" name="input-district" id="district-n" value="N" onclick="if(this.checked){refreshUI()}"/>
+        <input class="hidden radio-label" type="radio" name="input-district" id="district-n" value="N" onclick="if(this.checked){cleanSearchBox(1)}"/>
         <label class="button-label" id="label-district-n" for="district-n">北區<br/>North</label>
       </div>
       <div class="col">
-        <input class="hidden radio-label" type="radio" name="input-district" id="district-tp" value="TP" onclick="if(this.checked){refreshUI()}"/>
+        <input class="hidden radio-label" type="radio" name="input-district" id="district-tp" value="TP" onclick="if(this.checked){cleanSearchBox(1)}"/>
         <label class="button-label" id="label-district-tp" for="district-tp">大埔<br/>Tai Po</label>
       </div>
     </div>
     <div class="row button-wrap">
       <div class="col">
-        <input class="hidden radio-label" type="radio" name="input-district" id="district-is" value="IS" onclick="if(this.checked){refreshUI()}"/>
+        <input class="hidden radio-label" type="radio" name="input-district" id="district-is" value="IS" onclick="if(this.checked){cleanSearchBox(1)}"/>
         <label class="button-label" id="label-district-is" for="district-is">離島<br/>Islands</label>
       </div>
       <div class="col">
-        <input class="hidden radio-label" type="radio" name="input-district" id="district-knt" value="KNT" onclick="if(this.checked){refreshUI()}"/>
+        <input class="hidden radio-label" type="radio" name="input-district" id="district-knt" value="KNT" onclick="if(this.checked){cleanSearchBox(1)}"/>
         <label class="button-label" id="label-district-knt" for="district-knt">葵青<br/>Kwai Tsing</label>
       </div>
       <div class="col">
-        <input class="hidden radio-label" type="radio" name="input-district" id="district-tw" value="TW" onclick="if(this.checked){refreshUI()}"/>
+        <input class="hidden radio-label" type="radio" name="input-district" id="district-tw" value="TW" onclick="if(this.checked){cleanSearchBox(1)}"/>
         <label class="button-label" id="label-district-tw" for="district-tw">荃灣<br/>Tsuen Wan</label>
       </div>
       <div class="col">
-        <input class="hidden radio-label" type="radio" name="input-district" id="district-st" value="ST" onclick="if(this.checked){refreshUI()}"/>
+        <input class="hidden radio-label" type="radio" name="input-district" id="district-st" value="ST" onclick="if(this.checked){cleanSearchBox(1)}"/>
         <label class="button-label" id="label-district-st" for="district-st">沙田<br/>Sha Tin</label>
       </div>
       <div class="col">
-        <input class="hidden radio-label" type="radio" name="input-district" id="district-sk" value="SK" onclick="if(this.checked){refreshUI()}"/>
+        <input class="hidden radio-label" type="radio" name="input-district" id="district-sk" value="SK" onclick="if(this.checked){cleanSearchBox(1)}"/>
         <label class="button-label" id="label-district-sk" for="district-sk">西貢<br/>Sai Kung</label>
       </div>
     </div>
     <div class="row button-wrap">
       <div class="col">
-        <input class="hidden radio-label" type="radio" name="input-district" id="district-ssp" value="SSP" onclick="if(this.checked){refreshUI()}"/>
+        <input class="hidden radio-label" type="radio" name="input-district" id="district-ssp" value="SSP" onclick="if(this.checked){cleanSearchBox(1)}"/>
         <label class="button-label" id="label-district-ssp" for="district-ssp">深水埗<br/>Sham Shui Po</label>
       </div>
       <div class="col">
-        <input class="hidden radio-label" type="radio" name="input-district" id="district-ytm" value="YTM" onclick="if(this.checked){refreshUI()}"/>
+        <input class="hidden radio-label" type="radio" name="input-district" id="district-ytm" value="YTM" onclick="if(this.checked){cleanSearchBox(1)}"/>
         <label class="button-label" id="label-district-ytm" for="district-ytm">油尖旺<br/>Yau Tsim Mong</label>
       </div>
       <div class="col">
-        <input class="hidden radio-label" type="radio" name="input-district" id="district-kc" value="KC" onclick="if(this.checked){refreshUI()}"/>
+        <input class="hidden radio-label" type="radio" name="input-district" id="district-kc" value="KC" onclick="if(this.checked){cleanSearchBox(1)}"/>
         <label class="button-label" id="label-district-kc" for="district-kc">九龍城<br/>Kowloon City</label>
       </div>
       <div class="col">
-        <input class="hidden radio-label" type="radio" name="input-district" id="district-wts" value="WTS" onclick="if(this.checked){refreshUI()}"/>
+        <input class="hidden radio-label" type="radio" name="input-district" id="district-wts" value="WTS" onclick="if(this.checked){cleanSearchBox(1)}"/>
         <label class="button-label" id="label-district-wts" for="district-wts">黃大仙<br/>Wong Tai Sin</label>
       </div>
       <div class="col">
-        <input class="hidden radio-label" type="radio" name="input-district" id="district-kt" value="KT" onclick="if(this.checked){refreshUI()}"/>
+        <input class="hidden radio-label" type="radio" name="input-district" id="district-kt" value="KT" onclick="if(this.checked){cleanSearchBox(1)}"/>
         <label class="button-label" id="label-district-kt" for="district-kt">觀塘<br/>Kwun Tong</label>
       </div>
     </div>
     <div class="row button-wrap">
       <div class="col">
-        <input class="hidden radio-label" type="radio" name="input-district" id="district-cnw" value="CNW" onclick="if(this.checked){refreshUI()}"/>
+        <input class="hidden radio-label" type="radio" name="input-district" id="district-cnw" value="CNW" onclick="if(this.checked){cleanSearchBox(1)}"/>
         <label class="button-label" id="label-district-cnw" for="district-cnw">中西區<br/>Central & Western</label>
       </div>
       <div class="col">
-        <input class="hidden radio-label" type="radio" name="input-district" id="district-wc" value="WC" onclick="if(this.checked){refreshUI()}"/>
+        <input class="hidden radio-label" type="radio" name="input-district" id="district-wc" value="WC" onclick="if(this.checked){cleanSearchBox(1)}"/>
         <label class="button-label" id="label-district-wc" for="district-wc">灣仔<br/>Wan Chai</label>
       </div>
       <div class="col">
-        <input class="hidden radio-label" type="radio" name="input-district" id="district-s" value="S" onclick="if(this.checked){refreshUI()}"/>
+        <input class="hidden radio-label" type="radio" name="input-district" id="district-s" value="S" onclick="if(this.checked){cleanSearchBox(1)}"/>
         <label class="button-label" id="label-district-s" for="district-s">南區<br/>Southern</label>
       </div>
       <div class="col">
-        <input class="hidden radio-label" type="radio" name="input-district" id="district-e" value="E" onclick="if(this.checked){refreshUI()}"/>
+        <input class="hidden radio-label" type="radio" name="input-district" id="district-e" value="E" onclick="if(this.checked){cleanSearchBox(1)}"/>
         <label class="button-label" id="label-district-e" for="district-e">東區<br/>Eastern</label>
       </div>
     </div>
@@ -140,7 +140,7 @@
             <div class="input-group-btn" style="margin-right:5px;">
               <button type="button" class="btn btn-primary" onclick="refreshUI()"><i class='fas fa-search'></i></button>
             </div>
-            <button type="button" class="btn btn-secondary" onclick="cleanSearchBox()"><i class='far fa-trash-alt'></i></button>
+            <button type="button" class="btn btn-secondary" onclick="cleanSearchBox(0)"><i class='far fa-trash-alt'></i></button>
           </div>
           <div class="col-2">
           </div>
@@ -156,5 +156,18 @@
       </div>
     </div>
   </div>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        &copy;
+        <script>document.write(new Date().getFullYear())</script> by AmazyHK
+        <a href="mailto:amazyhk@gmail.com" target="_blank"><i class="far fa-envelope"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
 </body>
 </html>

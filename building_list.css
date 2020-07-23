@@ -7,6 +7,11 @@ body {
   text-align: center;
 }
 
+footer {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
 /* Bootstrap 4 style grid as table */
 /* https://www.codeply.com/go/IDBemcEAyL */
 .grid-striped .row:nth-of-type(odd) {

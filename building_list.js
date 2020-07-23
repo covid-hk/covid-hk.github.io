@@ -69,8 +69,8 @@ $(document).ready(function() {
   getBuildingListCsv();
 });
 
-function cleanSearchBox() {
-  if ($("#search-keyword").val() != '') {
+function cleanSearchBox(forced) {
+  if ($("#search-keyword").val() != '' || forced) {
     $("#search-keyword").val('');
     refreshUI();
   }
@@ -301,7 +301,7 @@ function constructBuildingListTable(data) {
   if(typeof(data[0]) === 'undefined') {
     return null;
   } else {
-    let keyword = $("#search-keyword").val();
+    let keyword = $("#search-keyword").val().toLowerCase();
     $.each(data, function( index, row ) {
       if(index == 0) {
         html += '<div class="row py-2 font-weight-bold">';
@@ -319,8 +319,8 @@ function constructBuildingListTable(data) {
       // 選擇 地區
       if (row['dist']['id'] == $('input[name="input-district"]:checked').val() &&
          (keyword == '' ||
-          row['buil']['ch'].includes(keyword) ||
-          row['buil']['en'].includes(keyword))) {
+          row['buil']['ch'].toLowerCase().includes(keyword) ||
+          row['buil']['en'].toLowerCase().includes(keyword))) {
         html += '<div class="row py-2">';
         html += '<div class="col-3">';
         html += (row['date'] == '' ? '' : (moment(row['date'], 'YYYY-MM-DD').format('M月D日') + '<br/>' + moment(row['date'], 'YYYY-MM-DD').format('MMM Do')));
