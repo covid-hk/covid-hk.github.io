@@ -26,6 +26,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   <!-- Google Icons -->
   <!--<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">-->
+  <!-- Font Awesome 5 Icons -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
   <!-- Custom -->
   <link rel="stylesheet" href="building_list.css?v=1.0">
   <script src="building_list.js?v=1.0"></script>
@@ -118,6 +120,22 @@
       <div class="col">
         <input class="hidden radio-label" type="radio" name="input-district" id="district-s" value="S" onclick="if(this.checked){refreshUI()}"/>
         <label class="button-label" for="district-s">南區<br/>Southern</label>
+      </div>
+    </div>
+    <div class="row py-2">
+      <div class="col-12">
+        <div class="row">
+          <div class="col-3">
+          </div>
+          <div class="col-6 input-group">
+            <input type="text" class="form-control" placeholder="搜尋 Search" id="search-keyword">
+            <div class="input-group-btn">
+              <button type="button" class="btn btn-primary" onclick="refreshUI()"><i class='fas fa-search'></i></button>
+            </div>
+          </div>
+          <div class="col-3">
+          </div>
+        </div>
       </div>
     </div>
     <div class="row">

@@ -44,6 +44,7 @@ body {
 .button-label {
   font-size: 1em;
   font-family: "Lato", sans-serif;
+  white-space: nowrap;
 }
 @media (max-width: 1000px) {
   .button-wrap .col {
@@ -51,16 +52,16 @@ body {
     padding-left: 5px;
   }
   .button-label {
-    font-size: 0.7em;
+    font-size: small;
   }
 }
 @media (max-width: 800px) {
   .button-wrap .col {
-    padding-right: 2px;
-    padding-left: 2px;
+    padding-right: 3px;
+    padding-left: 3px;
   }
   .button-label {
-    font-size: 0.1em;
+    font-size: x-small;
   }
 }
 .button-label:hover {
