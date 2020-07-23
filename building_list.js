@@ -306,7 +306,7 @@ function constructBuildingListTable(data) {
       if(index == 0) {
         html += '<div class="row py-2 font-weight-bold">';
         html += '<div class="col-3">';
-        html += '最後日期<br/>Last date';
+        html += '日期<br/>Date';
         html += '</div>';
         html += '<div class="col-6">';
         html += '大廈名單<br/>Building name';
