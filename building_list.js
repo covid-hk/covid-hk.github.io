@@ -263,6 +263,7 @@ function constructBuildingListTable(data) {
   if(typeof(data[0]) === 'undefined') {
     return null;
   } else {
+    let keyword = $("#search-keyword").val();
     $.each(data, function( index, row ) {
       if(index == 0) {
         html += '<div class="row py-2 font-weight-bold">';
@@ -278,7 +279,10 @@ function constructBuildingListTable(data) {
         html += '</div>';
       }
       // 選擇 地區
-      if (row['dist']['id'] == $('input[name="input-district"]:checked').val()) {
+      if (row['dist']['id'] == $('input[name="input-district"]:checked').val() &&
+         (keyword == '' ||
+          row['buil']['ch'].includes(keyword) ||
+          row['buil']['en'].includes(keyword))) {
         html += '<div class="row py-2">';
         html += '<div class="col-3">';
         html += row['dist']['ch'] + '<br/>' + row['dist']['en'];
