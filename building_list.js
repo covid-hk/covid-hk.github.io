@@ -37,14 +37,44 @@ String.prototype.capitalize = function() {
     .join(' ');
 }
 
+function setCookie(cname, cvalue, exdays) {
+  var d = new Date();
+  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+  var expires = "expires="+d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var ca = document.cookie.split(';');
+  for(var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
 $(document).ready(function() {
+  var district_id = getCookie("covid_hk_district_id");
+  if (district_id == '') {
+    district_id = 'WTS';
+  }
+  $('#district-'+district_id.toLowerCase()).click();
+
   getBuildingListCsv();
 });
 
 function refreshUI() {
+  setCookie("covid_hk_district_id", $('input[name="input-district"]:checked').val(), 7);
+
   $('#wrapper-table-building').hide();
   $('#wrapper-table-building-loading').show();
-  let html = getBuildingListTable(building_list_dedup);
+  let html = constructBuildingListTable(building_list_dedup);
   setTimeout(function(){
     $('#wrapper-table-building-loading').hide();
     $('#wrapper-table-building').html($(html).hide().fadeIn(2000));
@@ -182,7 +212,7 @@ function mergeBuildingList() {
   }
 }
 
-function getBuildingListTable(data) {
+function constructBuildingListTable(data) {
   /* Bootstrap 4 style grid as table */
   /* https://www.codeply.com/go/IDBemcEAyL */
   let html = '<div class="col-12 grid-striped table table-condensed table-hover table-striped" id="table-building">';
