@@ -19,6 +19,10 @@ body {
 .button-wrap {
   text-align: center;
 }
+.button-wrap .col {
+  padding-right: 8px;
+  padding-left: 8px;
+}
 
 .button-label {
   display: inline-block;
@@ -40,6 +44,24 @@ body {
 .button-label {
   font-size: 1em;
   font-family: "Lato", sans-serif;
+}
+@media (max-width: 1000px) {
+  .button-wrap .col {
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+  .button-label {
+    font-size: 0.7em;
+  }
+}
+@media (max-width: 800px) {
+  .button-wrap .col {
+    padding-right: 2px;
+    padding-left: 2px;
+  }
+  .button-label {
+    font-size: 0.1em;
+  }
 }
 .button-label:hover {
   background: #d6d6d6;

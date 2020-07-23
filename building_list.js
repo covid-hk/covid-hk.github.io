@@ -45,12 +45,14 @@ function refreshUI() {
   $('#wrapper-table-building').hide();
   $('#wrapper-table-building-loading').show();
   let html = getBuildingListTable(building_list_dedup);
-  $('#wrapper-table-building-loading').hide();
-  $('#wrapper-table-building').html($(html).hide().fadeIn(2000));
-  $('#wrapper-table-building').show();
+  setTimeout(function(){
+    $('#wrapper-table-building-loading').hide();
+    $('#wrapper-table-building').html($(html).hide().fadeIn(2000));
+    $('#wrapper-table-building').show();
 
-  $('[data-toggle="popover"]').popover();
-  $('[data-toggle="tooltip"]').tooltip();
+    $('[data-toggle="popover"]').popover();
+    $('[data-toggle="tooltip"]').tooltip();
+  }, 100);
 }
 
 function getBuildingListCsv() {
@@ -92,17 +94,17 @@ function mergeBuildingList() {
   for (let i = 0; i < building_list_chi.length; i++) {
     let obj = [];
     obj['dist'] = map_dist[building_list_chi[i]['地區']];
-    //obj['buil'] = {'ch':building_list_chi[i]['大廈名單'], 'en':building_list_eng[i]['Building name'].capitalize()};
+    obj['buil'] = {'ch':building_list_chi[i]['大廈名單'], 'en':building_list_eng[i]['Building name'].capitalize()};
     // Data bug, special handling temporarily
-    if (i > 1199 - 2) {
-      obj['buil'] = {'ch':building_list_chi[i]['大廈名單'], 'en':building_list_eng[i-1]['Building name'].capitalize()};
-    }
-    else if (i == 1199 - 2) {
-      obj['buil'] = {'ch':building_list_chi[i]['大廈名單'], 'en':''};
-    }
-    else {
-      obj['buil'] = {'ch':building_list_chi[i]['大廈名單'], 'en':building_list_eng[i]['Building name'].capitalize()};
-    }
+    //if (i > 1199 - 2) {
+    //  obj['buil'] = {'ch':building_list_chi[i]['大廈名單'], 'en':building_list_eng[i-1]['Building name'].capitalize()};
+    //}
+    //else if (i == 1199 - 2) {
+    //  obj['buil'] = {'ch':building_list_chi[i]['大廈名單'], 'en':''};
+    //}
+    //else {
+    //  obj['buil'] = {'ch':building_list_chi[i]['大廈名單'], 'en':building_list_eng[i]['Building name'].capitalize()};
+    //}
     obj['type'] = map_type['住宅'];
     if (obj['buil']['ch'].includes('非住宅')) {
       obj['buil']['ch'] = obj['buil']['ch'].replace(' (非住宅)', '');
@@ -192,32 +194,20 @@ function getBuildingListTable(data) {
     $.each(data, function( index, row ) {
       if(index == 0) {
         html += '<div class="row py-2 font-weight-bold">';
-        //html += '<div class="col-2">';
-        //html += '</div>';
         html += '<div class="col-3">';
         html += '地區<br/>District';
         html += '</div>';
         html += '<div class="col-6">';
         html += '大廈名單<br/>Building name';
         html += '</div>';
-        //html += '<div class="col-2">';
-        //html += '類別<br/>Type';
-        //html += '</div>';
-        //html += '<div class="col-2">';
-        //html += '最後個案居住日期<br/>Last date of residence of the case(s)';
-        //html += '</div>';
         html += '<div class="col-3">';
-        html += '相關疑似/確診個案<br/>Related probable/confirmed cases';
+        html += '個案<br/>Cases';
         html += '</div>';
-        //html += '<div class="col-2">';
-        //html += '</div>';
         html += '</div>';
       }
       // 選擇 地區
       if (row['dist']['id'] == $('input[name="input-district"]:checked').val()) {
         html += '<div class="row py-2">';
-        //html += '<div class="col-2">';
-        //html += '</div>';
         html += '<div class="col-3">';
         html += row['dist']['ch'] + '<br/>' + row['dist']['en'];
         html += '</div>';
@@ -226,14 +216,8 @@ function getBuildingListTable(data) {
         html += '<br/>';
         html += '<a href="http://maps.google.com/maps?q=' + row['buil']['en'] + '+' + row['dist']['en'] + '" target="_blank">' + row['buil']['en'] + '</a>';
         html += '</div>';
-        //html += '<div class="col-2">';
-        //html += row['type']['ch'] + '<br/>' + row['type']['en'];
-        //html += '</div>';
-        //html += '<div class="col-2">';
-        //html += row['date'];
-        //html += '</div>';
         html += '<div class="col-3">';
-        html += '<h4><a href="javascript:void(0)" data-toggle="tooltip" title="相關個案 Related cases: ' + row['case'].join(', ') + '">';
+        html += '<h4><a href="javascript:void(0)" data-toggle="tooltip" title="' + row['case'].join(', ') + '">';
         if (row['case'].length > 9) {
           html += '<span class="badge badge-danger">' + row['case'].length + '</span>';
         }
@@ -245,8 +229,6 @@ function getBuildingListTable(data) {
         }
         html += '</a></h4>';
         html += '</div>';
-        //html += '<div class="col-2">';
-        //html += '</div>';
         html += '</div>';
       }
     });
