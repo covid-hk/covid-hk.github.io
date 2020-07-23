@@ -208,8 +208,51 @@ function mergeBuildingList() {
   // Convert building_list_dedup[i]['case'] format from string to int array
   for (let i = 0; i < building_list_dedup.length; i++) {
     building_list_dedup[i]['case'] = building_list_dedup[i]['case'].split(',').map(Number);
+    // dedup case id list
+    building_list_dedup[i]['case'] = building_list_dedup[i]['case'].filter(function(item, pos, self) {
+      return self.indexOf(item) == pos;
+    })
     building_list_dedup[i]['case'].sort();
+    // badge = case group (info, warning, danger)
+    building_list_dedup[i]['badge'] = 'info';
+    if (building_list_dedup[i]['case'].length > 9) {
+      building_list_dedup[i]['badge'] = 'danger';
+    }
+    else if (building_list_dedup[i]['case'].length > 2) {
+      building_list_dedup[i]['badge'] = 'warning';
+    }
   }
+
+  // Sort data by badge level (info > warning > danger)
+  building_list_dedup.sort(function(a, b) {
+    if (getBadgePriority(a['badge']) < getBadgePriority(b['badge'])) {
+      return -1;
+    }
+    else if (getBadgePriority(a['badge']) > getBadgePriority(b['badge'])) {
+      return 1;
+    }
+    else {
+      return 0;
+    }
+    return 0;
+  });
+}
+
+function getBadgePriority(badge) {
+  let priority = 10;
+  switch (badge) {
+    case 'danger':
+      priority = 0;
+      break;
+    case 'warning':
+      priority = 1;
+      break;
+    case 'info':
+    default:
+      priority = 2;
+      break;
+  }
+  return priority;
 }
 
 function constructBuildingListTable(data) {
@@ -220,7 +263,6 @@ function constructBuildingListTable(data) {
   if(typeof(data[0]) === 'undefined') {
     return null;
   } else {
-    //data.reverse(); // sort
     $.each(data, function( index, row ) {
       if(index == 0) {
         html += '<div class="row py-2 font-weight-bold">';
@@ -248,15 +290,7 @@ function constructBuildingListTable(data) {
         html += '</div>';
         html += '<div class="col-3">';
         html += '<h4><a href="javascript:void(0)" data-toggle="tooltip" title="' + row['case'].join(', ') + '">';
-        if (row['case'].length > 9) {
-          html += '<span class="badge badge-danger">' + row['case'].length + '</span>';
-        }
-        else if (row['case'].length > 2) {
-          html += '<span class="badge badge-warning">' + row['case'].length + '</span>';
-        }
-        else {
-          html += '<span class="badge badge-info">' + row['case'].length + '</span>';
-        }
+        html += '<span class="badge badge-' + row['badge'] + '">' + row['case'].length + '</span>';
         html += '</a></h4>';
         html += '</div>';
         html += '</div>';
