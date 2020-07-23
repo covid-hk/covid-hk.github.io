@@ -41,6 +41,18 @@ $(document).ready(function() {
   getBuildingListCsv();
 });
 
+function refreshUI() {
+  $('#wrapper-table-building').hide();
+  $('#wrapper-table-building-loading').show();
+  let html = getBuildingListTable(building_list_dedup);
+  $('#wrapper-table-building-loading').hide();
+  $('#wrapper-table-building').html($(html).hide().fadeIn(2000));
+  $('#wrapper-table-building').show();
+
+  $('[data-toggle="popover"]').popover();
+  $('[data-toggle="tooltip"]').tooltip();
+}
+
 function getBuildingListCsv() {
   // https://data.gov.hk/tc-data/dataset/hk-dh-chpsebcddr-novel-infectious-agent
   // https://www.chp.gov.hk/files/misc/building_list_chi.csv
@@ -56,7 +68,7 @@ function getBuildingListCsv() {
       building_list_chi = $.csv.toObjects(response);
       if (building_list_chi.length > 0 && building_list_eng.length > 0) {
         mergeBuildingList();
-        showBuildingListTable(building_list_dedup);
+        refreshUI();
       }
     }
   });
@@ -69,7 +81,7 @@ function getBuildingListCsv() {
       building_list_eng = $.csv.toObjects(response);
       if (building_list_chi.length > 0 && building_list_eng.length > 0) {
         mergeBuildingList();
-        showBuildingListTable(building_list_dedup);
+        refreshUI();
       }
     }
   });
@@ -168,10 +180,10 @@ function mergeBuildingList() {
   }
 }
 
-function showBuildingListTable(data) {
+function getBuildingListTable(data) {
   /* Bootstrap 4 style grid as table */
   /* https://www.codeply.com/go/IDBemcEAyL */
-  var html = '<div class="col-12 grid-striped table table-condensed table-hover table-striped" id="table-building">';
+  let html = '<div class="col-12 grid-striped table table-condensed table-hover table-striped" id="table-building">';
 
   if(typeof(data[0]) === 'undefined') {
     return null;
@@ -201,44 +213,44 @@ function showBuildingListTable(data) {
         //html += '</div>';
         html += '</div>';
       }
-      html += '<div class="row py-2">';
-      //html += '<div class="col-2">';
-      //html += '</div>';
-      html += '<div class="col-3">';
-      html += row['dist']['ch'] + '<br/>' + row['dist']['en'];
-      html += '</div>';
-      html += '<div class="col-6">';
-      html += '<a href="http://maps.google.com/maps?q=' + row['buil']['ch'] + '+' + row['dist']['ch'] + '" target="_blank">' + row['buil']['ch'] + '</a>';
-      html += '<br/>';
-      html += '<a href="http://maps.google.com/maps?q=' + row['buil']['en'] + '+' + row['dist']['en'] + '" target="_blank">' + row['buil']['en'] + '</a>';
-      html += '</div>';
-      //html += '<div class="col-2">';
-      //html += row['type']['ch'] + '<br/>' + row['type']['en'];
-      //html += '</div>';
-      //html += '<div class="col-2">';
-      //html += row['date'];
-      //html += '</div>';
-      html += '<div class="col-3">';
-      html += '<h4><a href="javascript:void(0)" data-toggle="tooltip" title="相關個案 Related cases: ' + row['case'].join(', ') + '">';
-      if (row['case'].length > 9) {
-        html += '<span class="badge badge-danger">' + row['case'].length + '</span>';
+      // 選擇 地區
+      if (row['dist']['id'] == $('input[name="input-district"]:checked').val()) {
+        html += '<div class="row py-2">';
+        //html += '<div class="col-2">';
+        //html += '</div>';
+        html += '<div class="col-3">';
+        html += row['dist']['ch'] + '<br/>' + row['dist']['en'];
+        html += '</div>';
+        html += '<div class="col-6">';
+        html += '<a href="http://maps.google.com/maps?q=' + row['buil']['ch'] + '+' + row['dist']['ch'] + '" target="_blank">' + row['buil']['ch'] + '</a>';
+        html += '<br/>';
+        html += '<a href="http://maps.google.com/maps?q=' + row['buil']['en'] + '+' + row['dist']['en'] + '" target="_blank">' + row['buil']['en'] + '</a>';
+        html += '</div>';
+        //html += '<div class="col-2">';
+        //html += row['type']['ch'] + '<br/>' + row['type']['en'];
+        //html += '</div>';
+        //html += '<div class="col-2">';
+        //html += row['date'];
+        //html += '</div>';
+        html += '<div class="col-3">';
+        html += '<h4><a href="javascript:void(0)" data-toggle="tooltip" title="相關個案 Related cases: ' + row['case'].join(', ') + '">';
+        if (row['case'].length > 9) {
+          html += '<span class="badge badge-danger">' + row['case'].length + '</span>';
+        }
+        else if (row['case'].length > 2) {
+          html += '<span class="badge badge-warning">' + row['case'].length + '</span>';
+        }
+        else {
+          html += '<span class="badge badge-info">' + row['case'].length + '</span>';
+        }
+        html += '</a></h4>';
+        html += '</div>';
+        //html += '<div class="col-2">';
+        //html += '</div>';
+        html += '</div>';
       }
-      else if (row['case'].length > 2) {
-        html += '<span class="badge badge-warning">' + row['case'].length + '</span>';
-      }
-      else {
-        html += '<span class="badge badge-info">' + row['case'].length + '</span>';
-      }
-      html += '</a></h4>';
-      html += '</div>';
-      //html += '<div class="col-2">';
-      //html += '</div>';
-      html += '</div>';
     });
     html += '</div>';
-    $('#wrapper-table-building').append(html);
+    return html;
   }
-
-  $('[data-toggle="popover"]').popover();
-  $('[data-toggle="tooltip"]').tooltip();
 }
