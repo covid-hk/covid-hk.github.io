@@ -2,6 +2,7 @@ var domain = "https://covid-hk.github.io/"; //"https://covid-hk.github.io/";
 var building_list_chi = [];
 var building_list_eng = [];
 var building_list = [];
+var building_list_dedup = [];
 
 var map_dist = [];
 map_dist['北區'] = {'ch':'北區', 'en':'North', 'id':'N'};
@@ -55,7 +56,7 @@ function getBuildingListCsv() {
       building_list_chi = $.csv.toObjects(response);
       if (building_list_chi.length > 0 && building_list_eng.length > 0) {
         mergeBuildingList();
-        showBuildingListTable(building_list);
+        showBuildingListTable(building_list_dedup);
       }
     }
   });
@@ -68,7 +69,7 @@ function getBuildingListCsv() {
       building_list_eng = $.csv.toObjects(response);
       if (building_list_chi.length > 0 && building_list_eng.length > 0) {
         mergeBuildingList();
-        showBuildingListTable(building_list);
+        showBuildingListTable(building_list_dedup);
       }
     }
   });
@@ -76,8 +77,7 @@ function getBuildingListCsv() {
 
 function mergeBuildingList() {
   building_list = [];
-  let i = 0;
-  for (i = 0; i < building_list_chi.length; i++) {
+  for (let i = 0; i < building_list_chi.length; i++) {
     let obj = [];
     obj['dist'] = map_dist[building_list_chi[i]['地區']];
     obj['buil'] = {'ch':building_list_chi[i]['大廈名單'], 'en':building_list_eng[i]['Building name'].capitalize()};
@@ -88,63 +88,128 @@ function mergeBuildingList() {
       obj['type'] = map_type['非住宅'];
     }
     obj['date'] = building_list_chi[i]['最後個案居住日期'];
-    obj['case'] = building_list_chi[i]['相關疑似/確診個案'];
+    if (obj['date'] != '') {
+      obj['date'] = moment(obj['date'], 'DD/MM/YYYY').format('YYYY-MM-DD');
+    }
+    obj['case'] = building_list_chi[i]['相關疑似/確診個案'].replace(/\s/g, '');
     building_list.push(obj);
+  }
+
+  // Sort building_list by 地區, 大廈名單, 住宅/非住宅, 日期
+  building_list.sort(function(a, b) {
+    if (a['dist']['ch'] < b['dist']['ch']) {
+      return -1;
+    }
+    else if (a['dist']['ch'] > b['dist']['ch']) {
+      return 1;
+    }
+    else {
+      if (a['buil']['ch'] < b['buil']['ch']) {
+        return -1;
+      }
+      else if (a['buil']['ch'] > b['buil']['ch']) {
+        return 1;
+      }
+      else {
+        if (a['type']['ch'] == '住宅' && b['type']['ch'] == '非住宅') {
+          return -1;
+        }
+        else if (a['type']['ch'] == '非住宅' && b['type']['ch'] == '住宅') {
+          return 1;
+        }
+        else {
+          if (a['date'] < b['date']) {
+            return -1;
+          }
+          else if (a['date'] > b['date']) {
+            return 1;
+          }
+          else {
+            return 0;
+          }
+        }
+      }
+    }
+    return 0;
+  });
+
+  // Copy building_list to building_list_dedup, dedup by 大廈名單
+  building_list_dedup = [];
+  for (let i = 0; i < building_list.length; i++) {
+    if (building_list_dedup.length == 0 || building_list_dedup[building_list_dedup.length-1]['buil']['ch'] != building_list[i]['buil']['ch']) {
+      let obj = [];
+      obj['dist'] = building_list[i]['dist'];
+      obj['buil'] = building_list[i]['buil'];
+      obj['type'] = building_list[i]['type'];
+      obj['date'] = building_list[i]['date'];
+      obj['case'] = building_list[i]['case'];
+      building_list_dedup.push(obj);
+    }
+    else {
+      building_list_dedup[building_list_dedup.length-1]['date'] = building_list[i]['date'];
+      building_list_dedup[building_list_dedup.length-1]['case'] = building_list_dedup[building_list_dedup.length-1]['case'].concat(',', building_list[i]['case']);
+    }
+  }
+
+  // Convert building_list_dedup[i]['case'] format from string to int array
+  for (let i = 0; i < building_list_dedup.length; i++) {
+    building_list_dedup[i]['case'] = building_list_dedup[i]['case'].split(',').map(Number);
+    building_list_dedup[i]['case'].sort();
   }
 }
 
 function showBuildingListTable(data) {
-  var html = '<table class="table table-condensed table-hover table-striped" id="table-building">';
+  var html = '<div class="table table-condensed table-hover table-striped" id="table-building">';
 
   if(typeof(data[0]) === 'undefined') {
     return null;
   } else {
-    //data.reverse();
+    //data.reverse(); // sort
     $.each(data, function( index, row ) {
       if(index == 0) {
-        html += '<thead>';
-        html += '<tr>';
-        html += '<th>';
+        html += '<div class="row">';
+        html += '<div class="col-2">';
         html += '地區<br/>District';
-        html += '</th>';
-        html += '<th>';
+        html += '</div>';
+        html += '<div class="col-6">';
         html += '大廈名單<br/>Building name';
-        html += '</th>';
-        html += '<th>';
+        html += '</div>';
+        html += '<div class="col-2">';
         html += '類別<br/>Type';
-        html += '</th>';
-        //html += '<th>';
+        html += '</div>';
+        //html += '<div class="col-2">';
         //html += '最後個案居住日期<br/>Last date of residence of the case(s)';
-        //html += '</th>';
-        html += '<th>';
+        //html += '</div>';
+        html += '<div class="col-2">';
         html += '相關疑似/確診個案<br/>Related probable/confirmed cases';
-        html += '</th>';
-        html += '</tr>';
-        html += '</thead>';
-        html += '<tbody>';
+        html += '</div>';
+        html += '</div>';
       }
-      html += '<tr>';
-      html += '<td>';
+      html += '<div class="row">';
+      html += '<div class="col-2">';
       html += row['dist']['ch'] + '<br/>' + row['dist']['en'];
-      html += '</td>';
-      html += '<td>';
+      html += '</div>';
+      html += '<div class="col-6">';
       html += '<a href="http://maps.google.com/maps?q=' + row['buil']['ch'] + '+' + row['dist']['ch'] + '" target="_blank">' + row['buil']['ch'] + '</a>';
       html += '<br/>';
       html += '<a href="http://maps.google.com/maps?q=' + row['buil']['en'] + '+' + row['dist']['en'] + '" target="_blank">' + row['buil']['en'] + '</a>';
-      html += '</td>';
-      html += '<td>';
+      html += '</div>';
+      html += '<div class="col-2">';
       html += row['type']['ch'] + '<br/>' + row['type']['en'];
-      html += '</td>';
-      //html += '<td>';
+      html += '</div>';
+      //html += '<div class="col-2">';
       //html += row['date'];
-      //html += '</td>';
-      html += '<td>';
-      html += row['case'];
-      html += '</td>';
-      html += '</tr>';
+      //html += '</div>';
+      html += '<div class="col-2">';
+      html += '<a href="javascript:void(0)" data-toggle="tooltip" title="相關個案 Related cases: ' + row['case'].join(', ') + '">' + row['case'].length + '</a>';
+      html += '</div>';
+      html += '</div>';
     });
-    html += '</tbody>';
-    html += '</table>';
+    html += '</div>';
     $('#wrapper-table-building').append(html);
   }
+
+  $('[data-toggle="popover"]').popover();
+  $('[data-toggle="tooltip"]').tooltip();
 }
+//https://www.codeply.com/go/IDBemcEAyL

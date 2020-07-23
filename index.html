@@ -22,6 +22,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.11/jquery.csv.min.js" crossorigin="anonymous"></script>
   <!-- AngularJS 1.8.0 -->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+  <!-- Moment -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   <!-- Google Icons -->
   <!--<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">-->
   <!-- Custom -->
@@ -29,54 +31,98 @@
   <script src="building_list.js?v=1.0"></script>
 </head>
 <body>
-  <h4>過去14天內曾有疑似/確診個案居住過的住宅大廈; </h4>
-  <h4>或過去 14 天內曾出現兩宗或以上疑似/確診個案的非住宅大廈</h4>
-  <h4>Residential buildings in which probable/confirmed cases have resided in the past 14 days </h4>
-  <h4>or non-residential building with 2 or more probable/confirmed cases in the past 14 days</h4>
-  <div class="button-wrap">
-    <input class="hidden radio-label" type="radio" name="input-district" id="district-n"/>
-    <label class="button-label" for="district-n">北區<br/>North</label>
-    <input class="hidden radio-label" type="radio" name="input-district" id="district-tp"/>
-    <label class="button-label" for="district-tp">大埔<br/>Tai Po</label>
-    <input class="hidden radio-label" type="radio" name="input-district" id="district-st"/>
-    <label class="button-label" for="district-st">沙田<br/>Sha Tin</label>
-    <input class="hidden radio-label" type="radio" name="input-district" id="district-sk"/>
-    <label class="button-label" for="district-sk">西貢<br/>Sai Kung</label>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h4>過去14天內曾有疑似/確診個案居住過的住宅大廈; </h4>
+        <h4>或過去 14 天內曾出現兩宗或以上疑似/確診個案的非住宅大廈</h4>
+        <h4>Residential buildings in which probable/confirmed cases have resided in the past 14 days </h4>
+        <h4>or non-residential building with 2 or more probable/confirmed cases in the past 14 days</h4>
+      </div>
+    </div>
+    <div class="row button-wrap">
+      <div class="col">
+        <input class="hidden radio-label" type="radio" name="input-district" id="district-n"/>
+        <label class="button-label" for="district-n">北區<br/>North</label>
+      </div>
+      <div class="col">
+        <input class="hidden radio-label" type="radio" name="input-district" id="district-tp"/>
+        <label class="button-label" for="district-tp">大埔<br/>Tai Po</label>
+      </div>
+      <div class="col">
+        <input class="hidden radio-label" type="radio" name="input-district" id="district-st"/>
+        <label class="button-label" for="district-st">沙田<br/>Sha Tin</label>
+      </div>
+      <div class="col">
+        <input class="hidden radio-label" type="radio" name="input-district" id="district-sk"/>
+        <label class="button-label" for="district-sk">西貢<br/>Sai Kung</label>
+      </div>
+    </div>
+    <div class="row button-wrap">
+      <div class="col">
+        <input class="hidden radio-label" type="radio" name="input-district" id="district-tm"/>
+        <label class="button-label" for="district-tm">屯門<br/>Tuen Mun</label>
+      </div>
+      <div class="col">
+        <input class="hidden radio-label" type="radio" name="input-district" id="district-yl"/>
+        <label class="button-label" for="district-yl">元朗<br/>Yuen Long</label>
+      </div>
+      <div class="col">
+        <input class="hidden radio-label" type="radio" name="input-district" id="district-tw"/>
+        <label class="button-label" for="district-tw">荃灣<br/>Tsuen Wan</label>
+      </div>
+      <div class="col">
+        <input class="hidden radio-label" type="radio" name="input-district" id="district-knt"/>
+        <label class="button-label" for="district-knt">葵青<br/>Kwai Tsing</label>
+      </div>
+      <div class="col">
+        <input class="hidden radio-label" type="radio" name="input-district" id="district-is"/>
+        <label class="button-label" for="district-is">離島<br/>Islands</label>
+      </div>
+    </div>
+    <div class="row button-wrap">
+      <div class="col">
+        <input class="hidden radio-label" type="radio" name="input-district" id="district-ytm"/>
+        <label class="button-label" for="district-ytm">油尖旺<br/>Yau Tsim Mong</label>
+      </div>
+      <div class="col">
+        <input class="hidden radio-label" type="radio" name="input-district" id="district-ssp"/>
+        <label class="button-label" for="district-ssp">深水埗<br/>Sham Shui Po</label>
+      </div>
+      <div class="col">
+        <input class="hidden radio-label" type="radio" name="input-district" id="district-kc"/>
+        <label class="button-label" for="district-kc">九龍城<br/>Kowloon City</label>
+      </div>
+      <div class="col">
+        <input class="hidden radio-label" type="radio" name="input-district" id="district-wts" checked="checked"/>
+        <label class="button-label" for="district-wts">黃大仙<br/>Wong Tai Sin</label>
+      </div>
+      <div class="col">
+        <input class="hidden radio-label" type="radio" name="input-district" id="district-kt"/>
+        <label class="button-label" for="district-kt">觀塘<br/>Kwun Tong</label>
+      </div>
+    </div>
+    <div class="row button-wrap">
+      <div class="col">
+        <input class="hidden radio-label" type="radio" name="input-district" id="district-cnw"/>
+        <label class="button-label" for="district-cnw">中西區<br/>Central & Western</label>
+      </div>
+      <div class="col">
+        <input class="hidden radio-label" type="radio" name="input-district" id="district-wc"/>
+        <label class="button-label" for="district-wc">灣仔<br/>Wan Chai</label>
+      </div>
+      <div class="col">
+        <input class="hidden radio-label" type="radio" name="input-district" id="district-e"/>
+        <label class="button-label" for="district-e">東區<br/>Eastern</label>
+      </div>
+      <div class="col">
+        <input class="hidden radio-label" type="radio" name="input-district" id="district-s"/>
+        <label class="button-label" for="district-s">南區<br/>Southern</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12" id="wrapper-table-building"></div>
+    </div>
   </div>
-  <div class="button-wrap">
-    <input class="hidden radio-label" type="radio" name="input-district" id="district-tm"/>
-    <label class="button-label" for="district-tm">屯門<br/>Tuen Mun</label>
-    <input class="hidden radio-label" type="radio" name="input-district" id="district-yl"/>
-    <label class="button-label" for="district-yl">元朗<br/>Yuen Long</label>
-    <input class="hidden radio-label" type="radio" name="input-district" id="district-tw"/>
-    <label class="button-label" for="district-tw">荃灣<br/>Tsuen Wan</label>
-    <input class="hidden radio-label" type="radio" name="input-district" id="district-knt"/>
-    <label class="button-label" for="district-knt">葵青<br/>Kwai Tsing</label>
-    <input class="hidden radio-label" type="radio" name="input-district" id="district-is"/>
-    <label class="button-label" for="district-is">離島<br/>Islands</label>
-  </div>
-  <div class="button-wrap">
-    <input class="hidden radio-label" type="radio" name="input-district" id="district-ytm"/>
-    <label class="button-label" for="district-ytm">油尖旺<br/>Yau Tsim Mong</label>
-    <input class="hidden radio-label" type="radio" name="input-district" id="district-ssp"/>
-    <label class="button-label" for="district-ssp">深水埗<br/>Sham Shui Po</label>
-    <input class="hidden radio-label" type="radio" name="input-district" id="district-kc"/>
-    <label class="button-label" for="district-kc">九龍城<br/>Kowloon City</label>
-    <input class="hidden radio-label" type="radio" name="input-district" id="district-wts" checked="checked"/>
-    <label class="button-label" for="district-wts">黃大仙<br/>Wong Tai Sin</label>
-    <input class="hidden radio-label" type="radio" name="input-district" id="district-kt"/>
-    <label class="button-label" for="district-kt">觀塘<br/>Kwun Tong</label>
-  </div>
-  <div class="button-wrap">
-    <input class="hidden radio-label" type="radio" name="input-district" id="district-cnw"/>
-    <label class="button-label" for="district-cnw">中西區<br/>Central & Western</label>
-    <input class="hidden radio-label" type="radio" name="input-district" id="district-wc"/>
-    <label class="button-label" for="district-wc">灣仔<br/>Wan Chai</label>
-    <input class="hidden radio-label" type="radio" name="input-district" id="district-e"/>
-    <label class="button-label" for="district-e">東區<br/>Eastern</label>
-    <input class="hidden radio-label" type="radio" name="input-district" id="district-s"/>
-    <label class="button-label" for="district-s">南區<br/>Southern</label>
-  </div>
-  <div id="wrapper-table-building"></div>
 </body>
 </html>
