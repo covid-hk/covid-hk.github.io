@@ -1,4 +1,4 @@
-var domain = "https://covid-hk.github.io/"; //"https://covid-hk.github.io/";"http://colorpalette.ddns.net/"
+var domain = "http://colorpalette.ddns.net/"; //"https://covid-hk.github.io/";
 var building_list_chi = [];
 var building_list_eng = [];
 var building_list = [];
@@ -102,6 +102,11 @@ function getBuildingListCsv() {
         mergeBuildingList();
         refreshUI();
       }
+    },
+    error: function()
+    {
+      domain = "https://covid-hk.github.io/";
+      getBuildingListCsv();
     }
   });
   $.ajax({
@@ -115,6 +120,11 @@ function getBuildingListCsv() {
         mergeBuildingList();
         refreshUI();
       }
+    },
+    error: function()
+    {
+      domain = "https://covid-hk.github.io/";
+      getBuildingListCsv();
     }
   });
 }
