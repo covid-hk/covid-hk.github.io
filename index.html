@@ -51,6 +51,8 @@
       </div>
     </div>
     <div class="row button-wrap">
+      <div class="col-1">
+      </div>
       <div class="col">
         <input class="hidden radio-label" type="radio" name="input-district" id="district-tm" value="TM" onclick="if(this.checked){cleanSearchBox(1)}"/>
         <label class="button-label" id="label-district-tm" for="district-tm">屯門<br/>Tuen Mun</label>
@@ -66,6 +68,8 @@
       <div class="col">
         <input class="hidden radio-label" type="radio" name="input-district" id="district-tp" value="TP" onclick="if(this.checked){cleanSearchBox(1)}"/>
         <label class="button-label" id="label-district-tp" for="district-tp">大埔<br/>Tai Po</label>
+      </div>
+      <div class="col-1">
       </div>
     </div>
     <div class="row button-wrap">
@@ -113,6 +117,8 @@
       </div>
     </div>
     <div class="row button-wrap">
+      <div class="col-1">
+      </div>
       <div class="col">
         <input class="hidden radio-label" type="radio" name="input-district" id="district-cnw" value="CNW" onclick="if(this.checked){cleanSearchBox(1)}"/>
         <label class="button-label" id="label-district-cnw" for="district-cnw">中西區<br/>Central & Western</label>
@@ -129,20 +135,22 @@
         <input class="hidden radio-label" type="radio" name="input-district" id="district-e" value="E" onclick="if(this.checked){cleanSearchBox(1)}"/>
         <label class="button-label" id="label-district-e" for="district-e">東區<br/>Eastern</label>
       </div>
+      <div class="col-1">
+      </div>
     </div>
     <div class="row py-2">
       <div class="col-12">
         <div class="row">
-          <div class="col-2">
+          <div class="col-1">
           </div>
-          <div class="col-8 input-group">
+          <div class="col-10 input-group">
             <input type="text" class="form-control" placeholder="搜尋 Search" id="search-keyword">
             <div class="input-group-btn" style="margin-right:5px;">
               <button type="button" class="btn btn-primary" onclick="refreshUI()"><i class='fas fa-search'></i></button>
             </div>
             <button type="button" class="btn btn-secondary" onclick="cleanSearchBox(0)"><i class='far fa-trash-alt'></i></button>
           </div>
-          <div class="col-2">
+          <div class="col-1">
           </div>
         </div>
       </div>
