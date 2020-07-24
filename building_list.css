@@ -31,7 +31,8 @@ footer {
 
 .button-label {
   display: inline-block;
-  padding: 1em 2em;
+  /*padding: 1em 2em;*/
+  padding: 1em 0.1em;
   margin: 0.5em;
   cursor: pointer;
   color: #292929;
@@ -57,7 +58,8 @@ footer {
     padding-left: 5px;
   }
   .button-label {
-    padding: 1.5em 1em;
+    /*padding: 1.5em 1em;*/
+    padding: 1.5em 0.1em;
     font-size: small;
   }
 }
@@ -83,7 +85,7 @@ footer {
 @media (max-width: 40em) {
   .button-label {
     /*padding: 0em 1em 3px;*/
-    padding: 2em 1em;
+    padding: 2em 0.1em;
     margin: 0.25em;
   }
 }

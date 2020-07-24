@@ -320,7 +320,7 @@ function constructBuildingListTable(data) {
     }
     let result_count = 0;
     $.each(data, function( index, row ) {
-      if(index == 0) {console.log(row);
+      if(index == 0) {
         html += '<div class="row py-2 font-weight-bold">';
         html += '<div class="col-3">';
         html += '日期<br/>Date';
