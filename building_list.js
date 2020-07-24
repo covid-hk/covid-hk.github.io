@@ -41,6 +41,10 @@ String.prototype.capitalize = function() {
     .join(' ');
 }
 
+String.prototype.isNumber = function() {
+  return /^\d+$/.test(this);
+}
+
 function setCookie(cname, cvalue, exdays) {
   var d = new Date();
   d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
@@ -310,6 +314,10 @@ function constructBuildingListTable(data) {
     return null;
   } else {
     let keyword = $("#search-keyword").val().toLowerCase();
+    let keyword_as_int = 0;
+    if (keyword.isNumber()) {
+      keyword_as_int = parseInt(keyword, 10);
+    }
     $.each(data, function( index, row ) {
       if(index == 0) {
         html += '<div class="row py-2 font-weight-bold">';
@@ -328,7 +336,8 @@ function constructBuildingListTable(data) {
       if (row['dist']['id'] == $('input[name="input-district"]:checked').val() &&
          (keyword == '' ||
           row['buil']['ch'].toLowerCase().includes(keyword) ||
-          row['buil']['en'].toLowerCase().includes(keyword))) {
+          row['buil']['en'].toLowerCase().includes(keyword) ||
+          (keyword_as_int > 0 && row['case'].includes(keyword_as_int)))) {
         html += '<div class="row py-2">';
         html += '<div class="col-3">';
         html += (row['date'] == '' ? '' : (moment(row['date'], 'YYYY-MM-DD').format('M月D日') + '<br/>' + moment(row['date'], 'YYYY-MM-DD').format('MMM Do')));

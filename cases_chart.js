@@ -103,7 +103,7 @@ function constructCaseSummary() {
   html += '<mark>';
   html += '<i class="far fa-user"></i> ';
   html += '<u>';
-  html += '<span>最新確診數</span> ';
+  html += '<span>確診數</span> ';
   html += '<span><b>' + latest_reported_cases[latest_reported_cases.length - 1]["確診個案"] + '</b> 宗：</span> ';
   html += '<span><b>' + latest_reported_cases[latest_reported_cases.length - 1]["出院"] + '</b> 人出院、<b>' + latest_reported_cases[latest_reported_cases.length - 1]["死亡"] + '</b> 人死亡</span>';
   html += '</u>';
