@@ -318,8 +318,9 @@ function constructBuildingListTable(data) {
     if (keyword.isNumber()) {
       keyword_as_int = parseInt(keyword, 10);
     }
+    let result_count = 0;
     $.each(data, function( index, row ) {
-      if(index == 0) {
+      if(index == 0) {console.log(row);
         html += '<div class="row py-2 font-weight-bold">';
         html += '<div class="col-3">';
         html += '日期<br/>Date';
@@ -353,8 +354,18 @@ function constructBuildingListTable(data) {
         html += '</a></h4>';
         html += '</div>';
         html += '</div>';
+        result_count++;
       }
     });
+    if (result_count == 0) {
+      html += '<div class="row py-2">';
+      html += '<div class="col-12">';
+      html += '找不到結果';
+      html += '<br/>';
+      html += 'No Result Found';
+      html += '</div>';
+      html += '</div>';
+    }
     html += '</div>';
     return html;
   }
