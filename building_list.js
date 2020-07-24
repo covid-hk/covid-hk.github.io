@@ -1,4 +1,8 @@
-var domain = "https://colorpalette.ddns.net:8443/"; //"https://covid-hk.github.io/";
+var domain = [];
+domain[0] = "https://colorpalette.ddns.net:8443/";
+domain[1] = "https://covid-hk.github.io/";
+var ajax_retry_times = 0;
+var ajax_retry_times_max = domain.length - 1;
 var building_list_chi = [];
 var building_list_eng = [];
 var building_list = [];
@@ -100,7 +104,7 @@ function getBuildingListCsv() {
   let unixtimestampper15mins = Math.floor(unixtimestamp / 1000);
   $.ajax({
     type: "GET",
-    url: domain + "building_list_chi.csv?t=" + unixtimestampper15mins,
+    url: domain[ajax_retry_times] + "building_list_chi.csv?t=" + unixtimestampper15mins,
     dataType: "text",
     success: function(response)
     {
@@ -112,13 +116,15 @@ function getBuildingListCsv() {
     },
     error: function()
     {
-      domain = "https://covid-hk.github.io/";
-      getBuildingListCsv();
+      if (ajax_retry_times < ajax_retry_times_max) {
+        ++ajax_retry_times;
+        getBuildingListCsv();
+      }
     }
   });
   $.ajax({
     type: "GET",
-    url: domain + "building_list_eng.csv?t=" + unixtimestampper15mins,
+    url: domain[ajax_retry_times] + "building_list_eng.csv?t=" + unixtimestampper15mins,
     dataType: "text",
     success: function(response)
     {
@@ -130,8 +136,10 @@ function getBuildingListCsv() {
     },
     error: function()
     {
-      domain = "https://covid-hk.github.io/";
-      getBuildingListCsv();
+      if (ajax_retry_times < ajax_retry_times_max) {
+        ++ajax_retry_times;
+        getBuildingListCsv();
+      }
     }
   });
 }
