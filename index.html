@@ -181,8 +181,16 @@
             </div>
             <input type="text" class="form-control" placeholder="搜尋 Search" id="search-keyword">
             <div class="input-group-btn" style="margin-right:5px;">
-              <button type="button" class="btn btn-primary" onclick="refreshUI()"><i class='fas fa-search'></i></button>
+              <button type="button" class="btn btn-primary" id="search-submit" onclick="refreshUI()"><i class='fas fa-search'></i></button>
             </div>
+<script>
+document.getElementById("search-keyword").addEventListener("keyup", function(event) {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    document.getElementById("search-submit").click();
+  }
+});
+</script>
             <button type="button" class="btn btn-secondary" onclick="cleanSearchBox(0)"><i class='far fa-trash-alt'></i></button>
           </div>
           <div class="col-1">
