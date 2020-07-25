@@ -12,6 +12,10 @@ footer {
   margin-bottom: 30px;
 }
 
+a {
+  color: #0069d9; /* Bootstrap default: #007bff */
+}
+
 /* Bootstrap 4 style grid as table */
 /* https://www.codeply.com/go/IDBemcEAyL */
 .grid-striped .row:nth-of-type(odd) {

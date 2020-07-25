@@ -99,17 +99,26 @@ window.onload = function() {
 };
 
 function constructCaseSummary() {
+  let update_date = latest_reported_cases[latest_reported_cases.length - 1]['更新日期'];
+  let confirmed = latest_reported_cases[latest_reported_cases.length - 1]["確診個案"];
+  let discharge = latest_reported_cases[latest_reported_cases.length - 1]["出院"];
+  let death = latest_reported_cases[latest_reported_cases.length - 1]["死亡"];
+  let hospitalised = confirmed - discharge - death;
   let html = '';
-  html += '<mark>';
-  html += '<i class="far fa-user"></i> ';
-  html += '<u>';
-  html += '<span>確診數</span> ';
-  html += '<span><b>' + latest_reported_cases[latest_reported_cases.length - 1]["確診個案"] + '</b> 宗：</span> ';
-  html += '<span><b>' + latest_reported_cases[latest_reported_cases.length - 1]["出院"] + '</b> 人出院、<b>' + latest_reported_cases[latest_reported_cases.length - 1]["死亡"] + '</b> 人死亡</span>';
-  html += '</u>';
-  html += '</mark>';
+  html += '<span>(最後更新日期: ' + moment(update_date, 'DD/MM/YYYY').format('YYYY-MM-DD') + ')</span>';
   html += '<br/>';
-  html += '<span>(最後更新日期: ' + moment(latest_reported_cases[latest_reported_cases.length - 1]['更新日期'], 'DD/MM/YYYY').format('YYYY-MM-DD') + ')</span>';
+  //html += '<mark>';
+  html += '<span>';
+  html += '<i class="far fa-user"></i> ';
+  html += '<span class="badge badge-light" style="font-size:100%;background-color:' + transparentize(window.chartColors.green) + ';"><b>' + discharge + '</b></span> 出院';
+  html += ' + ';
+  html += '<span class="badge badge-info" style="font-size:100%;background-color:' + transparentize(window.chartColors.black) + ';"><b>' + death + '</b></span> 死亡';
+  html += ' + ';
+  html += '<span class="badge badge-light" style="font-size:100%;background-color:' + transparentize(window.chartColors.orange) + ';"><b>' + hospitalised + '</b></span> 住院';
+  html += ' = ';
+  html += '<span class="badge badge-info" style="font-size:100%;background-color:' + transparentize(window.chartColors.pink) + ';"><b>' + confirmed + '</b></span> 確診';
+  html += '</span>';
+  //html += '</mark>';
   return html;
 }
 

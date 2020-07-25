@@ -334,19 +334,19 @@ function constructBuildingListTable(data) {
         html += '</div>';
       }
       // 選擇 地區
-      if (row['dist']['id'] == $('input[name="input-district"]:checked').val() &&
-         (keyword == '' ||
-          row['buil']['ch'].toLowerCase().includes(keyword) ||
-          row['buil']['en'].toLowerCase().includes(keyword) ||
-          (keyword_as_int > 0 && row['case'].includes(keyword_as_int)))) {
+      if ((keyword == '' && row['dist']['id'] == $('input[name="input-district"]:checked').val()) ||
+          // Or 輸入 大廈字詞
+          (keyword != '' && (row['buil']['ch'].toLowerCase().includes(keyword) || row['buil']['en'].toLowerCase().includes(keyword))) ||
+          // Or 輸入 個案編號
+          (keyword_as_int > 0 && row['case'].includes(keyword_as_int))) {
         html += '<div class="row py-2">';
         html += '<div class="col-3">';
         html += (row['date'] == '' ? '' : (moment(row['date'], 'YYYY-MM-DD').format('M月D日') + '<br/>' + moment(row['date'], 'YYYY-MM-DD').format('MMM Do')));
         html += '</div>';
         html += '<div class="col-6">';
-        html += '<a href="http://maps.google.com/maps?q=' + row['buil']['ch'] + '+' + row['dist']['ch'] + '" target="_blank">' + row['buil']['ch'] + '</a>';
+        html += '<a href="http://maps.google.com/maps?q=' + row['buil']['ch'] + '+' + row['dist']['ch'] + '" target="_blank">' + row['dist']['ch'] + ' ' + row['buil']['ch'] + '</a>';
         html += '<br/>';
-        html += '<a href="http://maps.google.com/maps?q=' + row['buil']['en'] + '+' + row['dist']['en'] + '" target="_blank">' + row['buil']['en'] + '</a>';
+        html += '<a href="http://maps.google.com/maps?q=' + row['buil']['en'] + '+' + row['dist']['en'] + '" target="_blank">' + row['buil']['en'] + ', ' + row['dist']['en'] + '</a>';
         html += '</div>';
         html += '<div class="col-3">';
         html += '<h4><a href="javascript:void(0)" data-toggle="tooltip" title="' + row['case'].join(', ') + '">';
