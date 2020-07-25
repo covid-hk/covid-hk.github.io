@@ -68,12 +68,6 @@ function getCookie(cname) {
 }
 
 $(document).ready(function() {
-  var district_id = getCookie("covid_hk_district_id");
-  if (district_id == '') {
-    district_id = 'WTS';
-  }
-  $('#district-'+district_id.toLowerCase()).click();
-
   getBuildingListCsv();
 });
 
@@ -82,6 +76,20 @@ function cleanSearchBox(forced) {
     $("#search-keyword").val('');
     refreshUI();
   }
+}
+
+function chooseDefaultDistrict() {
+  let district_cases = Object.values(map_dist).map(dist => ({ id:dist.id, num_of_cases:dist.case.length }));
+  // Sort district by number of cases in desc order
+  district_cases.sort(function(a, b) {
+    return 0 - (a.num_of_cases - b.num_of_cases);
+  });
+
+  let district_id = getCookie("covid_hk_district_id");
+  if (district_id == '') {
+    district_id = district_cases[0].id;
+  }
+  $('#district-'+district_id.toLowerCase()).click();
 }
 
 function refreshUI() {
@@ -115,6 +123,7 @@ function getBuildingListCsv() {
       building_list_chi = $.csv.toObjects(response);
       if (building_list_chi.length > 0 && building_list_eng.length > 0) {
         mergeBuildingList();
+        chooseDefaultDistrict();
         refreshUI();
       }
     },
@@ -135,6 +144,7 @@ function getBuildingListCsv() {
       building_list_eng = $.csv.toObjects(response);
       if (building_list_chi.length > 0 && building_list_eng.length > 0) {
         mergeBuildingList();
+        chooseDefaultDistrict();
         refreshUI();
       }
     },
