@@ -104,9 +104,10 @@ function constructCaseSummary() {
   let discharge = latest_reported_cases[latest_reported_cases.length - 1]["出院"];
   let death = latest_reported_cases[latest_reported_cases.length - 1]["死亡"];
   let hospitalised = confirmed - discharge - death;
+  let added = latest_reported_cases[latest_reported_cases.length - 1]["確診個案"] - latest_reported_cases[latest_reported_cases.length - 2]["確診個案"];
   let html = '';
-  html += '<span>(最後更新日期: ' + moment(update_date, 'DD/MM/YYYY').format('YYYY-MM-DD') + ')</span>';
-  html += '<br/>';
+  html += '<span><i class="far fa-clock"></i> 更新日期: ' + moment(update_date, 'DD/MM/YYYY').format('YYYY-MM-DD') + ' | <i class="fas fa-ambulance"></i> 單日新增: ' + added + '</span>';
+  html += '<br/><br/>';
   //html += '<mark>';
   html += '<span>';
   html += '<i class="far fa-user"></i> ';

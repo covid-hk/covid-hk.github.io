@@ -9,24 +9,24 @@ var building_list = [];
 var building_list_dedup = [];
 
 var map_dist = [];
-map_dist['北區'] = {'ch':'北區', 'en':'North', 'id':'N', 'case':[]};
-map_dist['大埔'] = {'ch':'大埔', 'en':'Tai Po', 'id':'TP', 'case':[]};
-map_dist['沙田'] = {'ch':'沙田', 'en':'Sha Tin', 'id':'ST', 'case':[]};
-map_dist['西貢'] = {'ch':'西貢', 'en':'Sai Kung', 'id':'SK', 'case':[]};
-map_dist['屯門'] = {'ch':'屯門', 'en':'Tuen Mun', 'id':'TM', 'case':[]};
-map_dist['元朗'] = {'ch':'元朗', 'en':'Yuen Long', 'id':'YL', 'case':[]};
-map_dist['荃灣'] = {'ch':'荃灣', 'en':'Tsuen Wan', 'id':'TW', 'case':[]};
-map_dist['葵青'] = {'ch':'葵青', 'en':'Kwai Tsing', 'id':'KNT', 'case':[]};
-map_dist['離島'] = {'ch':'離島', 'en':'Islands', 'id':'IS', 'case':[]};
-map_dist['油尖旺'] = {'ch':'油尖旺', 'en':'Yau Tsim Mong', 'id':'YTM', 'case':[]};
-map_dist['深水埗'] = {'ch':'深水埗', 'en':'Sham Shui Po', 'id':'SSP', 'case':[]};
-map_dist['九龍城'] = {'ch':'九龍城', 'en':'Kowloon City', 'id':'KC', 'case':[]};
-map_dist['黃大仙'] = {'ch':'黃大仙', 'en':'Wong Tai Sin', 'id':'WTS', 'case':[]};
-map_dist['觀塘'] = {'ch':'觀塘', 'en':'Kwun Tong', 'id':'KT', 'case':[]};
-map_dist['中西區'] = {'ch':'中西區', 'en':'Central & Western', 'id':'CNW', 'case':[]};
-map_dist['灣仔'] = {'ch':'灣仔', 'en':'Wan Chai', 'id':'WC', 'case':[]};
-map_dist['東區'] = {'ch':'東區', 'en':'Eastern', 'id':'E', 'case':[]};
-map_dist['南區'] = {'ch':'南區', 'en':'Southern', 'id':'S', 'case':[]};
+map_dist['北區'] = {'ch':'北區', 'en':'North', 'id':'N', 'case':[], rank:0};
+map_dist['大埔'] = {'ch':'大埔', 'en':'Tai Po', 'id':'TP', 'case':[], rank:0};
+map_dist['沙田'] = {'ch':'沙田', 'en':'Sha Tin', 'id':'ST', 'case':[], rank:0};
+map_dist['西貢'] = {'ch':'西貢', 'en':'Sai Kung', 'id':'SK', 'case':[], rank:0};
+map_dist['屯門'] = {'ch':'屯門', 'en':'Tuen Mun', 'id':'TM', 'case':[], rank:0};
+map_dist['元朗'] = {'ch':'元朗', 'en':'Yuen Long', 'id':'YL', 'case':[], rank:0};
+map_dist['荃灣'] = {'ch':'荃灣', 'en':'Tsuen Wan', 'id':'TW', 'case':[], rank:0};
+map_dist['葵青'] = {'ch':'葵青', 'en':'Kwai Tsing', 'id':'KNT', 'case':[], rank:0};
+map_dist['離島'] = {'ch':'離島', 'en':'Islands', 'id':'IS', 'case':[], rank:0};
+map_dist['油尖旺'] = {'ch':'油尖旺', 'en':'Yau Tsim Mong', 'id':'YTM', 'case':[], rank:0};
+map_dist['深水埗'] = {'ch':'深水埗', 'en':'Sham Shui Po', 'id':'SSP', 'case':[], rank:0};
+map_dist['九龍城'] = {'ch':'九龍城', 'en':'Kowloon City', 'id':'KC', 'case':[], rank:0};
+map_dist['黃大仙'] = {'ch':'黃大仙', 'en':'Wong Tai Sin', 'id':'WTS', 'case':[], rank:0};
+map_dist['觀塘'] = {'ch':'觀塘', 'en':'Kwun Tong', 'id':'KT', 'case':[], rank:0};
+map_dist['中西區'] = {'ch':'中西區', 'en':'Central & Western', 'id':'CNW', 'case':[], rank:0};
+map_dist['灣仔'] = {'ch':'灣仔', 'en':'Wan Chai', 'id':'WC', 'case':[], rank:0};
+map_dist['東區'] = {'ch':'東區', 'en':'Eastern', 'id':'E', 'case':[], rank:0};
+map_dist['南區'] = {'ch':'南區', 'en':'Southern', 'id':'S', 'case':[], rank:0};
 
 var map_type = [];
 map_type['住宅'] = {'ch':'住宅', 'en':'Residential'};
@@ -43,6 +43,15 @@ String.prototype.capitalize = function() {
 
 String.prototype.isNumber = function() {
   return /^\d+$/.test(this);
+}
+
+Number.prototype.toOrdinal = function() {
+  if (this <= 0) { return {'number':this, 'suffix':''}; }
+  else if (this % 100 >= 11 && this % 100 <= 13) { return {'number':this, 'suffix':'th'}; }
+  else if (this % 10 == 1) { return {'number':this, 'suffix':'st'}; }
+  else if (this % 10 == 2) { return {'number':this, 'suffix':'nd'}; }
+  else if (this % 10 == 3) { return {'number':this, 'suffix':'rd'}; }
+  return {'number':this, 'suffix':'th'};
 }
 
 function setCookie(cname, cvalue, exdays) {
@@ -71,6 +80,23 @@ $(document).ready(function() {
   getBuildingListCsv();
 });
 
+// When the user scrolls down from the top of the document, show the button
+$(window).scroll(function () {
+  let scrollTop = ($(window).scrollTop() || $(document).scrollTop() || $('html,body').scrollTop());
+  let offsetTop = $('#search-keyword').offset().top;
+  if (scrollTop > offsetTop) {
+    $('#backToTopBtn').fadeIn();
+  } else {
+    $('#backToTopBtn').fadeOut();
+  }
+});
+
+// When the user clicks on the button, scroll to the top of the document
+function backToTop() {
+  let offsetTop = $('.button-wrap').offset().top;
+  window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+}
+
 function cleanSearchBox(forced) {
   if ($("#search-keyword").val() != '' || forced) {
     $("#search-keyword").val('');
@@ -79,11 +105,62 @@ function cleanSearchBox(forced) {
 }
 
 function chooseDefaultDistrict() {
-  let district_cases = Object.values(map_dist).map(dist => ({ id:dist.id, num_of_cases:dist.case.length }));
+  let district_cases = Object.values(map_dist).map(dist => ({ id:dist.id, num_of_cases:dist.case.length, rank:0 }));
   // Sort district by number of cases in desc order
   district_cases.sort(function(a, b) {
     return 0 - (a.num_of_cases - b.num_of_cases);
   });
+  // Assign the rank values
+  for (let i=0; i<district_cases.length; i++) {
+    district_cases[i].rank = i + 1;
+  }
+  // Handle dead heat / draw / tie case
+  for (let i=1; i<district_cases.length; i++) {
+    if (district_cases[i-1].num_of_cases > district_cases[i].num_of_cases) { continue; }
+    district_cases[i].rank = district_cases[i-1].rank;
+  }
+  // Copy the rank values to global map_dist
+  let district_ranks = [];
+  for (let i=0; i<district_cases.length; i++) {
+    district_ranks[district_cases[i].id] = district_cases[i].rank;
+  }
+  for (let dist_ch in map_dist) {
+    map_dist[dist_ch]['rank'] = district_ranks[map_dist[dist_ch]['id']];
+  }
+
+  // Assign the num_of_cases and rank values to the badge-district elements
+  for (let dist_ch in map_dist) {
+    let id = map_dist[dist_ch]['id'].toLowerCase();
+    let num_of_cases = map_dist[dist_ch]['case'].length;
+    let rank = map_dist[dist_ch]['rank'].toOrdinal();
+	$('#badge-district-'+id).attr('data-case', num_of_cases);
+	$('#badge-district-'+id).attr('data-rank', rank.number);
+	$('#badge-district-'+id).attr('data-rank-suffix', rank.suffix);
+  }
+  // Animation of badge-district elements
+  let $element = $('.badge-district');
+  function fadeInOut () {
+    $element.delay(4000).fadeOut(1500, function () {
+      $element.html(function() {
+        let sup_style = '';
+        if ($(this).attr('data-rank') <= 1) {
+          sup_style = 'style="color:red;"';
+        }
+        else if ($(this).attr('data-rank') <= 3) {
+          sup_style = 'style="color:orange;"';
+        }
+        else if ($(this).attr('data-rank') <= 9) {
+          sup_style = 'style="color:yellow;"';
+        }
+        else {
+          sup_style = 'style="color:lime;"';
+        }
+        return '<sup ' + sup_style + '>' + $(this).attr('data-rank') + $(this).attr('data-rank-suffix') + '</sup> ' + $(this).attr('data-case');
+      });
+      $element.fadeIn(1500);
+    });
+  }
+  fadeInOut();
 
   let district_id = getCookie("covid_hk_district_id");
   if (district_id == '') {
@@ -277,7 +354,7 @@ function mergeBuildingList() {
     })
     map_dist[dist_ch]['case'].sort();
     // Append case count per district to district label
-    $("#label-district-" + map_dist[dist_ch]['id'].toLowerCase()).append('<br/><span class="badge badge-secondary">' + map_dist[dist_ch]['case'].length + '</span>');
+    $("#label-district-"+map_dist[dist_ch]['id'].toLowerCase()).append('<br/><span class="badge badge-secondary badge-district" id="badge-district-'+map_dist[dist_ch]['id'].toLowerCase()+'">'+map_dist[dist_ch]['case'].length+'</span>');
   }
 
   // Sort data by badge level (info > warning > danger > dark)

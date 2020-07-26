@@ -47,16 +47,12 @@
 <body>
   <div class="container">
     <div class="row">
-      <div class="col">
-        <br/>
-        <h4>過去14天內曾有疑似/確診個案居住過的住宅大廈; </h4>
-        <h4>或過去 14 天內曾出現兩宗或以上疑似/確診個案的非住宅大廈</h4>
-        <h4>Residential buildings in which probable/confirmed cases have resided in the past 14 days </h4>
-        <h4>or non-residential building with 2 or more probable/confirmed cases in the past 14 days</h4>
-        <br/>
-        <h5><i class='far fa-folder-open'></i> 資料來源 Data Source:</h5>
-        <h5><a href="https://www.coronavirus.gov.hk/chi/index.html#Updates_on_COVID-19_Situation" target="_blank">coronavirus.gov.hk</a></h5>
-        <br/>
+      <div class="col" style="margin:10px auto;">
+        <h6>過去14天內曾有疑似/確診個案居住過的住宅大廈; </h6>
+        <h6>或過去 14 天內曾出現兩宗或以上疑似/確診個案的非住宅大廈</h6>
+        <h6>Residential buildings in which probable/confirmed cases have resided in the past 14 days </h6>
+        <h6>or non-residential building with 2 or more probable/confirmed cases in the past 14 days</h6>
+        <h6><i class='far fa-folder-open'></i> 資料來源 Data Source: <a href="https://www.coronavirus.gov.hk/chi/index.html#Updates_on_COVID-19_Situation" target="_blank">coronavirus.gov.hk</a></h6>
       </div>
     </div>
     <div class="row button-wrap">
@@ -207,6 +203,8 @@ document.getElementById("search-keyword").addEventListener("keyup", function(eve
       </div>
     </div>
   </div>
+
+<button onclick="backToTop()" id="backToTopBtn" title="Back to Top"><i class='far fa-arrow-alt-circle-up'></i> Top</button>
 
 <footer>
   <div class="container">
