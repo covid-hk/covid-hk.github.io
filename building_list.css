@@ -22,7 +22,7 @@ a {
 #backToTopBtn {
   display: none; /* Hidden by default */
   position: fixed; /* Fixed/sticky position */
-  bottom: 35px; /* Place the button at the bottom of the page */
+  bottom: 30px; /* Place the button at the bottom of the page */
   left: 20px; /* Place the button from the left */
   z-index: 99; /* Make sure it does not overlap */
   border: none; /* Remove borders */
