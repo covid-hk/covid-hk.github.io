@@ -140,22 +140,22 @@ function chooseDefaultDistrict() {
   // Animation of badge-district elements
   let $element = $('.badge-district');
   function fadeInOut () {
-    $element.delay(4000).fadeOut(1500, function () {
+    $element.delay(2000).fadeOut(1500, function () {
       $element.html(function() {
         let sup_style = '';
         if ($(this).attr('data-rank') <= 1) {
-          sup_style = 'style="color:red;"';
+          sup_style = 'font-size:60%;color:red;';
         }
         else if ($(this).attr('data-rank') <= 3) {
-          sup_style = 'style="color:orange;"';
+          sup_style = 'font-size:60%;color:orange;';
         }
         else if ($(this).attr('data-rank') <= 9) {
-          sup_style = 'style="color:yellow;"';
+          sup_style = 'font-size:60%;color:yellow;';
         }
         else {
-          sup_style = 'style="color:lime;"';
+          sup_style = 'font-size:60%;color:lime;';
         }
-        return '<sup ' + sup_style + '>' + $(this).attr('data-rank') + $(this).attr('data-rank-suffix') + '</sup> ' + $(this).attr('data-case');
+        return '<sup style="' + sup_style + '">' + $(this).attr('data-rank') + $(this).attr('data-rank-suffix') + ' </sup>' + $(this).attr('data-case');
       });
       $element.fadeIn(1500);
     });
@@ -413,7 +413,7 @@ function constructBuildingListTable(data) {
         html += '日期<br/>Date';
         html += '</div>';
         html += '<div class="col-6">';
-        html += '大廈名單<br/>Building name';
+        html += '大廈名單 <i class="fas fa-map-marked-alt"></i><br/>Building name';
         html += '</div>';
         html += '<div class="col-3">';
         html += '個案<br/>Cases';
