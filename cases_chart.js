@@ -106,7 +106,7 @@ function constructCaseSummary() {
   let hospitalised = confirmed - discharge - death;
   let added = latest_reported_cases[latest_reported_cases.length - 1]["確診個案"] - latest_reported_cases[latest_reported_cases.length - 2]["確診個案"];
   let html = '';
-  html += '<span><i class="far fa-clock"></i> 更新日期: ' + moment(update_date, 'DD/MM/YYYY').format('YYYY-MM-DD') + ' | <i class="fas fa-ambulance"></i> 單日新增: ' + added + '</span>';
+  html += '<span><i class="far fa-clock"></i> 更新日期: ' + moment(update_date, 'DD/MM/YYYY').format('YYYY-MM-DD') + ' | <i class="fas fa-ambulance"></i> 單日新增: <span class="badge badge-info" style="font-size:100%;background-color:' + transparentize(window.chartColors.pink) + ';"><b>' + added + '</b></span></span>';
   html += '<br/><br/>';
   //html += '<mark>';
   html += '<span>';
