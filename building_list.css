@@ -39,6 +39,9 @@ a {
   background-color: #17a2b8; /* Add a background on hover */
 }
 
+#chartModal .modal-dialog {
+  max-width: 98%;
+}
 #caseDetailModal .modal-dialog {
   max-width: 98%;
 }

@@ -36,6 +36,8 @@
   <!--<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">-->
   <!-- Font Awesome 5 Icons -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+  <!-- Google Chart -->
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <!-- Chart.js v2.9.3 -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
   <script src="https://chartjs-plugin-datalabels.netlify.com/chartjs-plugin-datalabels.js"></script>
@@ -154,7 +156,7 @@
           </div>
           <div style="display:inline-block;width:100%;max-width:600px;">
             <div class="input-group">
-              <button type="button" class="btn btn-info" data-toggle="modal" data-target="#chartModal" style="margin-right:20px;"><i class='fas fa-chart-line'></i></button>
+              <!--<i class='far fa-hand-point-right'></i> --><button type="button" class="btn btn-info" data-toggle="modal" data-target="#chartModal" style="margin-right:20px;"><i class='fas fa-chart-line'></i></button>
               <div class="modal fade" id="chartModal">
                 <div class="modal-dialog modal-dialog-centered modal-xl">
                   <div class="modal-content">
@@ -168,8 +170,14 @@
                       <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
-                      <div id="case_summary" style="font-size:90%;margin-bottom:5px;"></div>
+                      <div id="case_line_summary" style="font-size:90%;margin-bottom:5px;"></div>
                       <canvas id="case_line_chart"></canvas>
+                      <br/>
+                      <div id="case_bar_summary" style="font-size:90%;margin-bottom:5px;"></div>
+                      <canvas id="case_bar_chart"></canvas>
+                      <br/>
+                      <div id="case_pie_summary" style="font-size:90%;margin-bottom:5px;"></div>
+                      <canvas id="case_pie_chart"></canvas>
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-danger" data-dismiss="modal">關閉 Close</button>
