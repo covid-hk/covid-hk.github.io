@@ -57,6 +57,8 @@ function calAllCaseCount() {
   caseCount["確診地區離島區"] = map_dist['離島'].case.length;
 
   for (let i = 0; i < case_details.length; i++) {
+    if (case_details[i]['確診/疑似個案'] == '疑似') { continue; }
+
     let obj = {'sex':(case_details[i]['性別'] == '男' ? 'M' : case_details[i]['性別'] == '女' ? 'F' : ''), 'age':(case_details[i]['年齡'].isNumber() ? parseInt(case_details[i]['年齡'], 10) : -1)};
     caseCount["確診"]++;
     if(obj.sex == "M") {
