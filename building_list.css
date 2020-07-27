@@ -50,6 +50,8 @@ a {
 
 .button-wrap {
   text-align: center;
+  margin-right: 0;
+  margin-left: -10px;
 }
 .button-wrap .col {
   padding-right: 8px;
@@ -94,6 +96,7 @@ a {
     padding-left: 5px;
   }
   .button-label {
+    margin: 0.3em;
     font-size: 1em;
   }
 }
@@ -104,6 +107,7 @@ a {
   }
   .button-label {
     padding: 0.5em 0.1em;
+    margin: 0.1em;
     font-size: 1.3em;
   }
   .button-label .district-name-en {
