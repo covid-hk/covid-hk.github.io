@@ -39,6 +39,13 @@ a {
   background-color: #17a2b8; /* Add a background on hover */
 }
 
+#caseDetailModal .modal-dialog {
+  max-width: 98%;
+}
+#caseDetailModal .modal-dialog .modal-body #table-casedetails {
+  white-space: nowrap;
+}
+
 /* Bootstrap 4 style grid as table */
 /* https://www.codeply.com/go/IDBemcEAyL */
 .grid-striped .row:nth-of-type(odd) {

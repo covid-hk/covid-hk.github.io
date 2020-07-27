@@ -33,7 +33,7 @@ map_type['住宅'] = {'ch':'住宅', 'en':'Residential'};
 map_type['非住宅'] = {'ch':'非住宅', 'en':'Non-Residential'};
 map_type['食肆'] = {'ch':'食肆', 'en':'Restaurant'};
 
-String.prototype.capitalize = function() {
+String.prototype.capitalize = function(){
   return this && this
     .toLowerCase()
     .split(' ')
@@ -41,11 +41,11 @@ String.prototype.capitalize = function() {
     .join(' ');
 }
 
-String.prototype.isNumber = function() {
+String.prototype.isNumber = function(){
   return /^\d+$/.test(this);
 }
 
-Number.prototype.toOrdinal = function() {
+Number.prototype.toOrdinal = function(){
   if (this <= 0) { return {'number':this, 'suffix':''}; }
   else if (this % 100 >= 11 && this % 100 <= 13) { return {'number':this, 'suffix':'th'}; }
   else if (this % 10 == 1) { return {'number':this, 'suffix':'st'}; }
@@ -76,12 +76,12 @@ function getCookie(cname) {
   return "";
 }
 
-$(document).ready(function() {
+$(document).ready(function(){
   getBuildingListCsv();
 });
 
 // When the user scrolls down from the top of the document, show the button
-$(window).scroll(function () {
+$(window).scroll(function(){
   let scrollTop = ($(window).scrollTop() || $(document).scrollTop() || $('html,body').scrollTop());
   let offsetTop = $('#search-keyword').offset().top;
   if (scrollTop > offsetTop) {
@@ -139,9 +139,9 @@ function chooseDefaultDistrict() {
   }
   // Animation of badge-district elements
   let $element = $('.badge-district');
-  function fadeInOut () {
-    $element.delay(2000).fadeOut(1500, function () {
-      $element.html(function() {
+  function fadeInOut() {
+    $element.delay(2000).fadeOut(1500, function(){
+      $element.html(function(){
         let sup_style = '';
         if ($(this).attr('data-rank') <= 1) {
           sup_style = 'font-size:60%;color:red;';
@@ -172,16 +172,16 @@ function chooseDefaultDistrict() {
 function refreshUI() {
   setCookie("covid_hk_district_id", $('input[name="input-district"]:checked').val(), 7);
 
-  $('#wrapper-table-building').hide();
   $('#wrapper-table-building-loading').show();
+  $('#wrapper-table-building').hide();
   let html = constructBuildingListTable(building_list_dedup);
   setTimeout(function(){
-    $('#wrapper-table-building-loading').hide();
     $('#wrapper-table-building').html($(html).hide().fadeIn(2000));
     $('#wrapper-table-building').show();
+    $('#wrapper-table-building-loading').hide();
 
     $('[data-toggle="popover"]').popover();
-    $('[data-toggle="tooltip"]').tooltip();
+    $('[data-toggle="tooltip"]').tooltip({trigger: 'hover'});
   }, 100);
 }
 
@@ -327,7 +327,7 @@ function mergeBuildingList() {
     // dedup case id list
     building_list_dedup[i]['case'] = building_list_dedup[i]['case'].filter(function(item, pos, self) {
       return self.indexOf(item) == pos;
-    })
+    });
     building_list_dedup[i]['case'].sort();
     // badge = case group (info, warning, danger, dark)
     building_list_dedup[i]['badge'] = 'info';
@@ -351,7 +351,7 @@ function mergeBuildingList() {
     // dedup case id list
     map_dist[dist_ch]['case'] = map_dist[dist_ch]['case'].filter(function(item, pos, self) {
       return self.indexOf(item) == pos;
-    })
+    });
     map_dist[dist_ch]['case'].sort();
     // Append case count per district to district label
     $("#label-district-"+map_dist[dist_ch]['id'].toLowerCase()).append('<br/><span class="badge badge-secondary badge-district" id="badge-district-'+map_dist[dist_ch]['id'].toLowerCase()+'">'+map_dist[dist_ch]['case'].length+'</span>');
@@ -436,9 +436,13 @@ function constructBuildingListTable(data) {
         html += '<a href="http://maps.google.com/maps?q=' + row['buil']['en'] + '+' + row['dist']['en'] + '" target="_blank">' + row['buil']['en'] + ', ' + row['dist']['en'] + '</a>';
         html += '</div>';
         html += '<div class="col-3">';
-        html += '<h4><a href="javascript:void(0)" data-toggle="tooltip" title="' + row['case'].join(', ') + '">';
+        html += '<h4>';
+        html += '<span data-toggle="modal" data-target="#caseDetailModal" onclick="constructCaseDetailsModal($(this))" data-buil-ch="' + row['buil']['ch'] + '" data-buil-en="' + row['buil']['en'] + '" data-dist-ch="' + row['dist']['ch'] + '" data-dist-en="' + row['dist']['en'] + '" data-cases="' + row['case'].join(',') + '">';
+        html += '<a href="javascript:void(0)" data-toggle-disabled="tooltip" title="' + row['case'].join(', ') + '">';
         html += '<span class="badge badge-' + row['badge'] + '">' + row['case'].length + '</span>';
-        html += '</a></h4>';
+        html += '</a>';
+        html += '</span>';
+        html += '</h4>';
         html += '</div>';
         html += '</div>';
         result_count++;

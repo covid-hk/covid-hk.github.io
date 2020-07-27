@@ -43,6 +43,7 @@
   <link rel="stylesheet" href="building_list.css?v=1.0">
   <script src="building_list.js?v=1.0"></script>
   <script defer src="cases_chart.js?v=1.0"></script>
+  <script defer src="enhanced_sur.js?v=1.0"></script>
 </head>
 <body>
   <div class="container">
@@ -196,9 +197,25 @@ document.getElementById("search-keyword").addEventListener("keyup", function(eve
     </div>
     <div class="row">
       <div class="col" id="wrapper-table-building"></div>
+      <div class="modal fade" id="caseDetailModal">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h6 class="modal-title" style="width:100%">
+              </h6>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body table-responsive">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">關閉 Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="row py-2">
-      <div class="col" id="wrapper-table-building-loading">
+      <div class="col" id="wrapper-table-building-loading" style="margin-bottom:500px;">
         <div class="spinner-border text-primary"></div>
       </div>
     </div>

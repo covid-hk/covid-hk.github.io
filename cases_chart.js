@@ -92,11 +92,11 @@ function transparentize(color, opacity) {
   return Color(color).alpha(alpha).rgbString();
 }
 
-window.onload = function() {
+$(document).ready(function(){
   setTimeout(function() {
     getCasesCsv();
   }, 1000);
-};
+});
 
 function constructCaseSummary() {
   let update_date = latest_reported_cases[latest_reported_cases.length - 1]['更新日期'];
