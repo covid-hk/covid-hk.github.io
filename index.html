@@ -19,7 +19,7 @@
   <meta name="revisit-after" content="7 days">
   <meta name="robots" content="follow,index">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-  <title>過去14天內曾有疑似/確診個案居住過的住宅大廈 或 過去14天內曾出現兩宗或以上疑似/確診個案的非住宅大廈 | Residential buildings in which probable/confirmed cases have resided in the past 14 days or non-residential building with 2 or more probable/confirmed cases in the past 14 days</title>
+  <title>香港確診個案搜索器 Search Engine for Coronavirus Disease (COVID-19) in HK</title>
   <!-- Bootstrap 4.5: CSS only -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
   <!-- Bootstrap 4.5: JS, Popper.js, and jQuery -->
@@ -53,10 +53,12 @@
       <div class="col" style="margin:10px auto 5px;">
         <h6 style="font-size:0.9rem;"><i class='far fa-building'></i> 過去14天內曾有疑似/確診個案居住過的住宅大廈 或</h6>
         <h6 style="font-size:0.9rem;"><i class='fas fa-hotel'></i> 過去14天內曾出現兩宗或以上疑似/確診個案的非住宅大廈</h6>
-        <h6 style="font-size:0.9rem;"><i class='far fa-building'></i> Residential buildings in which probable/confirmed cases have resided in the past 14 days or</h6>
-        <h6 style="font-size:0.9rem;"><i class='fas fa-hotel'></i> non-residential building with 2 or more probable/confirmed cases in the past 14 days</h6>
-        <h6 style="font-size:0.9rem;"><i class='far fa-folder-open'></i> 資料來源 Data Source: <a href="https://www.coronavirus.gov.hk/chi/index.html#Updates_on_COVID-19_Situation" target="_blank">coronavirus.gov.hk</a></h6>
-        <h6 style="font-size:0.9rem;"><button type="button" class="btn btn-info" data-toggle="modal" data-target="#chartModal" style="font-size:0.9rem;"><i class='fas fa-chart-line'></i> 圖表分析 Graph Analysis</button></h6>
+        <h6 style="font-size:0.9rem;"><i class='far fa-building'></i> Residential buildings in which probable/confirmed cases have resided in the past 14 days OR</h6>
+        <h6 style="font-size:0.9rem;"><i class='fas fa-hotel'></i> Non-residential building with 2 or more probable/confirmed cases in the past 14 days</h6>
+        <h6 style="font-size:0.9rem;">
+          <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#chartModal" style="font-size:0.9rem;"><i class='fas fa-chart-line'></i>&nbsp;&nbsp;圖表分析 Graph Analysis</button>
+          <a href="https://www.coronavirus.gov.hk/chi/index.html#Updates_on_COVID-19_Situation" data-toggle="tooltip" title="coronavirus.gov.hk" class="btn btn-outline-primary" role="button" target="_blank" style="font-size:0.9rem;"><i class='far fa-folder-open'></i>&nbsp;&nbsp;資料來源 Data Source</a>
+        </h6>
       </div>
     </div>
     <div class="row button-wrap">
