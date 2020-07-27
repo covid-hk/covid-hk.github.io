@@ -229,10 +229,12 @@ function constructCaseDetailsModal($element) {
   row['buil']['en'] = $element.attr('data-buil-en');
   row['dist']['ch'] = $element.attr('data-dist-ch');
   row['dist']['en'] = $element.attr('data-dist-en');
+  row['badge'] = $element.attr('data-badge');
+  let cases = $element.attr('data-cases').split(',').map(Number);
+  row['cases'] = cases;
   let header = constructCaseDetailsHeader(row);
   $('#caseDetailModal .modal-header .modal-title').html($(header).hide().fadeIn(2000));
 
-  let cases = $element.attr('data-cases').split(',').map(Number);
   let data = case_details.filter(function(item, pos, self) {
     return cases.includes(parseInt(item['個案編號'], 10));
   });
@@ -247,6 +249,8 @@ function constructCaseDetailsHeader(row) {
   html += '<a href="http://maps.google.com/maps?q=' + row['buil']['ch'] + '+' + row['dist']['ch'] + '" target="_blank"><i class="fas fa-map-marked-alt"></i> ' + row['dist']['ch'] + ' ' + row['buil']['ch'] + '</a>';
   html += '<br/>';
   html += '<a href="http://maps.google.com/maps?q=' + row['buil']['en'] + '+' + row['dist']['en'] + '" target="_blank">' + row['buil']['en'] + ', ' + row['dist']['en'] + '</a>';
+  html += '<br/>';
+  html += '<span class="badge badge-' + row['badge'] + '" style="font-size:1.3em;">' + row['cases'].length + '</span>';
   return html;
 }
 

@@ -42,6 +42,9 @@ a {
 #chartModal .modal-dialog {
   max-width: 98%;
 }
+#chartModal .modal-dialog .modal-body {
+  white-space: nowrap;
+}
 #caseDetailModal .modal-dialog {
   max-width: 98%;
 }

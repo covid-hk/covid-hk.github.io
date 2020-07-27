@@ -437,7 +437,7 @@ function constructBuildingListTable(data) {
         html += '</div>';
         html += '<div class="col-3">';
         html += '<h4>';
-        html += '<span data-toggle="modal" data-target="#caseDetailModal" onclick="constructCaseDetailsModal($(this))" data-buil-ch="' + row['buil']['ch'] + '" data-buil-en="' + row['buil']['en'] + '" data-dist-ch="' + row['dist']['ch'] + '" data-dist-en="' + row['dist']['en'] + '" data-cases="' + row['case'].join(',') + '">';
+        html += '<span data-toggle="modal" data-target="#caseDetailModal" onclick="constructCaseDetailsModal($(this))" data-buil-ch="' + row['buil']['ch'] + '" data-buil-en="' + row['buil']['en'] + '" data-dist-ch="' + row['dist']['ch'] + '" data-dist-en="' + row['dist']['en'] + '" data-badge="' + row['badge'] + '" data-cases="' + row['case'].join(',') + '">';
         html += '<a href="javascript:void(0)" data-toggle-disabled="tooltip" title="' + row['case'].join(', ') + '">';
         html += '<span class="badge badge-' + row['badge'] + '">' + row['case'].length + '</span>';
         html += '</a>';
