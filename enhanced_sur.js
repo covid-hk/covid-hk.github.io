@@ -248,7 +248,7 @@ function constructCaseDetailsModal($element) {
 
 function constructCaseDetailsHeader(row) {
   let html = '';
-  html += '<a href="http://maps.google.com/maps?q=' + row['buil']['ch'] + '+' + row['dist']['ch'] + '" target="_blank"><i class="fas fa-map-marked-alt"></i> ' + row['dist']['ch'] + ' ' + row['buil']['ch'] + '</a>';
+  html += '<a href="http://maps.google.com/maps?q=' + row['buil']['ch'] + '+' + row['dist']['ch'] + '" target="_blank"><i class="fas fa-map-marked-alt"></i>&nbsp;&nbsp;' + row['dist']['ch'] + ' ' + row['buil']['ch'] + '</a>';
   html += '<br/>';
   html += '<a href="http://maps.google.com/maps?q=' + row['buil']['en'] + '+' + row['dist']['en'] + '" target="_blank">' + row['buil']['en'] + ', ' + row['dist']['en'] + '</a>';
   html += '<br/>';

@@ -413,7 +413,7 @@ function constructBuildingListTable(data) {
         html += '日期<br/>Date';
         html += '</div>';
         html += '<div class="col-6">';
-        html += '大廈名單 <i class="fas fa-map-marked-alt"></i><br/>Building name';
+        html += '<i class="fas fa-map-marked-alt"></i>&nbsp;&nbsp;大廈名單<br/>Building name';
         html += '</div>';
         html += '<div class="col-3">';
         html += '個案<br/>Cases';

@@ -19,7 +19,7 @@
   <meta name="revisit-after" content="7 days">
   <meta name="robots" content="follow,index">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-  <title>香港確診個案搜索器 Search Engine for Coronavirus Disease (COVID-19) in HK</title>
+  <title>香港確診個案追蹤 Coronavirus Disease (COVID-19) in HK</title>
   <!-- Bootstrap 4.5: CSS only -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
   <!-- Bootstrap 4.5: JS, Popper.js, and jQuery -->
@@ -51,10 +51,10 @@
   <div class="container">
     <div class="row">
       <div class="col" style="margin:10px auto 5px;">
-        <h6 style="font-size:0.9rem;"><i class='far fa-building'></i> 過去14天內曾有疑似/確診個案居住過的住宅大廈 或</h6>
-        <h6 style="font-size:0.9rem;"><i class='fas fa-hotel'></i> 過去14天內曾出現兩宗或以上疑似/確診個案的非住宅大廈</h6>
-        <h6 style="font-size:0.9rem;"><i class='far fa-building'></i> Residential buildings in which probable/confirmed cases have resided in the past 14 days OR</h6>
-        <h6 style="font-size:0.9rem;"><i class='fas fa-hotel'></i> Non-residential building with 2 or more probable/confirmed cases in the past 14 days</h6>
+        <h6 style="font-size:0.9rem;"><i class='far fa-building'></i>&nbsp;&nbsp;過去14天內曾有疑似/確診個案居住過的住宅大廈 或</h6>
+        <h6 style="font-size:0.9rem;"><i class='fas fa-hotel'></i>&nbsp;&nbsp;過去14天內曾出現兩宗或以上疑似/確診個案的非住宅大廈</h6>
+        <h6 style="font-size:0.9rem;"><i class='far fa-building'></i>&nbsp;&nbsp;Residential buildings in which probable/confirmed cases have resided in the past 14 days OR</h6>
+        <h6 style="font-size:0.9rem;"><i class='fas fa-hotel'></i>&nbsp;&nbsp;Non-residential building with 2 or more probable/confirmed cases in the past 14 days</h6>
         <h6 style="font-size:0.7rem;">
           <button type="button" class="btn btn-info" data-toggle="modal" data-target="#chartModal" style="font-size:0.7rem;"><i class='fas fa-chart-line'></i>&nbsp;&nbsp;圖表分析 Graph Analysis</button>
           <a href="https://www.coronavirus.gov.hk/chi/index.html#Updates_on_COVID-19_Situation" data-toggle="tooltip" title="coronavirus.gov.hk" class="btn btn-outline-primary" role="button" target="_blank" style="font-size:0.7rem;"><i class='far fa-folder-open'></i>&nbsp;&nbsp;資料來源 Data Source</a>
@@ -154,7 +154,7 @@
         <div class="alert alert-info" style="text-align:center;padding-top:20px;padding-bottom:20px;">
           <div style="display:inline-block;width:100%;max-width:600px;">
             <label for="search-keyword">
-              <i class='far fa-hand-point-down'></i> 輸入 大廈字詞 或 個案編號 搜索 <i class='fas fa-search'></i>
+              <i class='far fa-hand-point-down'></i> 輸入 個案編號 或 大廈字詞 搜索 <i class='fas fa-search'></i>
             </label>
           </div>
           <div style="display:inline-block;width:100%;max-width:600px;">
@@ -165,8 +165,7 @@
                   <div class="modal-content">
                     <div class="modal-header">
                       <h6 class="modal-title" style="width:100%">
-                        <i class='fas fa-chart-line'></i>
-                        <span>本港2019冠狀病毒病的最新情況</span>
+                        <span><i class='fas fa-chart-line'></i>&nbsp;&nbsp;本港2019冠狀病毒病的最新情況</span>
                         <br/>
                         <span>Latest reported cases of COVID-19 in HK</span>
                       </h6>
@@ -188,7 +187,7 @@
                   </div>
                 </div>
               </div>
-              <input type="text" class="form-control" placeholder="搜尋 Search" id="search-keyword">
+              <input type="text" class="form-control" placeholder="e.g. 2099 或 慈雲山中心" id="search-keyword">
               <div class="input-group-btn" style="margin-right:5px;">
                 <button type="button" class="btn btn-primary" id="search-submit" onclick="refreshUI()"><i class='fas fa-search'></i></button>
               </div>
@@ -232,7 +231,7 @@ document.getElementById("search-keyword").addEventListener("keyup", function(eve
     </div>
   </div>
 
-<button onclick="backToTop()" id="backToTopBtn" title="Back to Top"><i class='far fa-arrow-alt-circle-up'></i> Top</button>
+<button onclick="backToTop()" id="backToTopBtn" title="Back to Top"><i class='far fa-arrow-alt-circle-up'></i> Back</button>
 
 <footer>
   <div class="container">
