@@ -1,6 +1,5 @@
 var domain = [];
-//domain[0] = "https://colorpalette.ddns.net:8443/";
-domain[0] = "https://covid-hk.github.io/";
+domain[0] = "https://colorpalette.ddns.net:8443/";
 domain[1] = "https://covid-hk.github.io/";
 var ajax_retry_times = 0;
 var ajax_retry_times_max = domain.length - 1;
@@ -204,6 +203,11 @@ function getBuildingListCsv() {
         chooseDefaultDistrict();
         refreshUI();
       }
+      // if no result
+      else if (ajax_retry_times < ajax_retry_times_max) {
+        ++ajax_retry_times;
+        getBuildingListCsv();
+      }
     },
     error: function()
     {
@@ -224,6 +228,11 @@ function getBuildingListCsv() {
         mergeBuildingList();
         chooseDefaultDistrict();
         refreshUI();
+      }
+      // if no result
+      else if (ajax_retry_times < ajax_retry_times_max) {
+        ++ajax_retry_times;
+        getBuildingListCsv();
       }
     },
     error: function()

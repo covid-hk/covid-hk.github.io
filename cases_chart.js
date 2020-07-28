@@ -21,6 +21,11 @@ function getCasesCsv() {
         // Draw Line Chart
         drawLineChart();
       }
+      // if no result
+      else if (ajax_retry_times < ajax_retry_times_max) {
+        ++ajax_retry_times;
+        getCasesCsv();
+      }
     },
     error: function()
     {

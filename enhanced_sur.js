@@ -184,6 +184,11 @@ function getCaseDetailsCsv() {
         // Draw Pie Chart
         drawPieChart();
       }
+      // if no result
+      else if (ajax_retry_times < ajax_retry_times_max) {
+        ++ajax_retry_times;
+        getCaseDetailsCsv();
+      }
     },
     error: function()
     {

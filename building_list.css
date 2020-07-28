@@ -31,7 +31,7 @@ a {
   color: white; /* Text color */
   cursor: pointer; /* Add a mouse pointer on hover */
   padding: 10px; /* Some padding */
-  border-radius: 50px; /* Rounded corners */
+  border-radius: 30px; /* Rounded corners */
   font-size: 18px; /* Increase font size */
 }
 
