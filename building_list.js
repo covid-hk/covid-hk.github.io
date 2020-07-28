@@ -5,6 +5,8 @@ var ajax_retry_times = 0;
 var ajax_retry_times_max = domain.length - 1;
 var building_list_chi = [];
 var building_list_eng = [];
+var building_list_chi_ajax_done = false;
+var building_list_eng_ajax_done = false;
 var building_list = [];
 var building_list_dedup = [];
 
@@ -198,16 +200,17 @@ function getBuildingListCsv() {
     success: function(response)
     {
       building_list_chi = $.csv.toObjects(response);
+      building_list_chi_ajax_done = true;
       if (building_list_chi.length > 0 && building_list_eng.length > 0) {
         mergeBuildingList();
         chooseDefaultDistrict();
         refreshUI();
       }
       // if no result
-      //else if (ajax_retry_times < ajax_retry_times_max) {
-      //  ++ajax_retry_times;
-      //  getBuildingListCsv();
-      //}
+      else if (ajax_retry_times < ajax_retry_times_max && building_list_chi_ajax_done && building_list_eng_ajax_done) {
+        ++ajax_retry_times;
+        getBuildingListCsv();
+      }
     },
     error: function()
     {
@@ -224,16 +227,17 @@ function getBuildingListCsv() {
     success: function(response)
     {
       building_list_eng = $.csv.toObjects(response);
+      building_list_eng_ajax_done = true;
       if (building_list_chi.length > 0 && building_list_eng.length > 0) {
         mergeBuildingList();
         chooseDefaultDistrict();
         refreshUI();
       }
       // if no result
-      //else if (ajax_retry_times < ajax_retry_times_max) {
-      //  ++ajax_retry_times;
-      //  getBuildingListCsv();
-      //}
+      else if (ajax_retry_times < ajax_retry_times_max && building_list_chi_ajax_done && building_list_eng_ajax_done) {
+        ++ajax_retry_times;
+        getBuildingListCsv();
+      }
     },
     error: function()
     {
