@@ -204,10 +204,10 @@ function getBuildingListCsv() {
         refreshUI();
       }
       // if no result
-      else if (ajax_retry_times < ajax_retry_times_max) {
-        ++ajax_retry_times;
-        getBuildingListCsv();
-      }
+      //else if (ajax_retry_times < ajax_retry_times_max) {
+      //  ++ajax_retry_times;
+      //  getBuildingListCsv();
+      //}
     },
     error: function()
     {
@@ -230,10 +230,10 @@ function getBuildingListCsv() {
         refreshUI();
       }
       // if no result
-      else if (ajax_retry_times < ajax_retry_times_max) {
-        ++ajax_retry_times;
-        getBuildingListCsv();
-      }
+      //else if (ajax_retry_times < ajax_retry_times_max) {
+      //  ++ajax_retry_times;
+      //  getBuildingListCsv();
+      //}
     },
     error: function()
     {
