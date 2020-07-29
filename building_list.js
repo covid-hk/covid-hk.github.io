@@ -424,6 +424,7 @@ function constructBuildingListTable(data) {
   html += '</div>';
 
   let html_inner = '';
+  let result_cases = [];
   let result_count = 0;
   if(typeof(data[0]) === 'undefined') {
     result_count = 0;
@@ -460,9 +461,16 @@ function constructBuildingListTable(data) {
         html_inner += '</h4>';
         html_inner += '</div>';
         html_inner += '</div>';
+        result_cases = result_cases.concat(row['case']);
         result_count++;
       }
     });
+    // dedup result_cases
+    result_cases = result_cases.filter(function(item, pos, self) {
+      return self.indexOf(item) == pos;
+    });
+    result_cases.sort();
+    result_cases.reverse();
   }
 
   if (result_count == 0) {
@@ -484,6 +492,13 @@ function constructBuildingListTable(data) {
     html += '<mark style="font-size:0.8rem;"><i class="fas fa-search"></i> 找到 <b>'+result_count+'</b> 座相關大廈<br/><b>'+result_count+'</b> Building(s) Found<br/><i class="far fa-hand-point-right"></i> 點擊個案數字查看詳情 <i class="fas fa-project-diagram"></i><br/><i class="far fa-hand-point-down"></i> 點擊大廈名稱打開地圖 <i class="fas fa-map-marked-alt"></i></mark>';
     html += '</div>';
     html += '<div class="col-3">';
+    html += '<h4>';
+    html += '<span data-toggle-disabled="modal" data-target="#caseDetailModal" data-badge="light" data-cases="' + result_cases.join(',') + '">';
+    html += '<a href="javascript:void(0)" data-toggle="tooltip" title="' + result_cases.join(', ') + '">';
+    html += '<span class="badge badge-light">' + result_cases.length + '</span>';
+    html += '</a>';
+    html += '</span>';
+    html += '</h4>';
     html += '</div>';
     html += '</div>';
     html += html_inner;
