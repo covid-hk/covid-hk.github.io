@@ -1,19 +1,50 @@
+var user_location = {'latitude': 0.0, 'longitude': 0.0};
+//user_location = {'latitude': 0.0, 'longitude': 0.0};
+
 $(document).ready(function(){
-  //
+  getLocation();
 });
 
-/* HTML Geolocation API */
-/* https://www.w3schools.com/html/html5_geolocation.asp */
+function updateUserLocation(position) {
+  user_location.latitude = position.coords.latitude;
+  user_location.longitude = position.coords.longitude;
+}
+
 /* Lat-long coorditates for cities in Hong Kong are in range */
 /* Latitude from 22.22623 to 22.45007 */
 /* Longitude from 113.97157 to 114.26667 */
+function isValidLocation(latitude, longitude) {
+  if ( 22.1 <= latitude  && latitude  <= 22.6 &&
+      113.8 <= longitude && longitude <= 114.4) {
+    return true;
+  }
+  return false;
+}
+function isValidUserLocation() {
+  return isValidLocation(user_location.latitude, user_location.longitude);
+}
+
+function getFormattedDistanceBetweenLatLong(lat1, lon1, lat2, lon2) {
+  let distance = calculateDistanceBetweenLatLong(lat1, lon1, lat2, lon2);
+  let formatted = '';
+  if (distance < 1000) {
+    formatted = '' + Math.round(distance) + ' m';
+  }
+  else {
+    formatted = '' + (Math.round(distance / 100.0) / 10.0) + ' km';
+  }
+  return formatted;
+}
+
+/* HTML Geolocation API */
+/* https://www.w3schools.com/html/html5_geolocation.asp */
 
 function getLocation() {
   if (navigator.geolocation) {
-    //navigator.geolocation.getCurrentPosition(showPosition);
-    navigator.geolocation.watchPosition(showPosition);
+    //navigator.geolocation.getCurrentPosition(showPosition, showError);
+    navigator.geolocation.watchPosition(updateUserLocation);
   } else {
-    console.log("Geolocation is not supported by this browser.");
+    //console.log("Geolocation is not supported by this browser.");
   }
 }
 

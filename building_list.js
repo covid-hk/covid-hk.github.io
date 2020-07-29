@@ -3,6 +3,8 @@ domain[0] = "https://colorpalette.ddns.net:8443/";
 domain[1] = "https://covid-hk.github.io/";
 var ajax_retry_times = 0;
 var ajax_retry_times_max = domain.length - 1;
+var googleapis_maps = [];
+var googleapis_maps_hashmap = [];
 var building_list_chi = [];
 var building_list_eng = [];
 var building_list_chi_ajax_done = false;
@@ -79,7 +81,7 @@ function getCookie(cname) {
 }
 
 $(document).ready(function(){
-  getBuildingListCsv();
+  getGoogleApisMapsCsv();
 });
 
 // When the user scrolls down from the top of the document, show the button
@@ -187,6 +189,37 @@ function refreshUI() {
   }, 100);
 }
 
+function getGoogleApisMapsCsv() {
+  let unixtimestamp = Math.floor(Date.now() / 1000);
+  let unixtimestampper15mins = Math.floor(unixtimestamp / 1000);
+  $.ajax({
+    type: "GET",
+    url: domain[ajax_retry_times_max] + "googleapis_maps.csv?t=" + unixtimestampper15mins,
+    dataType: "text",
+    success: function(response)
+    {
+      googleapis_maps = $.csv.toObjects(response);
+      if (googleapis_maps.length > 0) {
+        googleapis_maps_hashmap = new Map(googleapis_maps.map(item => [item['地區']+','+item['大廈名單'], {'lat':item['lat'],'lng':item['lng']}]));
+
+        getBuildingListCsv();
+      }
+      // if no result
+      //else if (ajax_retry_times < ajax_retry_times_max) {
+      //  ++ajax_retry_times;
+      //  getGoogleApisMapsCsv();
+      //}
+    },
+    error: function()
+    {
+      //if (ajax_retry_times < ajax_retry_times_max) {
+      //  ++ajax_retry_times;
+      //  getGoogleApisMapsCsv();
+      //}
+    }
+  });
+}
+
 function getBuildingListCsv() {
   // https://data.gov.hk/tc-data/dataset/hk-dh-chpsebcddr-novel-infectious-agent
   // https://www.chp.gov.hk/files/misc/building_list_chi.csv
@@ -276,6 +309,19 @@ function mergeBuildingList() {
       obj['date'] = moment(obj['date'], 'DD/MM/YYYY').format('YYYY-MM-DD');
     }
     obj['case'] = building_list_chi[i]['相關疑似/確診個案'].replace(/\s/g, '');
+
+    let cachedLatLng = googleapis_maps_hashmap.get(obj['dist']['ch'] + ',' + obj['buil']['ch']);
+    if (typeof cachedLatLng !== 'undefined') {
+      // Check if already exists, assign the correct lat & lng of this building
+      obj['lat'] = cachedLatLng['lat'];
+      obj['lng'] = cachedLatLng['lng'];
+    }
+    else {
+      // if not exists, assign 0.0 to both lat & lng
+      obj['lat'] = 0.0;
+      obj['lng'] = 0.0;
+    }
+
     building_list.push(obj);
   }
 
@@ -327,6 +373,8 @@ function mergeBuildingList() {
       obj['type'] = building_list[i]['type'];
       obj['date'] = building_list[i]['date'];
       obj['case'] = building_list[i]['case'];
+      obj['lat'] = building_list[i]['lat'];
+      obj['lng'] = building_list[i]['lng'];
       building_list_dedup.push(obj);
     }
     else {
@@ -409,13 +457,51 @@ function getBadgePriority(badge) {
 }
 
 function constructBuildingListTable(data) {
+  if (isValidUserLocation()) {
+    // Make a copy of data array first to avoid any modification of the original data source
+    data = data.slice();
+    // Sort data by distance
+    data.sort(function(a, b) {
+      let distance_to_a = calculateDistanceBetweenLatLong(user_location.latitude, user_location.longitude, a['lat'], a['lng']);
+      let distance_to_b = calculateDistanceBetweenLatLong(user_location.latitude, user_location.longitude, b['lat'], b['lng']);
+      if (distance_to_a < distance_to_b) {
+        return -1;
+      }
+      else if (distance_to_a > distance_to_b) {
+        return 1;
+      }
+      else {
+        return 0;
+      }
+      return 0;
+    });
+    // Sort data by badge level (info > warning > danger > dark)
+    data.sort(function(a, b) {
+      if (getBadgePriority(a['badge']) < getBadgePriority(b['badge'])) {
+        return -1;
+      }
+      else if (getBadgePriority(a['badge']) > getBadgePriority(b['badge'])) {
+        return 1;
+      }
+      else {
+        return 0;
+      }
+      return 0;
+    });
+  }
+
   /* Bootstrap 4 style grid as table */
   /* https://www.codeply.com/go/IDBemcEAyL */
   let html = '<div class="col-12 grid-striped table table-condensed table-hover table-striped" id="table-building">';
 
   html += '<div class="row py-2 font-weight-bold">';
   html += '<div class="col-3">';
-  html += '日期<br/>Date';
+  if (isValidUserLocation()) {
+    html += '距離<br/>Distance';
+  }
+  else {
+    html += '日期<br/>Date';
+  }
   html += '</div>';
   html += '<div class="col-6">';
   html += '<i class="far fa-building"></i>&nbsp;&nbsp;大廈名單<br/>Building name';
@@ -446,7 +532,17 @@ function constructBuildingListTable(data) {
           (keyword_as_int > 0 && row['case'].includes(keyword_as_int))) {
         html_inner += '<div class="row py-2">';
         html_inner += '<div class="col-3">';
-        html_inner += (row['date'] == '' ? '' : (moment(row['date'], 'YYYY-MM-DD').format('M月D日') + '<br/>' + moment(row['date'], 'YYYY-MM-DD').format('MMM Do')));
+        if (isValidUserLocation()) {
+          if (isValidLocation(row['lat'], row['lng'])) {
+            html_inner += getFormattedDistanceBetweenLatLong(user_location.latitude, user_location.longitude, row['lat'], row['lng']);
+          }
+          else {
+            html_inner += '';
+          }
+        }
+        else {
+          html_inner += (row['date'] == '' ? '' : (moment(row['date'], 'YYYY-MM-DD').format('M月D日') + '<br/>' + moment(row['date'], 'YYYY-MM-DD').format('MMM Do')));
+        }
         html_inner += '</div>';
         html_inner += '<div class="col-6">';
         html_inner += '<a href="http://maps.google.com/maps?q=' + row['buil']['ch'] + '+' + row['dist']['ch'] + '" target="_blank">' + row['dist']['ch'] + ' ' + row['buil']['ch'] + '</a>';

@@ -19,7 +19,7 @@ function getGoogleApisMapsCsv() {
   let unixtimestampper15mins = Math.floor(unixtimestamp / 1000);
   $.ajax({
     type: "GET",
-    url: domain[ajax_retry_times] + "googleapis_maps.csv?t=" + unixtimestamp,
+    url: domain[ajax_retry_times_max] + "googleapis_maps.csv?t=" + unixtimestamp,
     dataType: "text",
     success: function(response)
     {
@@ -30,17 +30,17 @@ function getGoogleApisMapsCsv() {
         getBuildingListCsv();
       }
       // if no result
-      else if (ajax_retry_times < ajax_retry_times_max) {
-        ++ajax_retry_times;
-        getGoogleApisMapsCsv();
-      }
+      //else if (ajax_retry_times < ajax_retry_times_max) {
+      //  ++ajax_retry_times;
+      //  getGoogleApisMapsCsv();
+      //}
     },
     error: function()
     {
-      if (ajax_retry_times < ajax_retry_times_max) {
-        ++ajax_retry_times;
-        getGoogleApisMapsCsv();
-      }
+      //if (ajax_retry_times < ajax_retry_times_max) {
+      //  ++ajax_retry_times;
+      //  getGoogleApisMapsCsv();
+      //}
     }
   });
 }
