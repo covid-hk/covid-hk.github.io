@@ -1,27 +1,19 @@
 var user_location = {'latitude': 0.0, 'longitude': 0.0};
 //user_location = {'latitude': 0.0, 'longitude': 0.0};
 
-// This indicator is used to avoid refresh UI twice during the web page initialization
-var isAlreadyInLocationMode = false;
-
 $(document).ready(function(){
   getLocation();
 });
 
 function updateUserLocation(position) {
-  let prev_location = {'latitude': 0.0, 'longitude': 0.0};
-  prev_location.latitude = user_location.latitude;
-  prev_location.longitude = user_location.longitude;
-  user_location.latitude = position.coords.latitude;
-  user_location.longitude = position.coords.longitude;
   // if user moves from invalid location to valid location, refresh
-  if (!isValidLocation(prev_location.latitude, prev_location.longitude) && isValidUserLocation()) {
+  if (!isValidUserLocation() && isValidLocation(position.coords.latitude, position.coords.longitude)) {
     setTimeout(function(){
-      if (!isAlreadyInLocationMode) {
-        refreshUI();
-      }
+      refreshUI();
     }, 2000);
   }
+  user_location.latitude = position.coords.latitude;
+  user_location.longitude = position.coords.longitude;
 }
 
 /* Lat-long coorditates for cities in Hong Kong are in range */
@@ -35,11 +27,7 @@ function isValidLocation(latitude, longitude) {
   return false;
 }
 function isValidUserLocation() {
-  let valid = isValidLocation(user_location.latitude, user_location.longitude);
-  if (valid && !isAlreadyInLocationMode) {
-    isAlreadyInLocationMode = true;
-  }
-  return valid;
+  return isValidLocation(user_location.latitude, user_location.longitude);
 }
 
 function getFormattedDistance(distance) {
