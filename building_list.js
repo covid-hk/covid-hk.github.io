@@ -287,16 +287,16 @@ function mergeBuildingList() {
   for (let i = 0; i < building_list_chi.length; i++) {
     let obj = [];
     obj['dist'] = map_dist[building_list_chi[i]['地區']];
-    obj['buil'] = {'ch':building_list_chi[i]['大廈名單'], 'en':building_list_eng[i]['Building name'].capitalize()};
+    obj['buil'] = {'ch':building_list_chi[i]['大廈名單'], 'en':building_list_eng[i]['Building name']};
     // Data bug, special handling temporarily
     //if (i > 1199 - 2) {
-    //  obj['buil'] = {'ch':building_list_chi[i]['大廈名單'], 'en':building_list_eng[i-1]['Building name'].capitalize()};
+    //  obj['buil'] = {'ch':building_list_chi[i]['大廈名單'], 'en':building_list_eng[i-1]['Building name']};
     //}
     //else if (i == 1199 - 2) {
     //  obj['buil'] = {'ch':building_list_chi[i]['大廈名單'], 'en':''};
     //}
     //else {
-    //  obj['buil'] = {'ch':building_list_chi[i]['大廈名單'], 'en':building_list_eng[i]['Building name'].capitalize()};
+    //  obj['buil'] = {'ch':building_list_chi[i]['大廈名單'], 'en':building_list_eng[i]['Building name']};
     //}
     obj['type'] = map_type['住宅'];
     if (obj['buil']['ch'].includes('非住宅')) {
