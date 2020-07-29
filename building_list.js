@@ -343,6 +343,7 @@ function mergeBuildingList() {
       return self.indexOf(item) == pos;
     });
     building_list_dedup[i]['case'].sort();
+    building_list_dedup[i]['case'].reverse();
     // badge = case group (info, warning, danger, dark)
     building_list_dedup[i]['badge'] = 'info';
     if (building_list_dedup[i]['case'].length > 19) {
@@ -367,6 +368,7 @@ function mergeBuildingList() {
       return self.indexOf(item) == pos;
     });
     map_dist[dist_ch]['case'].sort();
+    map_dist[dist_ch]['case'].reverse();
     // Append case count per district to district label
     $("#label-district-"+map_dist[dist_ch]['id'].toLowerCase()).append('<br/><span class="badge badge-secondary badge-district" id="badge-district-'+map_dist[dist_ch]['id'].toLowerCase()+'">'+map_dist[dist_ch]['case'].length+'</span>');
   }
