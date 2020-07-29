@@ -1,6 +1,9 @@
 var user_location = {'latitude': 0.0, 'longitude': 0.0};
 //user_location = {'latitude': 0.0, 'longitude': 0.0};
 
+// This indicator is used to avoid refresh UI twice during the web page initialization
+var isAlreadyInLocationMode = false;
+
 $(document).ready(function(){
   getLocation();
 });
@@ -14,7 +17,9 @@ function updateUserLocation(position) {
   // if user moves from invalid location to valid location, refresh
   if (!isValidLocation(prev_location.latitude, prev_location.longitude) && isValidUserLocation()) {
     setTimeout(function(){
-      refreshUI();
+      if (!isAlreadyInLocationMode) {
+        refreshUI();
+      }
     }, 2000);
   }
 }
@@ -30,7 +35,11 @@ function isValidLocation(latitude, longitude) {
   return false;
 }
 function isValidUserLocation() {
-  return isValidLocation(user_location.latitude, user_location.longitude);
+  let valid = isValidLocation(user_location.latitude, user_location.longitude);
+  if (valid && !isAlreadyInLocationMode) {
+    isAlreadyInLocationMode = true;
+  }
+  return valid;
 }
 
 function getFormattedDistance(distance) {
@@ -98,5 +107,5 @@ function calculateDistanceBetweenLatLong(lat1, lon1, lat2, lon2) {
 
   const d = R * c; // in metres
 
-  return d;
+  return Math.round(d * 1.0); // return int instead of float to avoid js treat float as string type
 }

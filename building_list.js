@@ -310,18 +310,6 @@ function mergeBuildingList() {
     }
     obj['case'] = building_list_chi[i]['相關疑似/確診個案'].replace(/\s/g, '');
 
-    let cachedLatLng = googleapis_maps_hashmap.get(obj['dist']['ch'] + ',' + obj['buil']['ch']);
-    if (typeof cachedLatLng !== 'undefined') {
-      // Check if already exists, assign the correct lat & lng of this building
-      obj['lat'] = cachedLatLng['lat'];
-      obj['lng'] = cachedLatLng['lng'];
-    }
-    else {
-      // if not exists, assign 0.0 to both lat & lng
-      obj['lat'] = 0.0;
-      obj['lng'] = 0.0;
-    }
-
     building_list.push(obj);
   }
 
@@ -434,6 +422,21 @@ function mergeBuildingList() {
     }
     return 0;
   });
+
+  // Assign lat & lng to the building_list
+  for (let i = 0; i < building_list_dedup.length; i++) {
+    let cachedLatLng = googleapis_maps_hashmap.get(building_list_dedup[i]['dist']['ch'] + ',' + building_list_dedup[i]['buil']['ch']);
+    if (typeof cachedLatLng !== 'undefined') {
+      // Check if already exists, assign the correct lat & lng of this building
+      building_list_dedup[i]['lat'] = cachedLatLng['lat'];
+      building_list_dedup[i]['lng'] = cachedLatLng['lng'];
+    }
+    else {
+      // if not exists, assign 0.0 to both lat & lng
+      building_list_dedup[i]['lat'] = 0.0;
+      building_list_dedup[i]['lng'] = 0.0;
+    }
+  }
 }
 
 function getBadgePriority(badge) {
@@ -457,14 +460,39 @@ function getBadgePriority(badge) {
 }
 
 function constructBuildingListTable(data) {
+  let user_latitude = user_location.latitude;
+  let user_longitude = user_location.longitude;
+
+  // Assign distance to the data list
+  for (let i = 0; i < data.length; i++) {
+    if (isValidUserLocation()) {
+      if (isValidLocation(data[i]['lat'], data[i]['lng'])) {
+        data[i]['distance'] = calculateDistanceBetweenLatLong(user_latitude, user_longitude, data[i]['lat'], data[i]['lng']);
+      }
+      else {
+        data[i]['distance'] = 100000;
+      }
+    }
+    else {
+      data[i]['distance'] = 100000;
+    }
+  }
+
   if (isValidUserLocation()) {
     // Make a copy of data array first to avoid any modification of the original data source
     data = data.slice();
+    // Here sort data 3 times to avoid javascript sorting bug
     // Sort data by distance
     data.sort(function(a, b) {
-      let distance_to_a = calculateDistanceBetweenLatLong(user_location.latitude, user_location.longitude, a['lat'], a['lng']);
-      let distance_to_b = calculateDistanceBetweenLatLong(user_location.latitude, user_location.longitude, b['lat'], b['lng']);
-      return (distance_to_a - distance_to_b);
+      return (a['distance'] - b['distance']);
+    });
+    // Sort data by distance
+    data.sort(function(a, b) {
+      return 0 - (a['distance'] - b['distance']);
+    });
+    // Sort data by distance
+    data.sort(function(a, b) {
+      return (a['distance'] - b['distance']);
     });
   }
 
@@ -506,12 +534,7 @@ function constructBuildingListTable(data) {
       distance_range = $('input[name="input-distance"]:checked').val();
     }
     $.each(data, function( index, row ) {
-      let distance = distance_range;
-      if (isValidUserLocation()) {
-        if (isValidLocation(row['lat'], row['lng'])) {
-          distance = calculateDistanceBetweenLatLong(user_location.latitude, user_location.longitude, row['lat'], row['lng']);
-        }
-      }
+      let distance = row['distance'];
       let filtered = true;
       // 輸入 個案編號
       if (keyword_as_int > 0 && row['case'].includes(keyword_as_int)) {
