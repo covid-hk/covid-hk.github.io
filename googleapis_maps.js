@@ -19,7 +19,7 @@ function getGoogleApisMapsCsv() {
   let unixtimestampper15mins = Math.floor(unixtimestamp / 1000);
   $.ajax({
     type: "GET",
-    url: domain[ajax_retry_times] + "googleapis_maps.csv?t=" + unixtimestampper15mins,
+    url: domain[ajax_retry_times] + "googleapis_maps.csv?t=" + unixtimestamp,
     dataType: "text",
     success: function(response)
     {
@@ -106,7 +106,7 @@ function getLatLongFromGoogleMapApi() {
     }
   }
 
-  let i = 0;
+  let loop = 0;
   while (!q.isEmpty()) {
     let item = q.peek();
     let district = item.district;
@@ -119,7 +119,7 @@ function getLatLongFromGoogleMapApi() {
     }
     else {
       setTimeout(function timer() {
-        console.log('loop: ' + (i + 1) + ', ' + district + ', ' + building);
+        console.log('loop: ' + (loop + 1) + ', ' + district + ', ' + building);
 
         let request = { query: district + ' ' + building, fields: ['name', 'geometry'] };
 
@@ -146,10 +146,11 @@ function getLatLongFromGoogleMapApi() {
             console.log('ZERO_RESULTS');
           }
         });
+        loop--;
       }, i * 1000);
 
       q.dequeue();
-      i++;
+      loop++;
     }
   }
 }
