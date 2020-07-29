@@ -94,7 +94,7 @@ function getLatLongFromGoogleMapApi() {
   let q = new Queue();
   for (let i = 0; i < building_list_chi.length; i++) {
     let district = building_list_chi[i]['地區'];
-    let building = building_list_chi[i]['大廈名單'];
+    let building = building_list_chi[i]['大廈名單'].replace(' (非住宅)', '');
 
     if (typeof googleapis_maps_hashmap.get(district + ',' + building) !== 'undefined') {
       // Check if already exists, do nothing
@@ -119,6 +119,7 @@ function getLatLongFromGoogleMapApi() {
     }
     else {
       setTimeout(function timer() {
+        loop--;
         console.log('loop: ' + (loop + 1) + ', ' + district + ', ' + building);
 
         let request = { query: district + ' ' + building, fields: ['name', 'geometry'] };
@@ -146,7 +147,6 @@ function getLatLongFromGoogleMapApi() {
             console.log('ZERO_RESULTS');
           }
         });
-        loop--;
       }, loop * 1000);
 
       q.dequeue();
