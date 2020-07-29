@@ -464,16 +464,7 @@ function constructBuildingListTable(data) {
     data.sort(function(a, b) {
       let distance_to_a = calculateDistanceBetweenLatLong(user_location.latitude, user_location.longitude, a['lat'], a['lng']);
       let distance_to_b = calculateDistanceBetweenLatLong(user_location.latitude, user_location.longitude, b['lat'], b['lng']);
-      if (distance_to_a < distance_to_b) {
-        return -1;
-      }
-      else if (distance_to_a > distance_to_b) {
-        return 1;
-      }
-      else {
-        return 0;
-      }
-      return 0;
+      return (distance_to_a - distance_to_b);
     });
   }
 
@@ -510,18 +501,39 @@ function constructBuildingListTable(data) {
     if (keyword.isNumber()) {
       keyword_as_int = parseInt(keyword, 10);
     }
+    let distance_range = 100000;
+    if (isValidUserLocation()) {
+      distance_range = $('input[name="input-distance"]:checked').val();
+    }
     $.each(data, function( index, row ) {
+      let distance = distance_range;
+      if (isValidUserLocation()) {
+        if (isValidLocation(row['lat'], row['lng'])) {
+          distance = calculateDistanceBetweenLatLong(user_location.latitude, user_location.longitude, row['lat'], row['lng']);
+        }
+      }
+      let filtered = true;
+      // 輸入 個案編號
+      if (keyword_as_int > 0 && row['case'].includes(keyword_as_int)) {
+        filtered = false;
+      }
+      // 輸入 大廈字詞
+      else if (keyword != '' && (row['buil']['ch'].toLowerCase().includes(keyword) || row['buil']['en'].toLowerCase().includes(keyword))) {
+        filtered = false;
+      }
       // 選擇 地區
-      if ((keyword == '' && row['dist']['id'] == $('input[name="input-district"]:checked').val()) ||
-          // Or 輸入 大廈字詞
-          (keyword != '' && (row['buil']['ch'].toLowerCase().includes(keyword) || row['buil']['en'].toLowerCase().includes(keyword))) ||
-          // Or 輸入 個案編號
-          (keyword_as_int > 0 && row['case'].includes(keyword_as_int))) {
+      else if (keyword == '' && row['dist']['id'] == $('input[name="input-district"]:checked').val()) {
+        filtered = false;
+      }
+      // 選擇 距離
+      //else if (distance > distance_range) {
+      //  filtered = false;
+      //}
+      if (!filtered) {
         html_inner += '<div class="row py-2">';
         html_inner += '<div class="col-3">';
         if (isValidUserLocation()) {
           if (isValidLocation(row['lat'], row['lng'])) {
-            let distance = calculateDistanceBetweenLatLong(user_location.latitude, user_location.longitude, row['lat'], row['lng']);
             // badge = distance (success, warning, danger, dark)
             let badge = 'success';
             if (distance <= 400.0) {

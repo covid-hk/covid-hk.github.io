@@ -205,6 +205,28 @@ document.getElementById("search-keyword").addEventListener("keyup", function(eve
               <button type="button" class="btn btn-secondary" onclick="cleanSearchBox(0)"><i class='far fa-trash-alt'></i></button>
             </div>
           </div>
+          <div style="display:none;width:100%;max-width:600px;margin-top:5px;">
+            <div class="form-check-inline">
+              <label class="form-check-label" for="distance-500">
+                <input type="radio" class="form-check-input" id="distance-500" name="input-distance" value="500" onclick="refreshUI()">&lt;500m
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label" for="distance-1000">
+                <input type="radio" class="form-check-input" id="distance-1000" name="input-distance" value="1000" onclick="refreshUI()">&lt;1km
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label" for="distance-2000">
+                <input type="radio" class="form-check-input" id="distance-2000" name="input-distance" value="2000" onclick="refreshUI()">&lt;2km
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label" for="distance-all">
+                <input type="radio" class="form-check-input" id="distance-all" name="input-distance" value="100000" onclick="refreshUI()" checked>按地區顯示
+              </label>
+            </div>
+          </div>
         </div>
       </div>
     </div>
