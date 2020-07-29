@@ -475,19 +475,6 @@ function constructBuildingListTable(data) {
       }
       return 0;
     });
-    // Sort data by badge level (info > warning > danger > dark)
-    data.sort(function(a, b) {
-      if (getBadgePriority(a['badge']) < getBadgePriority(b['badge'])) {
-        return -1;
-      }
-      else if (getBadgePriority(a['badge']) > getBadgePriority(b['badge'])) {
-        return 1;
-      }
-      else {
-        return 0;
-      }
-      return 0;
-    });
   }
 
   /* Bootstrap 4 style grid as table */
@@ -534,7 +521,21 @@ function constructBuildingListTable(data) {
         html_inner += '<div class="col-3">';
         if (isValidUserLocation()) {
           if (isValidLocation(row['lat'], row['lng'])) {
-            html_inner += getFormattedDistanceBetweenLatLong(user_location.latitude, user_location.longitude, row['lat'], row['lng']);
+            let distance = calculateDistanceBetweenLatLong(user_location.latitude, user_location.longitude, row['lat'], row['lng']);
+            // badge = distance (success, warning, danger, dark)
+            let badge = 'success';
+            if (distance <= 400.0) {
+              badge = 'dark';
+            }
+            else if (distance <= 800.0) {
+              badge = 'danger';
+            }
+            else if (distance <= 1600.0) {
+              badge = 'warning';
+            }
+            html_inner += '<h5>';
+            html_inner += '<span class="badge badge-' + badge + '">' + getFormattedDistance(distance) + '</span>';
+            html_inner += '</h5>';
           }
           else {
             html_inner += '';

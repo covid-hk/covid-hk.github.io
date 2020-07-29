@@ -6,8 +6,15 @@ $(document).ready(function(){
 });
 
 function updateUserLocation(position) {
+  let prev_location = {'latitude': 0.0, 'longitude': 0.0};
+  prev_location.latitude = user_location.latitude;
+  prev_location.longitude = user_location.longitude;
   user_location.latitude = position.coords.latitude;
   user_location.longitude = position.coords.longitude;
+  // if user moves from invalid location to valid location, refresh
+  if (!isValidLocation(prev_location.latitude, prev_location.longitude) && isValidUserLocation()) {
+    refreshUI();
+  }
 }
 
 /* Lat-long coorditates for cities in Hong Kong are in range */
@@ -24,8 +31,7 @@ function isValidUserLocation() {
   return isValidLocation(user_location.latitude, user_location.longitude);
 }
 
-function getFormattedDistanceBetweenLatLong(lat1, lon1, lat2, lon2) {
-  let distance = calculateDistanceBetweenLatLong(lat1, lon1, lat2, lon2);
+function getFormattedDistance(distance) {
   let formatted = '';
   if (distance < 1000) {
     formatted = '' + Math.round(distance) + ' m';
