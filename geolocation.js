@@ -13,7 +13,9 @@ function updateUserLocation(position) {
   user_location.longitude = position.coords.longitude;
   // if user moves from invalid location to valid location, refresh
   if (!isValidLocation(prev_location.latitude, prev_location.longitude) && isValidUserLocation()) {
-    refreshUI();
+    setTimeout(function(){
+      refreshUI();
+    }, 2000);
   }
 }
 
