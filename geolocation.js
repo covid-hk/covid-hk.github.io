@@ -4,6 +4,9 @@ $(document).ready(function(){
 
 /* HTML Geolocation API */
 /* https://www.w3schools.com/html/html5_geolocation.asp */
+/* Lat-long coorditates for cities in Hong Kong are in range */
+/* Latitude from 22.22623 to 22.45007 */
+/* Longitude from 113.97157 to 114.26667 */
 
 function getLocation() {
   if (navigator.geolocation) {
