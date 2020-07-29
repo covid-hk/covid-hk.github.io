@@ -489,7 +489,7 @@ function constructBuildingListTable(data) {
     html += '<div class="col-3">';
     html += '</div>';
     html += '<div class="col-6">';
-    html += '<mark style="font-size:0.8rem;"><i class="fas fa-search"></i> 找到 <b>'+result_count+'</b> 座相關大廈<br/><b>'+result_count+'</b> Building(s) Found<br/><i class="far fa-hand-point-right"></i> 點擊個案數字查看詳情 <i class="fas fa-project-diagram"></i><br/><i class="far fa-hand-point-down"></i> 點擊大廈名稱打開地圖 <i class="fas fa-map-marked-alt"></i></mark>';
+    html += '<mark style="font-size:0.8rem;"><i class="fas fa-search"></i> 找到 <b>'+result_count+'</b> 座相關大廈<br/><b>'+result_count+'</b> Building(s) Found<br/><i class="far fa-hand-point-right"></i> 個案數字查看詳情 <i class="fas fa-project-diagram"></i><br/><i class="far fa-hand-point-down"></i> 大廈名稱打開地圖 <i class="fas fa-map-marked-alt"></i></mark>';
     html += '</div>';
     html += '<div class="col-3">';
     html += '<h4>';
