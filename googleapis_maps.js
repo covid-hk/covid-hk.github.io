@@ -86,47 +86,70 @@ function getLatLongFromGoogleMapApi() {
 
   let service = new google.maps.places.PlacesService(map);
 
-  $(result).append('地區,大廈名單,name,lat,lng<br/>');
-  console.log('length: ' + building_list_chi.length);
+  $('#result').append('地區,大廈名單,name,lat,lng<br/>');
+  googleapis_maps_hashmap.forEach(function (value, key, map) {
+    $('#result').append(value + '<br/>');
+  });
+
+  let q = new Queue();
   for (let i = 0; i < building_list_chi.length; i++) {
-    setTimeout(function timer() {
-      let district = building_list_chi[i]['地區'];
-      let building = building_list_chi[i]['大廈名單'];
-      console.log('loop: ' + (i + 1) + ', ' + district + ', ' + building);
+    let district = building_list_chi[i]['地區'];
+    let building = building_list_chi[i]['大廈名單'];
 
-      // Check if already exists
-      let hashmapKey = (district + ',' + building);
-      let hashmapValue = googleapis_maps_hashmap.get(hashmapKey);
-      if (typeof hashmapElement !== 'undefined') {
-        $(result).append(hashmapValue + '<br/>');
-        return;
-      }
+    if (typeof googleapis_maps_hashmap.get(district + ',' + building) !== 'undefined') {
+      // Check if already exists, do nothing
+      continue;
+    }
+    else {
+      // if not exists, push the element into queue to process later
+      q.enqueue({'district': district, 'building': building});
+    }
+  }
 
-      let request = { query: district + ' ' + building, fields: ['name', 'geometry'] };
+  let i = 0;
+  while (!q.isEmpty()) {
+    let item = q.peek();
+    let district = item.district;
+    let building = item.building;
 
-      service.findPlaceFromQuery(request, function(results, status) {
-        if (status === google.maps.places.PlacesServiceStatus.OK) {
-          if (results.length > 0) {
-            let geometry = results[0].geometry.location.toJSON();
-            $(result).append(district + ',' + building + ',' + results[0].name + ',' + geometry.lat + ',' + geometry.lng + '<br/>');
+    if (typeof googleapis_maps_hashmap.get(district + ',' + building) !== 'undefined') {
+      // Check if already exists, dequeue and loop to peek next item
+      q.dequeue();
+      continue;
+    }
+    else {
+      setTimeout(function timer() {
+        console.log('loop: ' + (i + 1) + ', ' + district + ', ' + building);
+
+        let request = { query: district + ' ' + building, fields: ['name', 'geometry'] };
+
+        service.findPlaceFromQuery(request, function(results, status) {
+          if (status === google.maps.places.PlacesServiceStatus.OK) {
+            if (results.length > 0) {
+              let geometry = results[0].geometry.location.toJSON();
+              $('#result').append(district + ',' + building + ',' + results[0].name + ',' + geometry.lat + ',' + geometry.lng + '<br/>');
+            }
           }
-        }
-        else if (status === google.maps.places.PlacesServiceStatus.INVALID_REQUEST) {
-          console.log('INVALID_REQUEST');
-        }
-        else if (status === google.maps.places.PlacesServiceStatus.OVER_QUERY_LIMIT) {
-          console.log('OVER_QUERY_LIMIT');
-        }
-        else if (status === google.maps.places.PlacesServiceStatus.REQUEST_DENIED) {
-          console.log('REQUEST_DENIED');
-        }
-        else if (status === google.maps.places.PlacesServiceStatus.UNKNOWN_ERROR) {
-          console.log('UNKNOWN_ERROR');
-        }
-        else if (status === google.maps.places.PlacesServiceStatus.ZERO_RESULTS) {
-          console.log('ZERO_RESULTS');
-        }
-      });
-    }, i * 1000);
+          else if (status === google.maps.places.PlacesServiceStatus.INVALID_REQUEST) {
+            console.log('INVALID_REQUEST');
+          }
+          else if (status === google.maps.places.PlacesServiceStatus.OVER_QUERY_LIMIT) {
+            console.log('OVER_QUERY_LIMIT');
+          }
+          else if (status === google.maps.places.PlacesServiceStatus.REQUEST_DENIED) {
+            console.log('REQUEST_DENIED');
+          }
+          else if (status === google.maps.places.PlacesServiceStatus.UNKNOWN_ERROR) {
+            console.log('UNKNOWN_ERROR');
+          }
+          else if (status === google.maps.places.PlacesServiceStatus.ZERO_RESULTS) {
+            console.log('ZERO_RESULTS');
+          }
+        });
+      }, i * 1000);
+
+      q.dequeue();
+      i++;
+    }
   }
 }
