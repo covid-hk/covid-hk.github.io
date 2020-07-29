@@ -147,7 +147,7 @@ function getLatLongFromGoogleMapApi() {
           }
         });
         loop--;
-      }, i * 1000);
+      }, loop * 1000);
 
       q.dequeue();
       loop++;
