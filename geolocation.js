@@ -33,7 +33,7 @@ function isValidUserLocation() {
 
 function getFormattedDistance(distance) {
   let formatted = '';
-  if (distance < 1000) {
+  if (distance < 1000.0) {
     formatted = '' + Math.round(distance) + ' m';
   }
   else {
