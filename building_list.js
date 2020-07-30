@@ -49,6 +49,14 @@ String.prototype.isNumber = function(){
   return /^\d+$/.test(this);
 }
 
+String.prototype.isInteger = function(){
+  return /^-?\d+$/.test(this);
+}
+
+String.prototype.isFloat = function(){
+  return /^-?\d+(?:[.,]\d*?)?$/.test(this);
+}
+
 Number.prototype.toOrdinal = function(){
   if (this <= 0) { return {'number':this, 'suffix':''}; }
   else if (this % 100 >= 11 && this % 100 <= 13) { return {'number':this, 'suffix':'th'}; }

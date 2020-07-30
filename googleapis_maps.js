@@ -128,7 +128,15 @@ function getLatLongFromGoogleMapApi() {
           if (status === google.maps.places.PlacesServiceStatus.OK) {
             if (results.length > 0) {
               let geometry = results[0].geometry.location.toJSON();
-              $('#result').append(district + ',' + building + ',' + results[0].name + ',' + geometry.lat + ',' + geometry.lng + '<br/>');
+              let building2 = building;
+              if (building2.includes(',')) {
+                building2 = '"' + building2 + '"';
+              }
+              let googlename2 = results[0].name;
+              if (googlename2.includes(',')) {
+                googlename2 = '"' + googlename2 + '"';
+              }
+              $('#result').append(district + ',' + building2 + ',' + googlename2 + ',' + geometry.lat + ',' + geometry.lng + '<br/>');
             }
           }
           else if (status === google.maps.places.PlacesServiceStatus.INVALID_REQUEST) {
