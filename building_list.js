@@ -556,6 +556,7 @@ function constructBuildingListTable(data) {
         distance_range = radio_input_as_int;
       }
     }
+    let last_date_cases = getLastDateCases();
     $.each(data, function( index, row ) {
       let distance = row['distance'];
       let filtered = true;
@@ -604,6 +605,16 @@ function constructBuildingListTable(data) {
         }
         html_inner += '</div>';
         html_inner += '<div class="col-6">';
+        let is_new_case = false;
+        for (let c = 0; c < row['case'].length; c++) {
+          if (last_date_cases.includes(row['case'][c])) {
+            is_new_case = true;
+            break;
+          }
+        }
+        if (is_new_case) {
+          html_inner += '<i class="fas fa-biohazard" style="color:red;"></i> ';
+        }
         html_inner += '<a href="http://maps.google.com/maps?q=' + row['buil']['ch'] + '+' + row['dist']['ch'] + '" target="_blank">' + row['dist']['ch'] + ' ' + row['buil']['ch'] + '</a>';
         html_inner += '<br/>';
         html_inner += '<a href="http://maps.google.com/maps?q=' + row['buil']['en'] + '+' + row['dist']['en'] + '" target="_blank">' + row['buil']['en'] + ', ' + row['dist']['en'] + '</a>';
@@ -646,7 +657,7 @@ function constructBuildingListTable(data) {
     html += '<div class="col-3">';
     html += '</div>';
     html += '<div class="col-6">';
-    html += '<mark style="font-size:0.8rem;"><i class="fas fa-search"></i> 找到 <b>'+result_count+'</b> 座相關大廈<br/><b>'+result_count+'</b> Building(s) Found<br/><i class="far fa-hand-point-right"></i> 個案數字查看詳情 <i class="fas fa-project-diagram"></i><br/><i class="far fa-hand-point-down"></i> 大廈名稱打開地圖 <i class="fas fa-map-marked-alt"></i></mark>';
+    html += '<mark style="font-size:0.8rem;"><i class="fas fa-search"></i> 找到 <b>'+result_count+'</b> 座相關大廈<br/><b>'+result_count+'</b> Building(s) Found<br/><i class="far fa-hand-point-right"></i> 個案數字查看詳情 <i class="fas fa-project-diagram"></i><br/><i class="far fa-hand-point-down"></i> 大廈名稱打開地圖 <i class="fas fa-map-marked-alt"></i><br/>(<i class="fas fa-biohazard" style="color:red;"></i> 表示涉及新增個案)</mark>';
     html += '</div>';
     html += '<div class="col-3">';
     html += '<h4>';

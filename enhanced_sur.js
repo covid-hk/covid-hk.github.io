@@ -1,5 +1,29 @@
 var case_details = [];
 
+var case_per_date = [];
+function groupCasesByDate() {
+  for (let i = 0; i < case_details.length; i++) {
+    if (case_details[i]['確診/疑似個案'] == '疑似') { continue; }
+    let case_number = parseInt(case_details[i]['個案編號'], 10);
+    let case_date = parseInt(moment(case_details[i]['報告日期'], 'DD/MM/YYYY').format('YYYYMMDD'), 10) - 20200000;
+    case_per_date[case_date] = case_per_date[case_date] || [];
+    case_per_date[case_date] = case_per_date[case_date].concat(case_number);
+  }
+}
+function getLastDateCases() {
+  let last_date_cases = [];
+  if (case_per_date.length > 0) {
+    last_date_cases = last_date_cases.concat(case_per_date[case_per_date.length - 1]);
+  }
+  // if ajax data list not ready yet, retry refreshUI
+  else {
+    //setTimeout(function(){
+    //  refreshUI();
+    //}, 2000);
+  }
+  return last_date_cases;
+}
+
 var caseCount = [];
 function calAllCaseCount() {
   caseCount["確診"] = 0;
@@ -170,6 +194,7 @@ function getCaseDetailsCsv() {
     {
       case_details = $.csv.toObjects(response);
       if (case_details.length > 0) {
+        groupCasesByDate();
         calAllCaseCount();
 
         // Construct Case Bar Summary
