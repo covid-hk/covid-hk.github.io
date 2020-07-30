@@ -205,25 +205,23 @@ document.getElementById("search-keyword").addEventListener("keyup", function(eve
               <button type="button" class="btn btn-secondary" onclick="cleanSearchBox(0)"><i class='far fa-trash-alt'></i></button>
             </div>
           </div>
-          <div style="display:none;width:100%;max-width:600px;margin-top:5px;">
+          <div style="display:inline-block;width:100%;max-width:600px;margin-top:5px;">
+            <span style="font-size:0.5rem;">當用戶啟用了GPS時，系統將自動切換成距離模式，<br/>並嘗試顯示用戶附近的相關個案。<br/><i class='fas fa-exclamation-triangle' style='color:red;'></i> 為保障用戶私隱，我們並<b style='color:red;'>不會</b>紀錄用戶的所在位置資訊。</span>
+          </div>
+          <div style="display:none;width:100%;max-width:600px;margin-top:5px;" id="input-group-distance">
             <div class="form-check-inline">
-              <label class="form-check-label" for="distance-500">
-                <input type="radio" class="form-check-input" id="distance-500" name="input-distance" value="500" onclick="refreshUI()">&lt;500m
+              <label class="form-check-label" for="district-500">
+                <input type="radio" class="form-check-input" id="district-500" name="input-district" value="500" onclick="if(this.checked){cleanSearchBox(1)}">&lt;500m
               </label>
             </div>
             <div class="form-check-inline">
-              <label class="form-check-label" for="distance-1000">
-                <input type="radio" class="form-check-input" id="distance-1000" name="input-distance" value="1000" onclick="refreshUI()">&lt;1km
+              <label class="form-check-label" for="district-1000">
+                <input type="radio" class="form-check-input" id="district-1000" name="input-district" value="1000" onclick="if(this.checked){cleanSearchBox(1)}">&lt;1km
               </label>
             </div>
             <div class="form-check-inline">
-              <label class="form-check-label" for="distance-2000">
-                <input type="radio" class="form-check-input" id="distance-2000" name="input-distance" value="2000" onclick="refreshUI()">&lt;2km
-              </label>
-            </div>
-            <div class="form-check-inline">
-              <label class="form-check-label" for="distance-all">
-                <input type="radio" class="form-check-input" id="distance-all" name="input-distance" value="100000" onclick="refreshUI()" checked>按地區顯示
+              <label class="form-check-label" for="district-2000">
+                <input type="radio" class="form-check-input" id="district-2000" name="input-district" value="2000" onclick="if(this.checked){cleanSearchBox(1)}">&lt;2km
               </label>
             </div>
           </div>

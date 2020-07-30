@@ -174,7 +174,17 @@ function chooseDefaultDistrict() {
 }
 
 function refreshUI() {
-  setCookie("covid_hk_district_id", $('input[name="input-district"]:checked').val(), 7);
+  if ($('#input-group-distance').css('display') == 'none' && isValidUserLocation()) {
+    // Custom fadeIn to display as inline-block
+    $('#input-group-distance').css({
+      opacity: 0,
+      display: 'inline-block'
+    }).animate({opacity:1},2000);
+  }
+
+  if (!($('input[name="input-district"]:checked').val().isNumber())) {
+    setCookie("covid_hk_district_id", $('input[name="input-district"]:checked').val(), 7);
+  }
 
   $('#wrapper-table-building-loading').show();
   $('#wrapper-table-building').hide();
@@ -529,29 +539,34 @@ function constructBuildingListTable(data) {
     if (keyword.isNumber()) {
       keyword_as_int = parseInt(keyword, 10);
     }
-    let distance_range = 100000;
+    let distance_range = 0;
     if (isValidUserLocation()) {
-      distance_range = $('input[name="input-distance"]:checked').val();
+      let radio_input = $('input[name="input-district"]:checked').val();
+      let radio_input_as_int = 0;
+      if (radio_input.isNumber()) {
+        radio_input_as_int = parseInt(radio_input, 10);
+        distance_range = radio_input_as_int;
+      }
     }
     $.each(data, function( index, row ) {
       let distance = row['distance'];
       let filtered = true;
+      // 選擇 地區
+      if (keyword == '' && row['dist']['id'] == $('input[name="input-district"]:checked').val()) {
+        filtered = false;
+      }
+      // 選擇 距離
+      if (keyword == '' && distance <= distance_range) {
+        filtered = false;
+      }
       // 輸入 個案編號
       if (keyword_as_int > 0 && row['case'].includes(keyword_as_int)) {
         filtered = false;
       }
       // 輸入 大廈字詞
-      else if (keyword != '' && (row['buil']['ch'].toLowerCase().includes(keyword) || row['buil']['en'].toLowerCase().includes(keyword))) {
+      if (keyword != '' && (row['buil']['ch'].toLowerCase().includes(keyword) || row['buil']['en'].toLowerCase().includes(keyword))) {
         filtered = false;
       }
-      // 選擇 地區
-      else if (keyword == '' && row['dist']['id'] == $('input[name="input-district"]:checked').val()) {
-        filtered = false;
-      }
-      // 選擇 距離
-      //else if (distance > distance_range) {
-      //  filtered = false;
-      //}
       if (!filtered) {
         html_inner += '<div class="row py-2">';
         html_inner += '<div class="col-3">';

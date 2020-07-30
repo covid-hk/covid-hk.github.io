@@ -9,6 +9,7 @@ function updateUserLocation(position) {
   // if user moves from invalid location to valid location, refresh
   if (!isValidUserLocation() && isValidLocation(position.coords.latitude, position.coords.longitude)) {
     setTimeout(function(){
+      $('#district-2000').click();
       refreshUI();
     }, 2000);
   }
