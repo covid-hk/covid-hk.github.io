@@ -576,6 +576,10 @@ function constructBuildingListTable(data) {
       if (keyword != '' && (row['buil']['ch'].toLowerCase().includes(keyword) || row['buil']['en'].toLowerCase().includes(keyword))) {
         filtered = false;
       }
+      // Handle the case when case list is not case numbers, e.g. 台灣衛生福利部疾病管制署通報的個案
+      if (row['case'].length == 0) {
+        filtered = true;
+      }
       if (!filtered) {
         html_inner += '<div class="row py-2">';
         html_inner += '<div class="col-3">';
