@@ -513,17 +513,17 @@ function constructBuildingListTable(data) {
   html += '<div class="row py-2 font-weight-bold">';
   html += '<div class="col-3">';
   if (isValidUserLocation()) {
-    html += '距離<br/>Distance';
+    html += '<i class="fas fa-crosshairs"></i> 距離<br/>Distance';
   }
   else {
-    html += '日期<br/>Date';
+    html += '<i class="far fa-clock"></i> 日期<br/>Date';
   }
   html += '</div>';
   html += '<div class="col-6">';
-  html += '<i class="far fa-building"></i>&nbsp;&nbsp;大廈名單<br/>Building name';
+  html += '<i class="far fa-building"></i> 大廈名單<br/>Building name';
   html += '</div>';
   html += '<div class="col-3">';
-  html += '個案<br/>Cases';
+  html += '<i class="fas fa-biohazard"></i> 個案<br/>Cases';
   html += '</div>';
   html += '</div>';
 

@@ -206,9 +206,14 @@ document.getElementById("search-keyword").addEventListener("keyup", function(eve
             </div>
           </div>
           <div style="display:inline-block;width:100%;max-width:600px;margin-top:5px;">
-            <span style="font-size:0.5rem;">當用戶啟用了GPS時，系統將自動切換成距離模式，<br/>並嘗試顯示用戶附近的相關個案。<br/><i class='fas fa-exclamation-triangle' style='color:red;'></i> 為保障用戶私隱，我們並<b style='color:red;'>不會</b>紀錄用戶的位置資訊。</span>
+            <span style="font-size:0.8rem;line-height:1;"><i class='fas fa-location-arrow'></i> 當用戶啟用了 <b>GPS</b> 時，系統將自動切換成 <b>距離模式</b>，<br/>並嘗試顯示用戶附近的相關個案。<br/><i class='fas fa-exclamation-triangle' style='color:red;'></i> 為保障用戶私隱，我們並 <b style='color:red;'>不會</b> 紀錄用戶的位置資訊。</span>
           </div>
           <div style="display:none;width:100%;max-width:600px;margin-top:5px;" id="input-group-distance">
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <span><i class='fas fa-crosshairs'></i> 距離 Distance</span>
+              </label>
+            </div>
             <div class="form-check-inline">
               <label class="form-check-label" for="district-500">
                 <input type="radio" class="form-check-input" id="district-500" name="input-district" value="500" onclick="if(this.checked){cleanSearchBox(1)}">&lt;500m
