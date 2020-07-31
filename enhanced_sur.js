@@ -249,7 +249,7 @@ function constructCasePieSummary() {
   //html += '<mark>';
   html += '<span>';
   html += '<i class="fas fa-map-marked-alt"></i> ';
-  html += '過去14天內疑似/確診個案的地區分佈';
+  html += '過去14天內確診個案的地區分佈';
   html += '</span>';
   //html += '</mark>';
   return html;

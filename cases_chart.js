@@ -141,6 +141,7 @@ function drawLineChart() {
     data: {
       labels: getDateRange(),
       datasets: [{
+        hidden: true,
         type: "bar",
         label: '出院 Discharge',
         backgroundColor: transparentize(window.chartColors.green),
@@ -148,6 +149,7 @@ function drawLineChart() {
         borderWidth: 1,
         data: aggregatedCaseCount["出院"]
       }, {
+        hidden: true,
         type: "bar",
         label: '死亡 Death',
         backgroundColor: transparentize(window.chartColors.black),
