@@ -542,6 +542,7 @@ function constructBuildingListTable(data) {
     result_count = 0;
   }
   else {
+    let show_new_only = $('#show-new-only').is(':checked');
     let keyword = $("#search-keyword").val().toLowerCase();
     let keyword_as_int = 0;
     if (keyword.isNumber()) {
@@ -558,6 +559,13 @@ function constructBuildingListTable(data) {
     }
     let last_date_cases = getLastDateCases();
     $.each(data, function( index, row ) {
+      let is_new_case = false;
+      for (let c = 0; c < row['case'].length; c++) {
+        if (last_date_cases.includes(row['case'][c])) {
+          is_new_case = true;
+          break;
+        }
+      }
       let distance = row['distance'];
       let filtered = true;
       // 選擇 地區
@@ -578,6 +586,10 @@ function constructBuildingListTable(data) {
       }
       // Handle the case when case list is not case numbers, e.g. 台灣衛生福利部疾病管制署通報的個案
       if (row['case'].length == 0) {
+        filtered = true;
+      }
+      // 顯示新增個案 only
+      if (show_new_only && !is_new_case) {
         filtered = true;
       }
       if (!filtered) {
@@ -609,13 +621,6 @@ function constructBuildingListTable(data) {
         }
         html_inner += '</div>';
         html_inner += '<div class="col-6">';
-        let is_new_case = false;
-        for (let c = 0; c < row['case'].length; c++) {
-          if (last_date_cases.includes(row['case'][c])) {
-            is_new_case = true;
-            break;
-          }
-        }
         if (is_new_case) {
           html_inner += '<i class="fas fa-biohazard" style="color:red;"></i> ';
         }
