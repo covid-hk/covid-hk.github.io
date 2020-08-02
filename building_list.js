@@ -533,13 +533,16 @@ function constructBuildingListTable(data) {
     if (isValidUserLocation()) {
       if (isValidLocation(data[i]['lat'], data[i]['lng'])) {
         data[i]['distance'] = calculateDistanceBetweenLatLong(user_latitude, user_longitude, data[i]['lat'], data[i]['lng']);
+        data[i]['bearing'] = calculateBearingBetweenLatLong(user_latitude, user_longitude, data[i]['lat'], data[i]['lng']);
       }
       else {
-        data[i]['distance'] = 100000;
+        data[i]['distance'] = 1000 * 1000;
+        data[i]['bearing'] = -1;
       }
     }
     else {
-      data[i]['distance'] = 100000;
+      data[i]['distance'] = 1000 * 1000;
+      data[i]['bearing'] = -1;
     }
   }
 
@@ -656,11 +659,28 @@ function constructBuildingListTable(data) {
               badge = 'warning';
             }
             html_inner += '<h5>';
-            html_inner += '<span class="badge badge-' + badge + '">' + getFormattedDistance(distance) + '</span>';
+            html_inner += '<a href="javascript:void(0)" data-toggle="tooltip" title="' + (row['date'] == '' ? '' : (moment(row['date'], 'YYYY-MM-DD').format('M月D日'))) + '">';
+            html_inner += '<span class="badge badge-' + badge + '">';
+            let bearing = getFormattedBearing(row['bearing']);
+            if (bearing == 'N') {
+              html_inner += '<i class="far fa-arrow-alt-circle-up"></i> ';
+            }
+            else if (bearing == 'E') {
+              html_inner += '<i class="far fa-arrow-alt-circle-right"></i> ';
+            }
+            else if (bearing == 'S') {
+              html_inner += '<i class="far fa-arrow-alt-circle-down"></i> ';
+            }
+            else if (bearing == 'W') {
+              html_inner += '<i class="far fa-arrow-alt-circle-left"></i> ';
+            }
+            html_inner += getFormattedDistance(distance);
+            html_inner += '</span>';
+            html_inner += '</a>';
             html_inner += '</h5>';
           }
           else {
-            html_inner += '';
+            html_inner += (row['date'] == '' ? '' : (moment(row['date'], 'YYYY-MM-DD').format('M月D日') + '<br/>' + moment(row['date'], 'YYYY-MM-DD').format('MMM Do')));
           }
         }
         else {

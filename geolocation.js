@@ -34,10 +34,27 @@ function isValidUserLocation() {
 function getFormattedDistance(distance) {
   let formatted = '';
   if (distance < 1000.0) {
-    formatted = '' + Math.round(distance) + ' m';
+    formatted = '' + Math.round(distance) + 'm';
   }
   else {
-    formatted = '' + (Math.round(distance / 100.0) / 10.0) + ' km';
+    formatted = '' + (Math.round(distance / 100.0) / 10.0) + 'km';
+  }
+  return formatted;
+}
+
+function getFormattedBearing(bearing) {
+  let formatted = '';
+  if (315.0 < bearing || bearing <= 45.0) {
+    formatted = 'N';
+  }
+  else if (45.0 < bearing && bearing <= 135.0) {
+    formatted = 'E';
+  }
+  else if (135.0 < bearing && bearing <= 225.0) {
+    formatted = 'S';
+  }
+  else if (225.0 < bearing && bearing <= 315.0) {
+    formatted = 'W';
   }
   return formatted;
 }
@@ -97,4 +114,19 @@ function calculateDistanceBetweenLatLong(lat1, lon1, lat2, lon2) {
   const d = R * c; // in metres
 
   return Math.round(d * 1.0); // return int instead of float to avoid js treat float as string type
+}
+
+function calculateBearingBetweenLatLong(lat1, lon1, lat2, lon2) {
+  const φ1 = lat1 * Math.PI/180; // φ, λ in radians
+  const φ2 = lat2 * Math.PI/180;
+  const λ1 = lon1 * Math.PI/180;
+  const λ2 = lon2 * Math.PI/180;
+
+  const y = Math.sin(λ2-λ1) * Math.cos(φ2);
+  const x = Math.cos(φ1)*Math.sin(φ2) -
+            Math.sin(φ1)*Math.cos(φ2)*Math.cos(λ2-λ1);
+  const θ = Math.atan2(y, x);
+  const brng = (θ*180/Math.PI + 360) % 360; // in degrees
+
+  return brng;
 }
