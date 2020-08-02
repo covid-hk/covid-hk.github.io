@@ -5,6 +5,7 @@ var ajax_retry_times = 0;
 var ajax_retry_times_max = domain.length - 1;
 var googleapis_maps = [];
 var googleapis_maps_hashmap = [];
+var filetime = [];
 var building_list_chi = [];
 var building_list_eng = [];
 var building_list_chi_ajax_done = false;
@@ -89,6 +90,7 @@ function getCookie(cname) {
 }
 
 $(document).ready(function(){
+  getFileTimeCsv();
   getGoogleApisMapsCsv();
 });
 
@@ -238,6 +240,35 @@ function getGoogleApisMapsCsv() {
   });
 }
 
+function getFileTimeCsv() {
+  let unixtimestamp = Math.floor(Date.now() / 1000);
+  let unixtimestampper15mins = Math.floor(unixtimestamp / 1000);
+  $.ajax({
+    type: "GET",
+    url: domain[ajax_retry_times] + "filetime.csv?t=" + unixtimestampper15mins,
+    dataType: "text",
+    success: function(response)
+    {
+      filetime = $.csv.toObjects(response);
+      if (filetime.length > 0) {
+        $('#header-update-time').append('<i class="far fa-clock"></i>&nbsp;&nbsp;更新時間: '+moment(filetime[0].file_time, 'YYYY-MM-DDTHH:mm:ss').format('YYYY-MM-DD HH:mm:ss'));
+      }
+      // if no result
+      else if (ajax_retry_times < ajax_retry_times_max) {
+        ++ajax_retry_times;
+        getFileTimeCsv();
+      }
+    },
+    error: function()
+    {
+      if (ajax_retry_times < ajax_retry_times_max) {
+        ++ajax_retry_times;
+        getFileTimeCsv();
+      }
+    }
+  });
+}
+
 function getBuildingListCsv() {
   // https://data.gov.hk/tc-data/dataset/hk-dh-chpsebcddr-novel-infectious-agent
   // https://www.chp.gov.hk/files/misc/building_list_chi.csv
@@ -306,6 +337,7 @@ function mergeBuildingList() {
     let obj = [];
     obj['dist'] = map_dist[building_list_chi[i]['地區']];
     obj['buil'] = {'ch':building_list_chi[i]['大廈名單'], 'en':building_list_eng[i]['Building name']};
+
     // Data bug, special handling temporarily
     //if (i > 1199 - 2) {
     //  obj['buil'] = {'ch':building_list_chi[i]['大廈名單'], 'en':building_list_eng[i-1]['Building name']};
@@ -316,6 +348,33 @@ function mergeBuildingList() {
     //else {
     //  obj['buil'] = {'ch':building_list_chi[i]['大廈名單'], 'en':building_list_eng[i]['Building name']};
     //}
+
+    // Data bug, special handling temporarily
+    if (obj['buil']['ch'].includes('樂華(北)邨')) {
+      obj['dist'] = map_dist['觀塘'];
+    }
+    else if (obj['buil']['ch'].includes('石籬(二)邨')) {
+      obj['dist'] = map_dist['葵青'];
+    }
+    else if (obj['buil']['ch'].includes('天恒邨')) {
+      obj['dist'] = map_dist['元朗'];
+    }
+    else if (obj['buil']['ch'].includes('天澤邨')) {
+      obj['dist'] = map_dist['元朗'];
+    }
+    else if (obj['buil']['ch'].includes('華心邨')) {
+      obj['dist'] = map_dist['北區'];
+    }
+    else if (obj['buil']['ch'].includes('寶達邨')) {
+      obj['dist'] = map_dist['觀塘'];
+    }
+    else if (obj['buil']['ch'].includes('愛民邨')) {
+      obj['dist'] = map_dist['九龍城'];
+    }
+    else if (obj['buil']['ch'].includes('天富苑')) {
+      obj['dist'] = map_dist['元朗'];
+    }
+
     obj['type'] = map_type['住宅'];
     if (obj['buil']['ch'].includes('非住宅')) {
       obj['buil']['ch'] = obj['buil']['ch'].replace(' (非住宅)', '');
