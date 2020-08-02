@@ -104,9 +104,11 @@ function getLatLongFromGoogleMapApi() {
     else if (building.startsWith('寶達邨')) { district = '觀塘'; }
     else if (building.startsWith('愛民邨')) { district = '九龍城'; }
     else if (building.startsWith('樂華(北)邨')) { district = '觀塘'; }
+    else if (building.startsWith('深圳灣')) { district = '元朗'; }
     else if (building.startsWith('白田')) { district = '深水埗'; }
     else if (building.startsWith('石籬')) { district = '葵青'; }
     else if (building.startsWith('華心邨')) { district = '北區'; }
+    else if (building.startsWith('藍地綠怡居')) { district = '屯門'; }
 
     if (typeof googleapis_maps_hashmap.get(district + ',' + building) !== 'undefined') {
       // Check if already exists, do nothing

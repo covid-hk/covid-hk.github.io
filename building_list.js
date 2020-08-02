@@ -357,9 +357,11 @@ function mergeBuildingList() {
     else if (obj['buil']['ch'].startsWith('寶達邨')) { obj['dist'] = map_dist['觀塘']; }
     else if (obj['buil']['ch'].startsWith('愛民邨')) { obj['dist'] = map_dist['九龍城']; }
     else if (obj['buil']['ch'].startsWith('樂華(北)邨')) { obj['dist'] = map_dist['觀塘']; }
+    else if (obj['buil']['ch'].startsWith('深圳灣')) { obj['dist'] = map_dist['元朗']; }
     else if (obj['buil']['ch'].startsWith('白田')) { obj['dist'] = map_dist['深水埗']; }
     else if (obj['buil']['ch'].startsWith('石籬')) { obj['dist'] = map_dist['葵青']; }
     else if (obj['buil']['ch'].startsWith('華心邨')) { obj['dist'] = map_dist['北區']; }
+    else if (obj['buil']['ch'].startsWith('藍地綠怡居')) { obj['dist'] = map_dist['屯門']; }
 
     obj['type'] = map_type['住宅'];
     if (obj['buil']['ch'].includes('非住宅')) {
