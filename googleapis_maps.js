@@ -96,6 +96,18 @@ function getLatLongFromGoogleMapApi() {
     let district = building_list_chi[i]['地區'];
     let building = building_list_chi[i]['大廈名單'].replace(' (非住宅)', '');
 
+    // Data bug, special handling temporarily
+    if (false) { }
+    else if (building.startsWith('天富苑')) { district = '元朗'; }
+    else if (building.startsWith('天恒邨')) { district = '元朗'; }
+    else if (building.startsWith('天澤邨')) { district = '元朗'; }
+    else if (building.startsWith('寶達邨')) { district = '觀塘'; }
+    else if (building.startsWith('愛民邨')) { district = '九龍城'; }
+    else if (building.startsWith('樂華(北)邨')) { district = '觀塘'; }
+    else if (building.startsWith('白田')) { district = '深水埗'; }
+    else if (building.startsWith('石籬')) { district = '葵青'; }
+    else if (building.startsWith('華心邨')) { district = '北區'; }
+
     if (typeof googleapis_maps_hashmap.get(district + ',' + building) !== 'undefined') {
       // Check if already exists, do nothing
       continue;
