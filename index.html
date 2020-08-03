@@ -170,7 +170,7 @@
             <label for="show-population-ratio">顯示地區確診數字</label>
             <input id="show-population-ratio" type="checkbox" class="switch toggle" onclick="showPopulation_ClickEvent()">
             <label for="show-population-ratio">顯示地區確診比例</label>
-            <span data-toggle="tooltip" title="地區確診比例：表示該地區每10萬人口之中於過去14天內的確診數字。數字越大表示該地區的確診人口比例較高，亦即現時較高危地區。E.g. 數字3.14表示該地區每10萬人口之中即有3.14人於過去14天內確診。"><i class='far fa-question-circle'></i></span>
+            <span data-toggle="tooltip" title="地區確診比例：表示該地區每10萬人口之中於過去14天內的確診數字。數字越大表示該地區的確診人口比例較高，亦即現時較高危地區。E.g. 數字12.3表示該地區每10萬人口之中即有12.3人於過去14天內確診。"><i class='far fa-question-circle' style="color:red;"></i></span>
           </b></div>
           <div style="display:inline-block;width:100%;max-width:600px;font-size:0.95rem;">
             <label for="search-keyword">
@@ -251,7 +251,7 @@ document.getElementById("search-keyword").addEventListener("keyup", function(eve
             <label for="show-new-only">顯示全部個案</label>
             <input id="show-new-only" type="checkbox" class="switch toggle" onclick="refreshUI()">
             <label for="show-new-only">顯示新增個案</label>
-            <span><i class='fas fa-biohazard' style="color:red;"></i></span>
+            <span data-toggle="tooltip" title="表示涉及過去1天內的新增個案"><i class='fas fa-biohazard' style="color:red;"></i></span>
           </b></div>
         </div>
       </div>
