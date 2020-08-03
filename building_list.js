@@ -3,6 +3,7 @@ domain[0] = "https://colorpalette.ddns.net:8443/";
 domain[1] = "https://covid-hk.github.io/";
 var ajax_retry_times = 0;
 var ajax_retry_times_max = domain.length - 1;
+var population = [];
 var googleapis_maps = [];
 var googleapis_maps_hashmap = [];
 var filetime = [];
@@ -92,6 +93,7 @@ function getCookie(cname) {
 $(document).ready(function(){
   getFileTimeCsv();
   getGoogleApisMapsCsv();
+  getPopulationCsv();
 });
 
 // When the user scrolls down from the top of the document, show the button
@@ -147,40 +149,62 @@ function chooseDefaultDistrict() {
     let id = map_dist[dist_ch]['id'].toLowerCase();
     let num_of_cases = map_dist[dist_ch]['case'].length;
     let rank = map_dist[dist_ch]['rank'].toOrdinal();
-	$('#badge-district-'+id).attr('data-case', num_of_cases);
-	$('#badge-district-'+id).attr('data-rank', rank.number);
-	$('#badge-district-'+id).attr('data-rank-suffix', rank.suffix);
+    $('#badge-district-'+id).attr('data-case', num_of_cases);
+    $('#badge-district-'+id).attr('data-rank', rank.number);
+    $('#badge-district-'+id).attr('data-rank-suffix', rank.suffix);
   }
-  // Animation of badge-district elements
-  let $element = $('.badge-district');
-  function fadeInOut() {
-    $element.delay(2000).fadeOut(1500, function(){
-      $element.html(function(){
-        let sup_style = '';
-        if ($(this).attr('data-rank') <= 1) {
-          sup_style = 'font-size:60%;color:red;';
-        }
-        else if ($(this).attr('data-rank') <= 3) {
-          sup_style = 'font-size:60%;color:orange;';
-        }
-        else if ($(this).attr('data-rank') <= 9) {
-          sup_style = 'font-size:60%;color:yellow;';
-        }
-        else {
-          sup_style = 'font-size:60%;color:lime;';
-        }
-        return '<sup style="' + sup_style + '">' + $(this).attr('data-rank') + $(this).attr('data-rank-suffix') + ' </sup>' + $(this).attr('data-case');
-      });
-      $element.fadeIn(1500);
-    });
-  }
-  fadeInOut();
+  showPopulation_ClickEvent();
 
   let district_id = getCookie("covid_hk_district_id");
   if (district_id == '') {
     district_id = district_cases[0].id;
   }
   $('#district-'+district_id.toLowerCase()).click();
+}
+
+function showPopulation_ClickEvent() {
+  // Animation of badge-district elements
+  let $element = $('.badge-district');
+  function fadeInOut() {
+    let show_population_ratio = $('#show-population-ratio').is(':checked');
+    $element.delay(500).fadeOut(1000, function(){
+      $element.html(function(){
+        let sup_style = '';
+        if (!show_population_ratio) {
+          if ($(this).attr('data-rank') <= 1) {
+            sup_style = 'font-size:60%;color:red;';
+          }
+          else if ($(this).attr('data-rank') <= 3) {
+            sup_style = 'font-size:60%;color:orange;';
+          }
+          else if ($(this).attr('data-rank') <= 9) {
+            sup_style = 'font-size:60%;color:yellow;';
+          }
+          else {
+            sup_style = 'font-size:60%;color:lime;';
+          }
+          return '<sup style="' + sup_style + '">' + $(this).attr('data-rank') + $(this).attr('data-rank-suffix') + ' </sup>' + $(this).attr('data-case');
+        }
+        else {
+          if ($(this).attr('data-population-rank') <= 1) {
+            sup_style = 'font-size:60%;color:red;';
+          }
+          else if ($(this).attr('data-population-rank') <= 3) {
+            sup_style = 'font-size:60%;color:orange;';
+          }
+          else if ($(this).attr('data-population-rank') <= 9) {
+            sup_style = 'font-size:60%;color:yellow;';
+          }
+          else {
+            sup_style = 'font-size:60%;color:lime;';
+          }
+          return '<sup style="' + sup_style + '">' + $(this).attr('data-population-rank') + $(this).attr('data-population-rank-suffix') + ' </sup>' + $(this).attr('data-population');
+        }
+      });
+      $element.fadeIn(1000);
+    });
+  }
+  fadeInOut();
 }
 
 function refreshUI() {
@@ -207,6 +231,75 @@ function refreshUI() {
     $('[data-toggle="popover"]').popover();
     $('[data-toggle="tooltip"]').tooltip({trigger: 'hover'});
   }, 100);
+}
+
+function getPopulationCsv() {
+  let unixtimestamp = Math.floor(Date.now() / 1000);
+  let unixtimestampper15mins = Math.floor(unixtimestamp / 1000);
+  $.ajax({
+    type: "GET",
+    url: domain[ajax_retry_times_max] + "population2019.csv?t=" + unixtimestampper15mins,
+    dataType: "text",
+    success: function(response)
+    {
+      population = $.csv.toObjects(response);
+      if (population.length > 0) {
+        let population_hashmap = new Map(population.map(item => [item['地區'], {'land_area_sq_km':item['land_area_sq_km'],'population_x_1000':item['population_x_1000']}]));
+        for (let dist_ch in map_dist) {
+          map_dist[dist_ch]['population'] = population_hashmap.get(dist_ch).population_x_1000 * 1000.0;
+        }
+        setTimeout(function(){
+          for (let dist_ch in map_dist) {
+            map_dist[dist_ch]['population_ratio'] = (map_dist[dist_ch]['case'].length * 100000.0 / map_dist[dist_ch]['population']);
+          }
+          let district_population_ratio = Object.values(map_dist).map(dist => ({ id:dist.id, population_ratio:dist.population_ratio, rank:0 }));
+          // Sort district by number of cases in desc order
+          district_population_ratio.sort(function(a, b) {
+            return 0 - (a.population_ratio - b.population_ratio);
+          });
+          // Assign the rank values
+          for (let i=0; i<district_population_ratio.length; i++) {
+            district_population_ratio[i].rank = i + 1;
+          }
+          // Handle dead heat / draw / tie case
+          for (let i=1; i<district_population_ratio.length; i++) {
+            if (district_population_ratio[i-1].population_ratio > district_population_ratio[i].population_ratio) { continue; }
+            district_population_ratio[i].rank = district_population_ratio[i-1].rank;
+          }
+          // Copy the rank values to global map_dist
+          let district_ranks = [];
+          for (let i=0; i<district_population_ratio.length; i++) {
+            district_ranks[district_population_ratio[i].id] = district_population_ratio[i].rank;
+          }
+          for (let dist_ch in map_dist) {
+            map_dist[dist_ch]['population_ratio_rank'] = district_ranks[map_dist[dist_ch]['id']];
+          }
+
+          // Assign the num_of_cases and rank values to the badge-district elements
+          for (let dist_ch in map_dist) {
+            let id = map_dist[dist_ch]['id'].toLowerCase();
+            let population_ratio = map_dist[dist_ch]['population_ratio'];
+            let population_ratio_rank = map_dist[dist_ch]['population_ratio_rank'].toOrdinal();
+            $('#badge-district-'+id).attr('data-population', Number(population_ratio.toFixed(1)));
+            $('#badge-district-'+id).attr('data-population-rank', population_ratio_rank.number);
+            $('#badge-district-'+id).attr('data-population-rank-suffix', population_ratio_rank.suffix);
+          }
+        }, 2000);
+      }
+      // if no result
+      //else if (ajax_retry_times < ajax_retry_times_max) {
+      //  ++ajax_retry_times;
+      //  getPopulationCsv();
+      //}
+    },
+    error: function()
+    {
+      //if (ajax_retry_times < ajax_retry_times_max) {
+      //  ++ajax_retry_times;
+      //  getPopulationCsv();
+      //}
+    }
+  });
 }
 
 function getGoogleApisMapsCsv() {
