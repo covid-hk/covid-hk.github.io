@@ -251,7 +251,7 @@ function getFileTimeCsv() {
     {
       filetime = $.csv.toObjects(response);
       if (filetime.length > 0) {
-        $('#header-update-time').append('<i class="far fa-clock"></i>&nbsp;&nbsp;更新時間: '+moment(filetime[0].file_time, 'YYYY-MM-DDTHH:mm:ss').format('YYYY-MM-DD HH:mm:ss'));
+        $('#header-update-time').html($('<span><i class="far fa-clock"></i>&nbsp;&nbsp;更新時間: '+moment(filetime[0].file_time, 'YYYY-MM-DDTHH:mm:ss').format('M月D日 h:mma')+'</span>').hide().fadeIn(2000));
       }
       // if no result
       else if (ajax_retry_times < ajax_retry_times_max) {
