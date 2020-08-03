@@ -198,7 +198,7 @@ function showPopulation_ClickEvent() {
           else {
             sup_style = 'font-size:60%;color:lime;';
           }
-          return '<sup style="' + sup_style + '">' + $(this).attr('data-population-rank') + $(this).attr('data-population-rank-suffix') + ' </sup>' + $(this).attr('data-population');
+          return '<sup style="' + sup_style + '">' + $(this).attr('data-population-rank') + ' </sup>' + $(this).attr('data-population');
         }
       });
       $element.fadeIn(1000);

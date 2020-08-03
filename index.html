@@ -45,6 +45,7 @@
   <script src="https://chartjs-plugin-datalabels.netlify.com/chartjs-plugin-datalabels.js"></script>
   <!-- Custom -->
   <link rel="stylesheet" href="building_list.css?v=1.0">
+  <!--<script src="ajax_controller.js?v=1.0"></script>-->
   <script src="geolocation.js?v=1.0"></script>
   <script src="building_list.js?v=1.0"></script>
   <script src="cases_chart.js?v=1.0"></script>
@@ -156,9 +157,10 @@
     </div>
     <div class="row">
       <div class="col" style="margin:10px auto 5px;">
-        <div class="alert alert-warning" style="text-align:center;padding-top:20px;padding-bottom:20px;margin-bottom:0;">
+        <div class="alert alert-warning alert-dismissible" style="text-align:center;padding-top:20px;padding-bottom:20px;margin-bottom:0;">
           <div style="display:inline-block;width:100%;max-width:600px;font-size:0.95rem;">
-            <i class='fas fa-exclamation-circle'></i> 今天(3日)較早時間因衛生署提供的數據有誤<br/>導致系統異常，現已修復，不便之處，敬請原諒
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <i class='fas fa-exclamation-circle'></i> 今天(3日)較早時間因衛生署提供的數據有誤<br/>導致系統異常，現已修復，不便之處，敬請見諒
           </div>
         </div>
       </div>
