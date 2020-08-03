@@ -1,6 +1,5 @@
 var domain = [];
-//domain[0] = "https://colorpalette.ddns.net:8443/";
-domain[0] = "https://covid-hk.github.io/";
+domain[0] = "https://colorpalette.ddns.net:8443/";
 domain[1] = "https://covid-hk.github.io/";
 var ajax_retry_times = 0;
 var ajax_retry_times_max = domain.length - 1;
@@ -352,6 +351,7 @@ function mergeBuildingList() {
 
     // Data bug, special handling temporarily
     if (false) { }
+    else if (building_list_chi[i]['地區'].startsWith('九龍城')) { obj['dist'] = map_dist['九龍城']; }
     else if (obj['buil']['ch'].startsWith('加州花園')) { obj['dist'] = map_dist['元朗']; }
     else if (obj['buil']['ch'].startsWith('天富苑')) { obj['dist'] = map_dist['元朗']; }
     else if (obj['buil']['ch'].startsWith('天恒邨')) { obj['dist'] = map_dist['元朗']; }
