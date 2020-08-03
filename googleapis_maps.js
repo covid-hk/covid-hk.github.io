@@ -98,6 +98,7 @@ function getLatLongFromGoogleMapApi() {
 
     // Data bug, special handling temporarily
     if (false) { }
+    else if (building.startsWith('加州花園')) { district = '元朗'; }
     else if (building.startsWith('天富苑')) { district = '元朗'; }
     else if (building.startsWith('天恒邨')) { district = '元朗'; }
     else if (building.startsWith('天澤邨')) { district = '元朗'; }

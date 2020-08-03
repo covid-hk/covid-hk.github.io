@@ -352,6 +352,7 @@ function mergeBuildingList() {
 
     // Data bug, special handling temporarily
     if (false) { }
+    else if (obj['buil']['ch'].startsWith('加州花園')) { obj['dist'] = map_dist['元朗']; }
     else if (obj['buil']['ch'].startsWith('天富苑')) { obj['dist'] = map_dist['元朗']; }
     else if (obj['buil']['ch'].startsWith('天恒邨')) { obj['dist'] = map_dist['元朗']; }
     else if (obj['buil']['ch'].startsWith('天澤邨')) { obj['dist'] = map_dist['元朗']; }
