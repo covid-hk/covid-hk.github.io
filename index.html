@@ -167,12 +167,12 @@
     </div>-->
     <div class="row py-2">
       <div class="col-12">
-        <div class="alert alert-info" style="text-align:center;padding-top:20px;padding-bottom:20px;">
-          <div style="display:inline-block;width:100%;max-width:600px;font-size:0.8rem;"><b>
-            <label for="show-population-ratio">顯示地區確診數字</label>
+        <div class="alert alert-info" style="text-align:center;padding-top:20px;padding-bottom:15px;">
+          <div style="display:inline-block;width:100%;max-width:600px;margin-bottom:5px;font-size:0.8rem;"><b>
+            <label for="show-population-ratio">顯示地區確診人數</label>
             <input id="show-population-ratio" type="checkbox" class="switch toggle" onclick="showPopulation_ClickEvent()">
             <label for="show-population-ratio">顯示地區確診比例</label>
-            <span data-toggle="tooltip" title="地區確診比例：表示該地區每10萬人口之中於過去14天內的確診數字。數字越大表示該地區的確診人口比例較高，亦即現時較高危地區。E.g. 數字12.3表示該地區每10萬人口之中即有12.3人於過去14天內確診。"><i class='far fa-question-circle' style="color:red;"></i></span>
+            <span data-toggle="tooltip" title="地區確診比例：表示該地區每10萬人口之中於過去14天內的平均確診人數。數字越大表示該地區的確診人口比例較高，亦即現時較高危地區。E.g. 數字12.3表示該地區每10萬人口之中平均有12.3人於過去14天內確診。"><i class='far fa-question-circle' style="color:red;"></i></span>
           </b></div>
           <div style="display:inline-block;width:100%;max-width:600px;font-size:0.95rem;">
             <label for="search-keyword">
@@ -249,7 +249,7 @@ document.getElementById("search-keyword").addEventListener("keyup", function(eve
               </label>
             </div>
           </b></div>
-          <div style="display:inline-block;width:100%;max-width:600px;margin-top:10px;font-size:0.8rem;"><b>
+          <div style="display:inline-block;width:100%;max-width:600px;margin-top:15px;font-size:0.8rem;"><b>
             <label for="show-new-only">顯示全部個案</label>
             <input id="show-new-only" type="checkbox" class="switch toggle" onclick="refreshUI()">
             <label for="show-new-only">顯示新增個案</label>
