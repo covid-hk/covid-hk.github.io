@@ -57,9 +57,9 @@ Number.prototype.toOrdinal = function(){
 }
 
 $(document).ready(function(){
+  getBuildingListCsv(onReadyCsv);
   getFileTimeCsv(onReadyCsv);
   getGoogleApisMapsCsv(onReadyCsv);
-  getBuildingListCsv(onReadyCsv);
   getPopulationCsv(onReadyCsv);
 });
 
@@ -77,37 +77,36 @@ $(window).scroll(function(){
 function onReadyCsv() {
   if (isAjaxDone(['building_list_chi', 'building_list_eng', 'case_details', 'filetime', 'googleapis_maps', 'latest_reported_cases', 'population'])) {
     setTimeout(function(){
-      callbackFileTimeCsv();
+      onReadyFileTimeDataInit();
     }, 0);
     setTimeout(function(){
-      callbackGoogleApisMapsCsv();
-      callbackBuildingListCsv();
-      callbackCaseDetailsCsv();
+      onReadyGoogleApisMapsDataInit();
+      onReadyBuildingListDataInit();
+      onReadyCaseDetailsDataInit();
+      chooseDefaultDistrict();
     }, 0);
     setTimeout(function(){
-      callbackPopulationCsv();
+      onReadyPopulationDataInit();
     }, 2000);
     setTimeout(function() {
-      callbackCasesCsv();
-    }, 1000);
+      onReadyCasesDataInit();
+    }, 2000);
   }
 }
 
-function callbackBuildingListCsv() {
+function onReadyBuildingListDataInit() {
   mergeBuildingList();
-  chooseDefaultDistrict();
-  refreshUI();
 }
 
-function callbackFileTimeCsv() {
+function onReadyFileTimeDataInit() {
   $('#header-update-time').html($('<span><i class="far fa-clock"></i>&nbsp;&nbsp;更新時間: '+moment(csv_obj['filetime'][0].file_time, 'YYYY-MM-DDTHH:mm:ss').format('M月D日 h:mma')+'</span>').hide().fadeIn(2000));
 }
 
-function callbackGoogleApisMapsCsv() {
+function onReadyGoogleApisMapsDataInit() {
   googleapis_maps_hashmap = new Map(csv_obj['googleapis_maps'].map(item => [item['地區']+','+item['大廈名單'], {'lat':item['lat'],'lng':item['lng']}]));
 }
 
-function callbackPopulationCsv() {
+function onReadyPopulationDataInit() {
   let population_hashmap = new Map(csv_obj['population'].map(item => [item['地區'], {'land_area_sq_km':item['land_area_sq_km'],'population_x_1000':item['population_x_1000']}]));
   for (let dist_ch in map_dist) {
     map_dist[dist_ch]['population'] = population_hashmap.get(dist_ch).population_x_1000 * 1000.0;
@@ -232,7 +231,7 @@ function onClickShowPopulation() {
   let $element = $('.badge-district');
   function fadeInOut() {
     let show_population_ratio = $('#show-population-ratio').is(':checked');
-    $element.delay(500).fadeOut(1000, function(){
+    $element.delay(100).fadeOut(500, function(){
       $element.html(function(){
         let sup_style = '';
         if (!show_population_ratio) {
@@ -266,7 +265,7 @@ function onClickShowPopulation() {
           return '<sup style="' + sup_style + '">' + $(this).attr('data-population-rank') + ' </sup>' + $(this).attr('data-population');
         }
       });
-      $element.fadeIn(1000);
+      $element.fadeIn(500);
     });
   }
   fadeInOut();
@@ -444,7 +443,7 @@ function mergeBuildingList() {
     map_dist[dist_ch]['case'].sort();
     map_dist[dist_ch]['case'].reverse();
     // Append case count per district to district label
-    $("#label-district-"+map_dist[dist_ch]['id'].toLowerCase()).append('<br/><span class="badge badge-secondary badge-district" id="badge-district-'+map_dist[dist_ch]['id'].toLowerCase()+'">'+map_dist[dist_ch]['case'].length+'</span>');
+    $("#label-district-"+map_dist[dist_ch]['id'].toLowerCase()).append('<br/><span class="badge badge-secondary badge-district" id="badge-district-'+map_dist[dist_ch]['id'].toLowerCase()+'" style="display:none;">'+map_dist[dist_ch]['case'].length+'</span>');
   }
 
   // Sort data by badge level (info > warning > danger > dark)

@@ -4,24 +4,20 @@
 var googleapis_maps_hashmap = [];
 
 $(document).ready(function(){
-  getGoogleApisMapsCsv(onReadyCsv);
   getBuildingListChiCsv(onReadyCsv);
+  getGoogleApisMapsCsv(onReadyCsv);
 });
 
 function onReadyCsv() {
   if (isAjaxDone(['building_list_chi', 'googleapis_maps'])) {
     setTimeout(function(){
-      callbackGoogleApisMapsCsv();
-      callbackBuildingListChiCsv();
+      onReadyGoogleApisMapsDataInit();
+      getLatLongFromGoogleMapApi();
     }, 0);
   }
 }
 
-function callbackBuildingListChiCsv() {
-  getLatLongFromGoogleMapApi();
-}
-
-function callbackGoogleApisMapsCsv() {
+function onReadyGoogleApisMapsDataInit() {
   googleapis_maps_hashmap = new Map(csv_obj['googleapis_maps'].map(item => [item['地區']+','+item['大廈名單'], item['地區']+','+item['大廈名單']+','+item['name']+','+item['lat']+','+item['lng']]));
 }
 

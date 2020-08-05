@@ -5,16 +5,15 @@ $(document).ready(function(){
   getLocation();
 });
 
-function callbackValidUserLocation() {
+function onReadyValidUserLocation() {
   $('#district-2000').click();
-  refreshUI();
 }
 
 function updateUserLocation(position) {
   // if user moves from invalid location to valid location, refresh
   if (!isValidUserLocation() && isValidLocation(position.coords.latitude, position.coords.longitude)) {
     setTimeout(function(){
-      callbackValidUserLocation();
+      onReadyValidUserLocation();
     }, 2000);
   }
   user_location.latitude = position.coords.latitude;

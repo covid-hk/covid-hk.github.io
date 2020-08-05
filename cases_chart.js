@@ -9,7 +9,7 @@ $(document).ready(function(){
   getCasesCsv(onReadyCsv);
 });
 
-function callbackCasesCsv() {
+function onReadyCasesDataInit() {
   calAggregatedCaseCount();
 
   // Construct Case Line Summary

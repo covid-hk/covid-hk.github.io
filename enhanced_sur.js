@@ -6,7 +6,7 @@ $(document).ready(function(){
   getCaseDetailsCsv(onReadyCsv);
 });
 
-function callbackCaseDetailsCsv() {
+function onReadyCaseDetailsDataInit() {
   groupCasesByDate();
   calAllCaseCount();
 
@@ -36,12 +36,6 @@ function getLastDateCases() {
   let last_date_cases = [];
   if (case_per_date.length > 0) {
     last_date_cases = last_date_cases.concat(case_per_date[case_per_date.length - 1]);
-  }
-  // if ajax data list not ready yet, retry refreshUI
-  else {
-    //setTimeout(function(){
-    //  refreshUI();
-    //}, 2000);
   }
   return last_date_cases;
 }
