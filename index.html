@@ -45,7 +45,7 @@
   <script src="https://chartjs-plugin-datalabels.netlify.com/chartjs-plugin-datalabels.js"></script>
   <!-- Custom -->
   <link rel="stylesheet" href="building_list.css?v=1.0">
-  <!--<script src="ajax_controller.js?v=1.0"></script>-->
+  <script src="ajax_controller.js?v=1.0"></script>
   <script src="geolocation.js?v=1.0"></script>
   <script src="building_list.js?v=1.0"></script>
   <script src="cases_chart.js?v=1.0"></script>
@@ -170,7 +170,7 @@
         <div class="alert alert-info" style="text-align:center;padding-top:20px;padding-bottom:15px;">
           <div style="display:inline-block;width:100%;max-width:600px;margin-bottom:5px;font-size:0.8rem;"><b>
             <label for="show-population-ratio">顯示地區確診人數</label>
-            <input id="show-population-ratio" type="checkbox" class="switch toggle" onclick="showPopulation_ClickEvent()">
+            <input id="show-population-ratio" type="checkbox" class="switch toggle" onclick="onClickShowPopulation()">
             <label for="show-population-ratio">顯示地區確診比例</label>
             <span data-toggle="tooltip" title="地區確診比例：表示該地區每10萬人口之中於過去14天內的平均確診人數。數字越大表示該地區的確診人口比例較高，亦即現時較高危地區。E.g. 數字12.3表示該地區每10萬人口之中平均有12.3人於過去14天內確診。"><i class='far fa-question-circle' style="color:red;"></i></span>
           </b></div>

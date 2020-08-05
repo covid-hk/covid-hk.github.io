@@ -1,80 +1,28 @@
 /* https://developers.google.com/places/web-service/search */
 /* https://developers.google.com/maps/documentation/javascript/places */
 
-var domain = [];
-domain[0] = "https://colorpalette.ddns.net:8443/";
-domain[1] = "https://covid-hk.github.io/";
-var ajax_retry_times = 0;
-var ajax_retry_times_max = domain.length - 1;
-var googleapis_maps = [];
 var googleapis_maps_hashmap = [];
-var building_list_chi = [];
 
 $(document).ready(function(){
-  getGoogleApisMapsCsv();
+  getGoogleApisMapsCsv(onReadyCsv);
+  getBuildingListChiCsv(onReadyCsv);
 });
 
-function getGoogleApisMapsCsv() {
-  let unixtimestamp = Math.floor(Date.now() / 1000);
-  let unixtimestampper15mins = Math.floor(unixtimestamp / 1000);
-  $.ajax({
-    type: "GET",
-    url: domain[ajax_retry_times_max] + "googleapis_maps.csv?t=" + unixtimestamp,
-    dataType: "text",
-    success: function(response)
-    {
-      googleapis_maps = $.csv.toObjects(response);
-      if (googleapis_maps.length > 0) {
-        googleapis_maps_hashmap = new Map(googleapis_maps.map(item => [item['地區']+','+item['大廈名單'], item['地區']+','+item['大廈名單']+','+item['name']+','+item['lat']+','+item['lng']]));
-
-        getBuildingListCsv();
-      }
-      // if no result
-      //else if (ajax_retry_times < ajax_retry_times_max) {
-      //  ++ajax_retry_times;
-      //  getGoogleApisMapsCsv();
-      //}
-    },
-    error: function()
-    {
-      //if (ajax_retry_times < ajax_retry_times_max) {
-      //  ++ajax_retry_times;
-      //  getGoogleApisMapsCsv();
-      //}
-    }
-  });
+function onReadyCsv() {
+  if (isAjaxDone(['building_list_chi', 'googleapis_maps'])) {
+    setTimeout(function(){
+      callbackGoogleApisMapsCsv();
+      callbackBuildingListChiCsv();
+    }, 0);
+  }
 }
 
-function getBuildingListCsv() {
-  // https://data.gov.hk/tc-data/dataset/hk-dh-chpsebcddr-novel-infectious-agent
-  // https://www.chp.gov.hk/files/misc/building_list_chi.csv
-  // https://www.chp.gov.hk/files/misc/building_list_eng.csv
-  let unixtimestamp = Math.floor(Date.now() / 1000);
-  let unixtimestampper15mins = Math.floor(unixtimestamp / 1000);
-  $.ajax({
-    type: "GET",
-    url: domain[ajax_retry_times] + "building_list_chi.csv?t=" + unixtimestampper15mins,
-    dataType: "text",
-    success: function(response)
-    {
-      building_list_chi = $.csv.toObjects(response);
-      if (building_list_chi.length > 0) {
-        getLatLongFromGoogleMapApi();
-      }
-      // if no result
-      else if (ajax_retry_times < ajax_retry_times_max) {
-        ++ajax_retry_times;
-        getBuildingListCsv();
-      }
-    },
-    error: function()
-    {
-      if (ajax_retry_times < ajax_retry_times_max) {
-        ++ajax_retry_times;
-        getBuildingListCsv();
-      }
-    }
-  });
+function callbackBuildingListChiCsv() {
+  getLatLongFromGoogleMapApi();
+}
+
+function callbackGoogleApisMapsCsv() {
+  googleapis_maps_hashmap = new Map(csv_obj['googleapis_maps'].map(item => [item['地區']+','+item['大廈名單'], item['地區']+','+item['大廈名單']+','+item['name']+','+item['lat']+','+item['lng']]));
 }
 
 function getLatLongFromGoogleMapApi() {
@@ -92,9 +40,9 @@ function getLatLongFromGoogleMapApi() {
   });
 
   let q = new Queue();
-  for (let i = 0; i < building_list_chi.length; i++) {
-    let district = building_list_chi[i]['地區'];
-    let building = building_list_chi[i]['大廈名單'].replace(' (非住宅)', '');
+  for (let i = 0; i < csv_obj['building_list_chi'].length; i++) {
+    let district = csv_obj['building_list_chi'][i]['地區'];
+    let building = csv_obj['building_list_chi'][i]['大廈名單'].replace(' (非住宅)', '');
 
     // Data bug, special handling temporarily
     if (false) { }

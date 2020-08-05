@@ -1,11 +1,33 @@
-var case_details = [];
-
 var case_per_date = [];
+
+var caseCount = [];
+
+$(document).ready(function(){
+  getCaseDetailsCsv(onReadyCsv);
+});
+
+function callbackCaseDetailsCsv() {
+  groupCasesByDate();
+  calAllCaseCount();
+
+  // Construct Case Bar Summary
+  let html = constructCaseBarSummary();
+  $('#case_bar_summary').html($(html).hide().fadeIn(2000));
+  // Draw Bar Chart
+  drawBarChart();
+
+  // Construct Case Pie Summary
+  html = constructCasePieSummary();
+  $('#case_pie_summary').html($(html).hide().fadeIn(2000));
+  // Draw Pie Chart
+  drawPieChart();
+}
+
 function groupCasesByDate() {
-  for (let i = 0; i < case_details.length; i++) {
-    if (case_details[i]['確診/疑似個案'] == '疑似') { continue; }
-    let case_number = parseInt(case_details[i]['個案編號'], 10);
-    let case_date = parseInt(moment(case_details[i]['報告日期'], 'DD/MM/YYYY').format('YYYYMMDD'), 10) - 20200000;
+  for (let i = 0; i < csv_obj['case_details'].length; i++) {
+    if (csv_obj['case_details'][i]['確診/疑似個案'] == '疑似') { continue; }
+    let case_number = parseInt(csv_obj['case_details'][i]['個案編號'], 10);
+    let case_date = parseInt(moment(csv_obj['case_details'][i]['報告日期'], 'DD/MM/YYYY').format('YYYYMMDD'), 10) - 20200000;
     case_per_date[case_date] = case_per_date[case_date] || [];
     case_per_date[case_date] = case_per_date[case_date].concat(case_number);
   }
@@ -24,7 +46,6 @@ function getLastDateCases() {
   return last_date_cases;
 }
 
-var caseCount = [];
 function calAllCaseCount() {
   caseCount["確診"] = 0;
   caseCount["確診男"] = 0;
@@ -80,10 +101,10 @@ function calAllCaseCount() {
   caseCount["確診地區葵青區"] = map_dist['葵青'].case.length;
   caseCount["確診地區離島區"] = map_dist['離島'].case.length;
 
-  for (let i = 0; i < case_details.length; i++) {
-    if (case_details[i]['確診/疑似個案'] == '疑似') { continue; }
+  for (let i = 0; i < csv_obj['case_details'].length; i++) {
+    if (csv_obj['case_details'][i]['確診/疑似個案'] == '疑似') { continue; }
 
-    let obj = {'sex':(case_details[i]['性別'] == '男' ? 'M' : case_details[i]['性別'] == '女' ? 'F' : ''), 'age':(case_details[i]['年齡'].isNumber() ? parseInt(case_details[i]['年齡'], 10) : -1)};
+    let obj = {'sex':(csv_obj['case_details'][i]['性別'] == '男' ? 'M' : csv_obj['case_details'][i]['性別'] == '女' ? 'F' : ''), 'age':(csv_obj['case_details'][i]['年齡'].isNumber() ? parseInt(csv_obj['case_details'][i]['年齡'], 10) : -1)};
     caseCount["確診"]++;
     if(obj.sex == "M") {
       caseCount["確診男"]++;
@@ -181,56 +202,6 @@ function calAllCaseCount() {
   caseCount["確診地區"] = caseCount["確診地區港島"] + caseCount["確診地區九龍西"] + caseCount["確診地區九龍東"] + caseCount["確診地區新界西"] + caseCount["確診地區新界東"];
 }
 
-function getCaseDetailsCsv() {
-  // https://data.gov.hk/tc-data/dataset/hk-dh-chpsebcddr-novel-infectious-agent
-  // https://www.chp.gov.hk/files/misc/enhanced_sur_covid_19_chi.csv
-  let unixtimestamp = Math.floor(Date.now() / 1000);
-  let unixtimestampper15mins = Math.floor(unixtimestamp / 1000);
-  $.ajax({
-    type: "GET",
-    url: domain[ajax_retry_times] + "enhanced_sur_covid_19_chi.csv?t=" + unixtimestampper15mins,
-    dataType: "text",
-    success: function(response)
-    {
-      case_details = $.csv.toObjects(response);
-      if (case_details.length > 0) {
-        groupCasesByDate();
-        calAllCaseCount();
-
-        // Construct Case Bar Summary
-        let html = constructCaseBarSummary();
-        $('#case_bar_summary').html($(html).hide().fadeIn(2000));
-        // Draw Bar Chart
-        drawBarChart();
-
-        // Construct Case Pie Summary
-        html = constructCasePieSummary();
-        $('#case_pie_summary').html($(html).hide().fadeIn(2000));
-        // Draw Pie Chart
-        drawPieChart();
-      }
-      // if no result
-      else if (ajax_retry_times < ajax_retry_times_max) {
-        ++ajax_retry_times;
-        getCaseDetailsCsv();
-      }
-    },
-    error: function()
-    {
-      if (ajax_retry_times < ajax_retry_times_max) {
-        ++ajax_retry_times;
-        getCaseDetailsCsv();
-      }
-    }
-  });
-}
-
-$(document).ready(function(){
-  setTimeout(function() {
-    getCaseDetailsCsv();
-  }, 1000);
-});
-
 function constructCaseBarSummary() {
   let html = '';
   //html += '<mark>';
@@ -267,7 +238,7 @@ function constructCaseDetailsModal($element) {
   let header = constructCaseDetailsHeader(row);
   $('#caseDetailModal .modal-header .modal-title').html($(header).hide().fadeIn(2000));
 
-  let data = case_details.filter(function(item, pos, self) {
+  let data = csv_obj['case_details'].filter(function(item, pos, self) {
     return cases.includes(parseInt(item['個案編號'], 10));
   });
   //data.sort();

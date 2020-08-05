@@ -1,18 +1,6 @@
-var domain = [];
-domain[0] = "https://colorpalette.ddns.net:8443/";
-domain[1] = "https://covid-hk.github.io/";
-var ajax_retry_times = 0;
-var ajax_retry_times_max = domain.length - 1;
-var population = [];
-var googleapis_maps = [];
-var googleapis_maps_hashmap = [];
-var filetime = [];
-var building_list_chi = [];
-var building_list_eng = [];
-var building_list_chi_ajax_done = false;
-var building_list_eng_ajax_done = false;
 var building_list = [];
 var building_list_dedup = [];
+var googleapis_maps_hashmap = [];
 
 var map_dist = [];
 map_dist['北區'] = {'ch':'北區', 'en':'North', 'id':'N', 'case':[], rank:0};
@@ -68,6 +56,100 @@ Number.prototype.toOrdinal = function(){
   return {'number':this, 'suffix':'th'};
 }
 
+$(document).ready(function(){
+  getFileTimeCsv(onReadyCsv);
+  getGoogleApisMapsCsv(onReadyCsv);
+  getBuildingListCsv(onReadyCsv);
+  getPopulationCsv(onReadyCsv);
+});
+
+// When the user scrolls down from the top of the document, show the button
+$(window).scroll(function(){
+  let scrollTop = ($(window).scrollTop() || $(document).scrollTop() || $('html,body').scrollTop());
+  let offsetTop = $('#search-keyword').offset().top;
+  if (scrollTop > offsetTop) {
+    $('#backToTopBtn').fadeIn();
+  } else {
+    $('#backToTopBtn').fadeOut();
+  }
+});
+
+function onReadyCsv() {
+  if (isAjaxDone(['building_list_chi', 'building_list_eng', 'case_details', 'filetime', 'googleapis_maps', 'latest_reported_cases', 'population'])) {
+    setTimeout(function(){
+      callbackFileTimeCsv();
+    }, 0);
+    setTimeout(function(){
+      callbackGoogleApisMapsCsv();
+      callbackBuildingListCsv();
+      callbackCaseDetailsCsv();
+    }, 0);
+    setTimeout(function(){
+      callbackPopulationCsv();
+    }, 2000);
+    setTimeout(function() {
+      callbackCasesCsv();
+    }, 1000);
+  }
+}
+
+function callbackBuildingListCsv() {
+  mergeBuildingList();
+  chooseDefaultDistrict();
+  refreshUI();
+}
+
+function callbackFileTimeCsv() {
+  $('#header-update-time').html($('<span><i class="far fa-clock"></i>&nbsp;&nbsp;更新時間: '+moment(csv_obj['filetime'][0].file_time, 'YYYY-MM-DDTHH:mm:ss').format('M月D日 h:mma')+'</span>').hide().fadeIn(2000));
+}
+
+function callbackGoogleApisMapsCsv() {
+  googleapis_maps_hashmap = new Map(csv_obj['googleapis_maps'].map(item => [item['地區']+','+item['大廈名單'], {'lat':item['lat'],'lng':item['lng']}]));
+}
+
+function callbackPopulationCsv() {
+  let population_hashmap = new Map(csv_obj['population'].map(item => [item['地區'], {'land_area_sq_km':item['land_area_sq_km'],'population_x_1000':item['population_x_1000']}]));
+  for (let dist_ch in map_dist) {
+    map_dist[dist_ch]['population'] = population_hashmap.get(dist_ch).population_x_1000 * 1000.0;
+  }
+
+  for (let dist_ch in map_dist) {
+    map_dist[dist_ch]['population_ratio'] = (map_dist[dist_ch]['case'].length * 100000.0 / map_dist[dist_ch]['population']);
+  }
+  let district_population_ratio = Object.values(map_dist).map(dist => ({ id:dist.id, population_ratio:dist.population_ratio, rank:0 }));
+  // Sort district by number of cases in desc order
+  district_population_ratio.sort(function(a, b) {
+    return 0 - (a.population_ratio - b.population_ratio);
+  });
+  // Assign the rank values
+  for (let i=0; i<district_population_ratio.length; i++) {
+    district_population_ratio[i].rank = i + 1;
+  }
+  // Handle dead heat / draw / tie case
+  for (let i=1; i<district_population_ratio.length; i++) {
+    if (district_population_ratio[i-1].population_ratio > district_population_ratio[i].population_ratio) { continue; }
+    district_population_ratio[i].rank = district_population_ratio[i-1].rank;
+  }
+  // Copy the rank values to global map_dist
+  let district_ranks = [];
+  for (let i=0; i<district_population_ratio.length; i++) {
+    district_ranks[district_population_ratio[i].id] = district_population_ratio[i].rank;
+  }
+  for (let dist_ch in map_dist) {
+    map_dist[dist_ch]['population_ratio_rank'] = district_ranks[map_dist[dist_ch]['id']];
+  }
+
+  // Assign the num_of_cases and rank values to the badge-district elements
+  for (let dist_ch in map_dist) {
+    let id = map_dist[dist_ch]['id'].toLowerCase();
+    let population_ratio = map_dist[dist_ch]['population_ratio'];
+    let population_ratio_rank = map_dist[dist_ch]['population_ratio_rank'].toOrdinal();
+    $('#badge-district-'+id).attr('data-population', Number(population_ratio.toFixed(1)));
+    $('#badge-district-'+id).attr('data-population-rank', population_ratio_rank.number);
+    $('#badge-district-'+id).attr('data-population-rank-suffix', population_ratio_rank.suffix);
+  }
+}
+
 function setCookie(cname, cvalue, exdays) {
   var d = new Date();
   d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
@@ -89,23 +171,6 @@ function getCookie(cname) {
   }
   return "";
 }
-
-$(document).ready(function(){
-  getFileTimeCsv();
-  getGoogleApisMapsCsv();
-  getPopulationCsv();
-});
-
-// When the user scrolls down from the top of the document, show the button
-$(window).scroll(function(){
-  let scrollTop = ($(window).scrollTop() || $(document).scrollTop() || $('html,body').scrollTop());
-  let offsetTop = $('#search-keyword').offset().top;
-  if (scrollTop > offsetTop) {
-    $('#backToTopBtn').fadeIn();
-  } else {
-    $('#backToTopBtn').fadeOut();
-  }
-});
 
 // When the user clicks on the button, scroll to the top of the document
 function backToTop() {
@@ -153,7 +218,7 @@ function chooseDefaultDistrict() {
     $('#badge-district-'+id).attr('data-rank', rank.number);
     $('#badge-district-'+id).attr('data-rank-suffix', rank.suffix);
   }
-  showPopulation_ClickEvent();
+  onClickShowPopulation();
 
   let district_id = getCookie("covid_hk_district_id");
   if (district_id == '') {
@@ -162,7 +227,7 @@ function chooseDefaultDistrict() {
   $('#district-'+district_id.toLowerCase()).click();
 }
 
-function showPopulation_ClickEvent() {
+function onClickShowPopulation() {
   // Animation of badge-district elements
   let $element = $('.badge-district');
   function fadeInOut() {
@@ -233,218 +298,28 @@ function refreshUI() {
   }, 100);
 }
 
-function getPopulationCsv() {
-  let unixtimestamp = Math.floor(Date.now() / 1000);
-  let unixtimestampper15mins = Math.floor(unixtimestamp / 1000);
-  $.ajax({
-    type: "GET",
-    url: domain[ajax_retry_times_max] + "population2019.csv?t=" + unixtimestampper15mins,
-    dataType: "text",
-    success: function(response)
-    {
-      population = $.csv.toObjects(response);
-      if (population.length > 0) {
-        let population_hashmap = new Map(population.map(item => [item['地區'], {'land_area_sq_km':item['land_area_sq_km'],'population_x_1000':item['population_x_1000']}]));
-        for (let dist_ch in map_dist) {
-          map_dist[dist_ch]['population'] = population_hashmap.get(dist_ch).population_x_1000 * 1000.0;
-        }
-        setTimeout(function(){
-          for (let dist_ch in map_dist) {
-            map_dist[dist_ch]['population_ratio'] = (map_dist[dist_ch]['case'].length * 100000.0 / map_dist[dist_ch]['population']);
-          }
-          let district_population_ratio = Object.values(map_dist).map(dist => ({ id:dist.id, population_ratio:dist.population_ratio, rank:0 }));
-          // Sort district by number of cases in desc order
-          district_population_ratio.sort(function(a, b) {
-            return 0 - (a.population_ratio - b.population_ratio);
-          });
-          // Assign the rank values
-          for (let i=0; i<district_population_ratio.length; i++) {
-            district_population_ratio[i].rank = i + 1;
-          }
-          // Handle dead heat / draw / tie case
-          for (let i=1; i<district_population_ratio.length; i++) {
-            if (district_population_ratio[i-1].population_ratio > district_population_ratio[i].population_ratio) { continue; }
-            district_population_ratio[i].rank = district_population_ratio[i-1].rank;
-          }
-          // Copy the rank values to global map_dist
-          let district_ranks = [];
-          for (let i=0; i<district_population_ratio.length; i++) {
-            district_ranks[district_population_ratio[i].id] = district_population_ratio[i].rank;
-          }
-          for (let dist_ch in map_dist) {
-            map_dist[dist_ch]['population_ratio_rank'] = district_ranks[map_dist[dist_ch]['id']];
-          }
-
-          // Assign the num_of_cases and rank values to the badge-district elements
-          for (let dist_ch in map_dist) {
-            let id = map_dist[dist_ch]['id'].toLowerCase();
-            let population_ratio = map_dist[dist_ch]['population_ratio'];
-            let population_ratio_rank = map_dist[dist_ch]['population_ratio_rank'].toOrdinal();
-            $('#badge-district-'+id).attr('data-population', Number(population_ratio.toFixed(1)));
-            $('#badge-district-'+id).attr('data-population-rank', population_ratio_rank.number);
-            $('#badge-district-'+id).attr('data-population-rank-suffix', population_ratio_rank.suffix);
-          }
-        }, 2000);
-      }
-      // if no result
-      //else if (ajax_retry_times < ajax_retry_times_max) {
-      //  ++ajax_retry_times;
-      //  getPopulationCsv();
-      //}
-    },
-    error: function()
-    {
-      //if (ajax_retry_times < ajax_retry_times_max) {
-      //  ++ajax_retry_times;
-      //  getPopulationCsv();
-      //}
-    }
-  });
-}
-
-function getGoogleApisMapsCsv() {
-  let unixtimestamp = Math.floor(Date.now() / 1000);
-  let unixtimestampper15mins = Math.floor(unixtimestamp / 1000);
-  $.ajax({
-    type: "GET",
-    url: domain[ajax_retry_times_max] + "googleapis_maps.csv?t=" + unixtimestampper15mins,
-    dataType: "text",
-    success: function(response)
-    {
-      googleapis_maps = $.csv.toObjects(response);
-      if (googleapis_maps.length > 0) {
-        googleapis_maps_hashmap = new Map(googleapis_maps.map(item => [item['地區']+','+item['大廈名單'], {'lat':item['lat'],'lng':item['lng']}]));
-
-        getBuildingListCsv();
-      }
-      // if no result
-      //else if (ajax_retry_times < ajax_retry_times_max) {
-      //  ++ajax_retry_times;
-      //  getGoogleApisMapsCsv();
-      //}
-    },
-    error: function()
-    {
-      //if (ajax_retry_times < ajax_retry_times_max) {
-      //  ++ajax_retry_times;
-      //  getGoogleApisMapsCsv();
-      //}
-    }
-  });
-}
-
-function getFileTimeCsv() {
-  let unixtimestamp = Math.floor(Date.now() / 1000);
-  let unixtimestampper15mins = Math.floor(unixtimestamp / 1000);
-  $.ajax({
-    type: "GET",
-    url: domain[ajax_retry_times] + "filetime.csv?t=" + unixtimestampper15mins,
-    dataType: "text",
-    success: function(response)
-    {
-      filetime = $.csv.toObjects(response);
-      if (filetime.length > 0) {
-        $('#header-update-time').html($('<span><i class="far fa-clock"></i>&nbsp;&nbsp;更新時間: '+moment(filetime[0].file_time, 'YYYY-MM-DDTHH:mm:ss').format('M月D日 h:mma')+'</span>').hide().fadeIn(2000));
-      }
-      // if no result
-      else if (ajax_retry_times < ajax_retry_times_max) {
-        ++ajax_retry_times;
-        getFileTimeCsv();
-      }
-    },
-    error: function()
-    {
-      if (ajax_retry_times < ajax_retry_times_max) {
-        ++ajax_retry_times;
-        getFileTimeCsv();
-      }
-    }
-  });
-}
-
-function getBuildingListCsv() {
-  // https://data.gov.hk/tc-data/dataset/hk-dh-chpsebcddr-novel-infectious-agent
-  // https://www.chp.gov.hk/files/misc/building_list_chi.csv
-  // https://www.chp.gov.hk/files/misc/building_list_eng.csv
-  let unixtimestamp = Math.floor(Date.now() / 1000);
-  let unixtimestampper15mins = Math.floor(unixtimestamp / 1000);
-  $.ajax({
-    type: "GET",
-    url: domain[ajax_retry_times] + "building_list_chi.csv?t=" + unixtimestampper15mins,
-    dataType: "text",
-    success: function(response)
-    {
-      building_list_chi = $.csv.toObjects(response);
-      building_list_chi_ajax_done = true;
-      if (building_list_chi.length > 0 && building_list_eng.length > 0 && building_list_chi.length == building_list_eng.length) {
-        mergeBuildingList();
-        chooseDefaultDistrict();
-        refreshUI();
-      }
-      // if no result
-      else if (ajax_retry_times < ajax_retry_times_max && building_list_chi_ajax_done && building_list_eng_ajax_done) {
-        ++ajax_retry_times;
-        getBuildingListCsv();
-      }
-    },
-    error: function()
-    {
-      if (ajax_retry_times < ajax_retry_times_max) {
-        ++ajax_retry_times;
-        getBuildingListCsv();
-      }
-    }
-  });
-  $.ajax({
-    type: "GET",
-    url: domain[ajax_retry_times] + "building_list_eng.csv?t=" + unixtimestampper15mins,
-    dataType: "text",
-    success: function(response)
-    {
-      building_list_eng = $.csv.toObjects(response);
-      building_list_eng_ajax_done = true;
-      if (building_list_chi.length > 0 && building_list_eng.length > 0 && building_list_chi.length == building_list_eng.length) {
-        mergeBuildingList();
-        chooseDefaultDistrict();
-        refreshUI();
-      }
-      // if no result
-      else if (ajax_retry_times < ajax_retry_times_max && building_list_chi_ajax_done && building_list_eng_ajax_done) {
-        ++ajax_retry_times;
-        getBuildingListCsv();
-      }
-    },
-    error: function()
-    {
-      if (ajax_retry_times < ajax_retry_times_max) {
-        ++ajax_retry_times;
-        getBuildingListCsv();
-      }
-    }
-  });
-}
-
 function mergeBuildingList() {
   building_list = [];
-  for (let i = 0; i < building_list_chi.length; i++) {
+  let case_details_hashmap = new Map(csv_obj['case_details'].map(item => [Number(item['個案編號']), item['報告日期']]));
+  for (let i = 0; i < csv_obj['building_list_chi'].length; i++) {
     let obj = [];
-    obj['dist'] = map_dist[building_list_chi[i]['地區']];
-    obj['buil'] = {'ch':building_list_chi[i]['大廈名單'], 'en':building_list_eng[i]['Building name']};
+    obj['dist'] = map_dist[csv_obj['building_list_chi'][i]['地區']];
+    obj['buil'] = {'ch':csv_obj['building_list_chi'][i]['大廈名單'], 'en':csv_obj['building_list_eng'][i]['Building name']};
 
     // Data bug, special handling temporarily
     //if (i > 1199 - 2) {
-    //  obj['buil'] = {'ch':building_list_chi[i]['大廈名單'], 'en':building_list_eng[i-1]['Building name']};
+    //  obj['buil'] = {'ch':csv_obj['building_list_chi'][i]['大廈名單'], 'en':csv_obj['building_list_eng'][i-1]['Building name']};
     //}
     //else if (i == 1199 - 2) {
-    //  obj['buil'] = {'ch':building_list_chi[i]['大廈名單'], 'en':''};
+    //  obj['buil'] = {'ch':csv_obj['building_list_chi'][i]['大廈名單'], 'en':''};
     //}
     //else {
-    //  obj['buil'] = {'ch':building_list_chi[i]['大廈名單'], 'en':building_list_eng[i]['Building name']};
+    //  obj['buil'] = {'ch':csv_obj['building_list_chi'][i]['大廈名單'], 'en':csv_obj['building_list_eng'][i]['Building name']};
     //}
 
     // Data bug, special handling temporarily
     if (false) { }
-    else if (building_list_chi[i]['地區'].startsWith('九龍城')) { obj['dist'] = map_dist['九龍城']; }
+    else if (csv_obj['building_list_chi'][i]['地區'].startsWith('九龍城')) { obj['dist'] = map_dist['九龍城']; }
     else if (obj['buil']['ch'].startsWith('加州花園')) { obj['dist'] = map_dist['元朗']; }
     else if (obj['buil']['ch'].startsWith('天富苑')) { obj['dist'] = map_dist['元朗']; }
     else if (obj['buil']['ch'].startsWith('天恒邨')) { obj['dist'] = map_dist['元朗']; }
@@ -464,11 +339,14 @@ function mergeBuildingList() {
       obj['buil']['en'] = obj['buil']['en'].replace(' (non-residential)', '');
       obj['type'] = map_type['非住宅'];
     }
-    obj['date'] = building_list_chi[i]['最後個案居住日期'];
-    if (obj['date'] != '') {
-      obj['date'] = moment(obj['date'], 'DD/MM/YYYY').format('YYYY-MM-DD');
+    obj['case'] = csv_obj['building_list_chi'][i]['相關疑似/確診個案'].replace(/\s/g, '');
+    obj['date'] = csv_obj['building_list_chi'][i]['最後個案居住日期'];
+    if (obj['date'] == '') {
+      let case_num_array = obj['case'].split(',').map(Number);
+      let last_case_num = Math.max.apply(Math, case_num_array);
+      obj['date'] = case_details_hashmap.get(last_case_num);
     }
-    obj['case'] = building_list_chi[i]['相關疑似/確診個案'].replace(/\s/g, '');
+    obj['date'] = moment(obj['date'], 'DD/MM/YYYY').format('YYYY-MM-DD');
 
     building_list.push(obj);
   }
@@ -526,7 +404,7 @@ function mergeBuildingList() {
       building_list_dedup.push(obj);
     }
     else {
-      building_list_dedup[building_list_dedup.length-1]['date'] = building_list[i]['date'];
+      building_list_dedup[building_list_dedup.length-1]['date'] = (building_list_dedup[building_list_dedup.length-1]['date'] > building_list[i]['date'] ? building_list_dedup[building_list_dedup.length-1]['date'] : building_list[i]['date']);
       building_list_dedup[building_list_dedup.length-1]['case'] = building_list_dedup[building_list_dedup.length-1]['case'].concat(',', building_list[i]['case']);
     }
   }
@@ -753,8 +631,7 @@ function constructBuildingListTable(data) {
             else if (distance <= 1600.0) {
               badge = 'warning';
             }
-            html_inner += '<h5>';
-            html_inner += '<a href="javascript:void(0)" data-toggle="tooltip" title="' + (row['date'] == '' ? '' : (moment(row['date'], 'YYYY-MM-DD').format('M月D日'))) + '">';
+            html_inner += '<h5 style="margin-bottom:0;">';
             html_inner += '<span class="badge badge-' + badge + '">';
             let bearing = getFormattedBearing(row['bearing']);
             if (bearing == 'N') {
@@ -771,8 +648,8 @@ function constructBuildingListTable(data) {
             }
             html_inner += getFormattedDistance(distance);
             html_inner += '</span>';
-            html_inner += '</a>';
             html_inner += '</h5>';
+            html_inner += (row['date'] == '' ? '' : (moment(row['date'], 'YYYY-MM-DD').format('M月D日')));
           }
           else {
             html_inner += (row['date'] == '' ? '' : (moment(row['date'], 'YYYY-MM-DD').format('M月D日') + '<br/>' + moment(row['date'], 'YYYY-MM-DD').format('MMM Do')));

@@ -1,76 +1,22 @@
-var latest_reported_cases = [];
-
-function getCasesCsv() {
-  // https://data.gov.hk/tc-data/dataset/hk-dh-chpsebcddr-novel-infectious-agent
-  // https://www.chp.gov.hk/files/misc/latest_situation_of_reported_cases_covid_19_chi.csv
-  let unixtimestamp = Math.floor(Date.now() / 1000);
-  let unixtimestampper15mins = Math.floor(unixtimestamp / 1000);
-  $.ajax({
-    type: "GET",
-    url: domain[ajax_retry_times] + "latest_situation_of_reported_cases_covid_19_chi.csv?t=" + unixtimestampper15mins,
-    dataType: "text",
-    success: function(response)
-    {
-      latest_reported_cases = $.csv.toObjects(response);
-      if (latest_reported_cases.length > 0) {
-        calAggregatedCaseCount();
-
-        // Construct Case Line Summary
-        let html = constructCaseLineSummary();
-        $('#case_line_summary').html($(html).hide().fadeIn(2000));
-        // Draw Line Chart
-        drawLineChart();
-      }
-      // if no result
-      else if (ajax_retry_times < ajax_retry_times_max) {
-        ++ajax_retry_times;
-        getCasesCsv();
-      }
-    },
-    error: function()
-    {
-      if (ajax_retry_times < ajax_retry_times_max) {
-        ++ajax_retry_times;
-        getCasesCsv();
-      }
-    }
-  });
-}
-
-function getDateRange() {
-  let dateRange = [];
-  for (let i = 0; i < latest_reported_cases.length; i++) {
-    let d = latest_reported_cases[i]['更新日期'];
-    if (moment(d, 'DD/MM/YYYY') < new Date(2020,0,22)) { continue; }
-
-    dateRange.push(moment(d, 'DD/MM/YYYY').format('MMM DD'));
-  }
-  return dateRange;
-}
-
 var aggregatedCaseCount = [];
 aggregatedCaseCount["確診"] = [];
 aggregatedCaseCount["住院"] = [];
 aggregatedCaseCount["死亡"] = [];
 aggregatedCaseCount["出院"] = [];
-function calAggregatedCaseCount() {
-  let tempAggregatedCaseCount = [];
-  tempAggregatedCaseCount["確診"] = 0;
-  tempAggregatedCaseCount["死亡"] = 0;
-  tempAggregatedCaseCount["出院"] = 0;
-  for (let i = 0; i < latest_reported_cases.length; i++) {
-    let d = latest_reported_cases[i]['更新日期'];
-    if (moment(d, 'DD/MM/YYYY') < new Date(2020,0,22)) { continue; }
+aggregatedCaseCount["新增"] = [];
 
-    tempAggregatedCaseCount["確診"] = latest_reported_cases[i]['確診個案'];
-    tempAggregatedCaseCount["死亡"] = latest_reported_cases[i]['死亡'];
-    tempAggregatedCaseCount["出院"] = latest_reported_cases[i]['出院'];
+$(document).ready(function(){
+  getCasesCsv(onReadyCsv);
+});
 
-    aggregatedCaseCount["死亡"].push(tempAggregatedCaseCount["死亡"]);
-    aggregatedCaseCount["出院"].push(tempAggregatedCaseCount["出院"]);
-    aggregatedCaseCount["確診"].push(tempAggregatedCaseCount["確診"]);
-    aggregatedCaseCount["住院"].push(tempAggregatedCaseCount["確診"] - tempAggregatedCaseCount["死亡"] - tempAggregatedCaseCount["出院"]);
-  }
+function callbackCasesCsv() {
+  calAggregatedCaseCount();
+
+  // Construct Case Line Summary
+  let html = constructCaseLineSummary();
+  $('#case_line_summary').html($(html).hide().fadeIn(2000));
+  // Draw Line Chart
+  drawLineChart();
 }
 
 window.chartColors = {
@@ -103,21 +49,57 @@ function transparentize(color, opacity) {
   return Color(color).alpha(alpha).rgbString();
 }
 
-$(document).ready(function(){
-  setTimeout(function() {
-    getCasesCsv();
-  }, 1000);
-});
+function getDateRange() {
+  let dateRange = [];
+  for (let i = 0; i < csv_obj['latest_reported_cases'].length; i++) {
+    let d = csv_obj['latest_reported_cases'][i]['更新日期'];
+    if (moment(d, 'DD/MM/YYYY') < new Date(2020,0,22)) { continue; }
+
+    dateRange.push(moment(d, 'DD/MM/YYYY').format('MMM DD'));
+  }
+  return dateRange;
+}
+
+function calAggregatedCaseCount() {
+  let tempAggregatedCaseCount = [];
+  tempAggregatedCaseCount["確診"] = 0;
+  tempAggregatedCaseCount["死亡"] = 0;
+  tempAggregatedCaseCount["出院"] = 0;
+  tempAggregatedCaseCount["新增"] = 0;
+  for (let i = 0; i < csv_obj['latest_reported_cases'].length; i++) {
+    let d = csv_obj['latest_reported_cases'][i]['更新日期'];
+    if (moment(d, 'DD/MM/YYYY') < new Date(2020,0,22)) { continue; }
+
+    tempAggregatedCaseCount["確診"] = csv_obj['latest_reported_cases'][i]['確診個案'];
+    tempAggregatedCaseCount["死亡"] = csv_obj['latest_reported_cases'][i]['死亡'];
+    tempAggregatedCaseCount["出院"] = csv_obj['latest_reported_cases'][i]['出院'];
+    if (i > 0) {
+      tempAggregatedCaseCount["新增"] = csv_obj['latest_reported_cases'][i]['確診個案'] - csv_obj['latest_reported_cases'][i-1]['確診個案'];
+    }
+
+    aggregatedCaseCount["死亡"].push(tempAggregatedCaseCount["死亡"]);
+    aggregatedCaseCount["出院"].push(tempAggregatedCaseCount["出院"]);
+    aggregatedCaseCount["新增"].push(tempAggregatedCaseCount["新增"]);
+    aggregatedCaseCount["確診"].push(tempAggregatedCaseCount["確診"]);
+    aggregatedCaseCount["住院"].push(tempAggregatedCaseCount["確診"] - tempAggregatedCaseCount["死亡"] - tempAggregatedCaseCount["出院"] - tempAggregatedCaseCount["新增"]);
+  }
+}
 
 function constructCaseLineSummary() {
-  let update_date = latest_reported_cases[latest_reported_cases.length - 1]['更新日期'];
-  let confirmed = latest_reported_cases[latest_reported_cases.length - 1]["確診個案"];
-  let discharge = latest_reported_cases[latest_reported_cases.length - 1]["出院"];
-  let death = latest_reported_cases[latest_reported_cases.length - 1]["死亡"];
-  let hospitalised = confirmed - discharge - death;
-  let added = latest_reported_cases[latest_reported_cases.length - 1]["確診個案"] - latest_reported_cases[latest_reported_cases.length - 2]["確診個案"];
+  let update_date = csv_obj['latest_reported_cases'][csv_obj['latest_reported_cases'].length - 1]['更新日期'];
+  let confirmed = aggregatedCaseCount["確診"][aggregatedCaseCount["確診"].length - 1];
+  let discharge = aggregatedCaseCount["出院"][aggregatedCaseCount["出院"].length - 1];
+  let death = aggregatedCaseCount["死亡"][aggregatedCaseCount["死亡"].length - 1];
+  let hospitalised = aggregatedCaseCount["住院"][aggregatedCaseCount["住院"].length - 1];
+  let added = aggregatedCaseCount["新增"][aggregatedCaseCount["新增"].length - 1];
   let html = '';
-  html += '<span><i class="far fa-clock"></i> 更新日期: ' + moment(update_date, 'DD/MM/YYYY').format('YYYY-MM-DD') + ' | <i class="fas fa-ambulance"></i> 單日新增: <span class="badge badge-info" style="font-size:100%;background-color:' + transparentize(window.chartColors.pink) + ';"><b>' + added + '</b></span></span>';
+  html += '<span>';
+  html += '<i class="far fa-clock"></i> 更新日期: ' + moment(update_date, 'DD/MM/YYYY').format('YYYY-MM-DD');
+  html += ' | ';
+  html += '<i class="fas fa-ambulance"></i> ';
+  html += '<span class="badge badge-info" style="font-size:100%;background-color:' + transparentize(window.chartColors.pink) + ';"><b>' + added + '</b></span> 新增';
+  html += ' + ';
+  html += '</span>';
   html += '<br/><br/>';
   //html += '<mark>';
   html += '<span>';
@@ -141,6 +123,13 @@ function drawLineChart() {
     data: {
       labels: getDateRange(),
       datasets: [{
+        type: "bar",
+        label: '新增 New',
+        backgroundColor: transparentize(window.chartColors.pink),
+        borderColor: window.chartColors.pink,
+        borderWidth: 1,
+        data: aggregatedCaseCount["新增"]
+      }, {
         hidden: true,
         type: "bar",
         label: '出院 Discharge',
@@ -157,6 +146,7 @@ function drawLineChart() {
         borderWidth: 1,
         data: aggregatedCaseCount["死亡"]
       }, {
+        hidden: true,
         type: "bar",
         label: '住院 Hospitalised',
         backgroundColor: transparentize(window.chartColors.orange),
@@ -164,6 +154,7 @@ function drawLineChart() {
         borderWidth: 1,
         data: aggregatedCaseCount["住院"]
       }, {
+        hidden: true,
         type: "line",
         label: '確診 Confirmed',
         backgroundColor: transparentize(window.chartColors.pink),
