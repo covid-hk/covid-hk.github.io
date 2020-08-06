@@ -161,7 +161,7 @@ function getCookie(cname) {
   var ca = document.cookie.split(';');
   for(var i = 0; i < ca.length; i++) {
     var c = ca[i];
-    while (c.charAt(0) == ' ') {
+    while (c.charAt(0) === ' ') {
       c = c.substring(1);
     }
     if (c.indexOf(name) == 0) {
@@ -178,7 +178,7 @@ function backToTop() {
 }
 
 function cleanSearchBox(forced) {
-  if ($("#search-keyword").val() != '' || forced) {
+  if ($("#search-keyword").val() !== '' || forced) {
     $("#search-keyword").val('');
     refreshUI();
   }
@@ -220,7 +220,7 @@ function chooseDefaultDistrict() {
   onClickShowPopulation();
 
   let district_id = getCookie("covid_hk_district_id");
-  if (district_id == '') {
+  if (district_id === '') {
     district_id = district_cases[0].id;
   }
   $('#district-'+district_id.toLowerCase()).click();
@@ -285,7 +285,7 @@ function onClickShowBuildingType($element) {
 }
 
 function refreshUI() {
-  if ($('#input-group-distance').css('display') == 'none' && isValidUserLocation()) {
+  if ($('#input-group-distance').css('display') === 'none' && isValidUserLocation()) {
     // Custom fadeIn to display as inline-block
     $('#input-group-distance').css({
       opacity: 0,
@@ -353,7 +353,7 @@ function mergeBuildingList() {
     }
     obj['case'] = csv_obj['building_list_chi'][i]['相關疑似/確診個案'].replace(/\s/g, '');
     obj['date'] = csv_obj['building_list_chi'][i]['最後個案居住日期'];
-    if (obj['date'] == '') {
+    if (obj['date'] === '') {
       let case_num_array = obj['case'].split(',').map(Number);
       let last_case_num = Math.max.apply(Math, case_num_array);
       obj['date'] = case_details_hashmap.get(last_case_num);
@@ -372,17 +372,17 @@ function mergeBuildingList() {
       return 1;
     }
     else {
-      if (a['buil']['ch'] < b['buil']['ch']) {
+      if (a['buil']['ch'].replace(/\s/g,'') < b['buil']['ch'].replace(/\s/g,'')) {
         return -1;
       }
-      else if (a['buil']['ch'] > b['buil']['ch']) {
+      else if (a['buil']['ch'].replace(/\s/g,'') > b['buil']['ch'].replace(/\s/g,'')) {
         return 1;
       }
       else {
-        if (a['type']['ch'] == '住宅' && b['type']['ch'] == '非住宅') {
+        if (a['type']['ch'] === '住宅' && b['type']['ch'] === '非住宅') {
           return -1;
         }
-        else if (a['type']['ch'] == '非住宅' && b['type']['ch'] == '住宅') {
+        else if (a['type']['ch'] === '非住宅' && b['type']['ch'] === '住宅') {
           return 1;
         }
         else {
@@ -404,7 +404,9 @@ function mergeBuildingList() {
   // Copy building_list to building_list_dedup, dedup by 大廈名單
   building_list_dedup = [];
   for (let i = 0; i < building_list.length; i++) {
-    if (building_list_dedup.length == 0 || building_list_dedup[building_list_dedup.length-1]['buil']['ch'] != building_list[i]['buil']['ch']) {
+    if ( building_list_dedup.length == 0 ||
+        (building_list_dedup[building_list_dedup.length-1]['buil']['ch'] !== building_list[i]['buil']['ch'] &&
+         building_list_dedup[building_list_dedup.length-1]['buil']['en'] !== building_list[i]['buil']['en'])) {
       let obj = [];
       obj['dist'] = building_list[i]['dist'];
       obj['buil'] = building_list[i]['buil'];
@@ -416,6 +418,7 @@ function mergeBuildingList() {
       building_list_dedup.push(obj);
     }
     else {
+      building_list_dedup[building_list_dedup.length-1]['buil'] = (building_list_dedup[building_list_dedup.length-1]['buil']['ch'].length < building_list[i]['buil']['ch'].length ? building_list_dedup[building_list_dedup.length-1]['buil'] : building_list[i]['buil']);
       building_list_dedup[building_list_dedup.length-1]['date'] = (building_list_dedup[building_list_dedup.length-1]['date'] > building_list[i]['date'] ? building_list_dedup[building_list_dedup.length-1]['date'] : building_list[i]['date']);
       building_list_dedup[building_list_dedup.length-1]['case'] = building_list_dedup[building_list_dedup.length-1]['case'].concat(',', building_list[i]['case']);
     }
@@ -606,11 +609,11 @@ function constructBuildingListTable(data) {
       let distance = row['distance'];
       let filtered = true;
       // 選擇 地區
-      if (keyword == '' && row['dist']['id'] == $('input[name="input-district"]:checked').val()) {
+      if (keyword === '' && row['dist']['id'] === $('input[name="input-district"]:checked').val()) {
         filtered = false;
       }
       // 選擇 距離
-      if (keyword == '' && distance <= distance_range) {
+      if (keyword === '' && distance <= distance_range) {
         filtered = false;
       }
       // 輸入 個案編號
@@ -618,7 +621,7 @@ function constructBuildingListTable(data) {
         filtered = false;
       }
       // 輸入 大廈字詞
-      if (keyword != '' && (row['buil']['ch'].toLowerCase().includes(keyword) || row['buil']['en'].toLowerCase().includes(keyword))) {
+      if (keyword !== '' && (row['buil']['ch'].toLowerCase().includes(keyword) || row['buil']['en'].toLowerCase().includes(keyword))) {
         filtered = false;
       }
       // Handle the case when case list is not case numbers, e.g. 台灣衛生福利部疾病管制署通報的個案
@@ -652,29 +655,29 @@ function constructBuildingListTable(data) {
             html_inner += '<h5 style="margin-bottom:0;">';
             html_inner += '<span class="badge badge-' + badge + '">';
             let bearing = getFormattedBearing(row['bearing']);
-            if (bearing == 'N') {
+            if (bearing === 'N') {
               html_inner += '<i class="far fa-arrow-alt-circle-up"></i> ';
             }
-            else if (bearing == 'E') {
+            else if (bearing === 'E') {
               html_inner += '<i class="far fa-arrow-alt-circle-right"></i> ';
             }
-            else if (bearing == 'S') {
+            else if (bearing === 'S') {
               html_inner += '<i class="far fa-arrow-alt-circle-down"></i> ';
             }
-            else if (bearing == 'W') {
+            else if (bearing === 'W') {
               html_inner += '<i class="far fa-arrow-alt-circle-left"></i> ';
             }
             html_inner += getFormattedDistance(distance);
             html_inner += '</span>';
             html_inner += '</h5>';
-            html_inner += (row['date'] == '' ? '' : (moment(row['date'], 'YYYY-MM-DD').format('M月D日')));
+            html_inner += (row['date'] === '' ? '' : (moment(row['date'], 'YYYY-MM-DD').format('M月D日')));
           }
           else {
-            html_inner += (row['date'] == '' ? '' : (moment(row['date'], 'YYYY-MM-DD').format('M月D日') + '<br/>' + moment(row['date'], 'YYYY-MM-DD').format('MMM Do')));
+            html_inner += (row['date'] === '' ? '' : (moment(row['date'], 'YYYY-MM-DD').format('M月D日') + '<br/>' + moment(row['date'], 'YYYY-MM-DD').format('MMM Do')));
           }
         }
         else {
-          html_inner += (row['date'] == '' ? '' : (moment(row['date'], 'YYYY-MM-DD').format('M月D日') + '<br/>' + moment(row['date'], 'YYYY-MM-DD').format('MMM Do')));
+          html_inner += (row['date'] === '' ? '' : (moment(row['date'], 'YYYY-MM-DD').format('M月D日') + '<br/>' + moment(row['date'], 'YYYY-MM-DD').format('MMM Do')));
         }
         html_inner += '</div>';
         html_inner += '<div class="col-6">';
