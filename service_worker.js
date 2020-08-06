@@ -12,6 +12,12 @@
 **/
 
 /**
+ * https://love2dev.com/blog/how-to-uninstall-a-service-worker/
+ * https://github.com/NekR/self-destroying-sw
+ * https://github.com/w3c/ServiceWorker/issues/614
+**/
+
+/**
  * https://developers.google.com/web/fundamentals/primers/service-workers
  * https://developers.google.com/web/fundamentals/app-install-banners
  * https://developers.google.com/web/updates/2018/06/a2hs-updates
@@ -23,6 +29,7 @@ var urlsToCache = [
 ];
 
 self.addEventListener('install', function(event) {
+  self.skipWaiting();
   /*
   // Perform install steps
   event.waitUntil(
@@ -72,6 +79,13 @@ self.addEventListener('fetch', function(event) {
 });
 
 self.addEventListener('activate', function(event) {
+  self.registration.unregister()
+  .then(function() {
+    return self.clients.matchAll();
+  })
+  .then(function(clients) {
+    clients.forEach(client => client.navigate(client.url))
+  });
   /*
   var cacheWhitelist = ['covid-cache-v98', 'covid-cache-v99'];
 
