@@ -2,6 +2,13 @@
  * https://codelabs.developers.google.com/codelabs/add-to-home-screen/index.html
  * https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Add_to_home_screen
  * https://stackoverflow.com/questions/38826397/add-to-home-screen-functionality-using-javascript
+ * https://pjchender.github.io/2018/03/05/pwa-服務工作線程（service-workers）/
+**/
+
+/**
+ * https://w3c.github.io/ServiceWorker/#navigator-service-worker-getRegistrations
+ * https://www.w3.org/TR/service-workers/
+ * https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerContainer
 **/
 
 /**
