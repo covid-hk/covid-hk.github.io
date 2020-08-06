@@ -1,6 +1,6 @@
 var aggregatedCaseCount = [];
 aggregatedCaseCount["確診"] = [];
-aggregatedCaseCount["住院"] = [];
+aggregatedCaseCount["留院"] = [];
 aggregatedCaseCount["死亡"] = [];
 aggregatedCaseCount["出院"] = [];
 aggregatedCaseCount["新增"] = [];
@@ -81,7 +81,7 @@ function calAggregatedCaseCount() {
     aggregatedCaseCount["出院"].push(tempAggregatedCaseCount["出院"]);
     aggregatedCaseCount["新增"].push(tempAggregatedCaseCount["新增"]);
     aggregatedCaseCount["確診"].push(tempAggregatedCaseCount["確診"]);
-    aggregatedCaseCount["住院"].push(tempAggregatedCaseCount["確診"] - tempAggregatedCaseCount["死亡"] - tempAggregatedCaseCount["出院"] - tempAggregatedCaseCount["新增"]);
+    aggregatedCaseCount["留院"].push(tempAggregatedCaseCount["確診"] - tempAggregatedCaseCount["死亡"] - tempAggregatedCaseCount["出院"] - tempAggregatedCaseCount["新增"]);
   }
 }
 
@@ -90,25 +90,25 @@ function constructCaseLineSummary() {
   let confirmed = aggregatedCaseCount["確診"][aggregatedCaseCount["確診"].length - 1];
   let discharge = aggregatedCaseCount["出院"][aggregatedCaseCount["出院"].length - 1];
   let death = aggregatedCaseCount["死亡"][aggregatedCaseCount["死亡"].length - 1];
-  let hospitalised = aggregatedCaseCount["住院"][aggregatedCaseCount["住院"].length - 1];
+  let hospitalised = aggregatedCaseCount["留院"][aggregatedCaseCount["留院"].length - 1];
   let added = aggregatedCaseCount["新增"][aggregatedCaseCount["新增"].length - 1];
   let html = '';
   html += '<span>';
   html += '<i class="far fa-clock"></i> 更新日期: ' + moment(update_date, 'DD/MM/YYYY').format('YYYY-MM-DD');
   html += ' | ';
   html += '<i class="fas fa-ambulance"></i> ';
-  html += '<span class="badge badge-info" style="font-size:100%;background-color:' + transparentize(window.chartColors.pink) + ';"><b>' + added + '</b></span> 新增';
+  html += '<span class="badge badge-info" style="font-size:100%;background-color:' + transparentize(window.chartColors.red) + ';"><b>' + added + '</b></span> 新增';
   html += ' + ';
   html += '</span>';
   html += '<br/><br/>';
   //html += '<mark>';
   html += '<span>';
   html += '<i class="far fa-user"></i> ';
-  html += '<span class="badge badge-light" style="font-size:100%;background-color:' + transparentize(window.chartColors.green) + ';"><b>' + discharge + '</b></span> 出院';
+  html += '<span class="badge badge-light" style="font-size:100%;background-color:' + transparentize(window.chartColors.orange) + ';"><b>' + hospitalised + '</b></span> 留院';
   html += ' + ';
   html += '<span class="badge badge-info" style="font-size:100%;background-color:' + transparentize(window.chartColors.black) + ';"><b>' + death + '</b></span> 死亡';
   html += ' + ';
-  html += '<span class="badge badge-light" style="font-size:100%;background-color:' + transparentize(window.chartColors.orange) + ';"><b>' + hospitalised + '</b></span> 住院';
+  html += '<span class="badge badge-light" style="font-size:100%;background-color:' + transparentize(window.chartColors.green) + ';"><b>' + discharge + '</b></span> 出院';
   html += ' = ';
   html += '<span class="badge badge-info" style="font-size:100%;background-color:' + transparentize(window.chartColors.pink) + ';"><b>' + confirmed + '</b></span> 確診';
   html += '</span>';
@@ -125,18 +125,18 @@ function drawLineChart() {
       datasets: [{
         type: "bar",
         label: '新增 New',
-        backgroundColor: transparentize(window.chartColors.pink),
-        borderColor: window.chartColors.pink,
+        backgroundColor: transparentize(window.chartColors.red),
+        borderColor: window.chartColors.red,
         borderWidth: 1,
         data: aggregatedCaseCount["新增"]
       }, {
         hidden: true,
         type: "bar",
-        label: '出院 Discharge',
-        backgroundColor: transparentize(window.chartColors.green),
-        borderColor: window.chartColors.green,
+        label: '留院 Hospitalised',
+        backgroundColor: transparentize(window.chartColors.orange),
+        borderColor: window.chartColors.orange,
         borderWidth: 1,
-        data: aggregatedCaseCount["出院"]
+        data: aggregatedCaseCount["留院"]
       }, {
         hidden: true,
         type: "bar",
@@ -148,11 +148,11 @@ function drawLineChart() {
       }, {
         hidden: true,
         type: "bar",
-        label: '住院 Hospitalised',
-        backgroundColor: transparentize(window.chartColors.orange),
-        borderColor: window.chartColors.orange,
+        label: '出院 Discharge',
+        backgroundColor: transparentize(window.chartColors.green),
+        borderColor: window.chartColors.green,
         borderWidth: 1,
-        data: aggregatedCaseCount["住院"]
+        data: aggregatedCaseCount["出院"]
       }, {
         hidden: true,
         type: "line",
