@@ -337,21 +337,26 @@ document.getElementById("search-keyword").addEventListener("keyup", function(eve
 
 <script>
 if ('serviceWorker' in navigator) {
-  /*
-  navigator.serviceWorker.getRegistrations()
-  .then(function(registrations) {
-    for(let registration of registrations) {
-      registration.unregister()
-    }
-  }).catch(function(err) {
-  });
-  */
-  //console.log("Will the service worker register?");
-  navigator.serviceWorker.register('service_worker.js')
-  .then(function(reg){
-    //console.log("Yes, it did.");
-  }).catch(function(err) {
-    //console.log("No it didn't. This happened: ", err)
+  window.addEventListener('load', function() {
+    /*
+    navigator.serviceWorker.getRegistrations()
+    .then(function(registrations) {
+      for(let registration of registrations) {
+        registration.unregister()
+      }
+    }).catch(function(err) {
+    });
+    */
+    //console.log("Will the service worker register?");
+    navigator.serviceWorker.register('service_worker.js')
+    .then(function(reg){
+      //console.log("Yes, it did.");
+      button.onclick = function() {
+        registration.update();
+      };
+    }).catch(function(err) {
+      //console.log("No it didn't. This happened: ", err)
+    });
   });
 }
 </script>

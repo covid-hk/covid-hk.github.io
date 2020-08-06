@@ -9,12 +9,16 @@
  * https://w3c.github.io/ServiceWorker/#navigator-service-worker-getRegistrations
  * https://www.w3.org/TR/service-workers/
  * https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerContainer
+ * https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/update
+ * https://developers.google.com/web/fundamentals/primers/service-workers/lifecycle
+ * https://developers.google.com/web/fundamentals/primers/service-workers/registration
 **/
 
 /**
  * https://love2dev.com/blog/how-to-uninstall-a-service-worker/
  * https://github.com/NekR/self-destroying-sw
  * https://github.com/w3c/ServiceWorker/issues/614
+ * https://stackoverflow.com/questions/46424367/how-to-unregister-and-remove-old-service-worker
 **/
 
 /**
@@ -29,7 +33,9 @@ var urlsToCache = [
 ];
 
 self.addEventListener('install', function(event) {
+  /*
   self.skipWaiting();
+  */
   /*
   // Perform install steps
   event.waitUntil(
@@ -79,6 +85,7 @@ self.addEventListener('fetch', function(event) {
 });
 
 self.addEventListener('activate', function(event) {
+  /*
   self.registration.unregister()
   .then(function() {
     return self.clients.matchAll();
@@ -86,6 +93,7 @@ self.addEventListener('activate', function(event) {
   .then(function(clients) {
     clients.forEach(client => client.navigate(client.url))
   });
+  */
   /*
   var cacheWhitelist = ['covid-cache-v98', 'covid-cache-v99'];
 
