@@ -18,9 +18,20 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
   <meta name="author" content="AmazyHK">
   <meta name="description" content="過去14天內曾有確診個案居住過的住宅大廈 或 過去14天內曾出現兩宗或以上確診個案的非住宅大廈 | Residential buildings in which confirmed cases have resided in the past 14 days or non-residential building with 2 or more confirmed cases in the past 14 days">
+  <meta name="keywords" content="武漢肺炎,冠狀病毒,2019-nCoV,ncov,wars,COVID-19,疫情,抗疫,防疫,急症室,a&amp;e,A&amp;E">
   <meta name="revisit-after" content="7 days">
   <meta name="robots" content="follow,index">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <!--<meta name="viewport" content="width=550">-->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="香港確診個案追蹤 Coronavirus Disease (COVID-19) in HK">
+  <meta property="og:description" content="過去14天內曾有確診個案居住過的住宅大廈 或 過去14天內曾出現兩宗或以上確診個案的非住宅大廈 | Residential buildings in which confirmed cases have resided in the past 14 days or non-residential building with 2 or more confirmed cases in the past 14 days">
+  <meta property="og:image" content="covid_icon512.png">
+  <meta property="og:url" content="https://covid-hk.github.io/">
+  <meta property="og:site_name" content="香港確診個案追蹤 Coronavirus Disease (COVID-19) in HK">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="香港確診個案追蹤 Coronavirus Disease (COVID-19) in HK">
+  <meta name="twitter:description" content="過去14天內曾有確診個案居住過的住宅大廈 或 過去14天內曾出現兩宗或以上確診個案的非住宅大廈 | Residential buildings in which confirmed cases have resided in the past 14 days or non-residential building with 2 or more confirmed cases in the past 14 days">
   <title>香港確診個案追蹤 Coronavirus Disease (COVID-19) in HK</title>
   <!-- Bootstrap 4.5: CSS only -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -44,6 +55,13 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
   <script src="https://chartjs-plugin-datalabels.netlify.com/chartjs-plugin-datalabels.js"></script>
   <!-- Custom -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" sizes="128x128" href="covid_icon128.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="covid_icon192.png">
+  <link rel="apple-touch-icon" sizes="512x512" href="covid_icon512.png">
+  <link rel="icon" sizes="128x128" href="covid_icon128.png">
+  <link rel="icon" sizes="192x192" href="covid_icon192.png">
+  <link rel="icon" sizes="512x512" href="covid_icon512.png">
   <link rel="stylesheet" href="building_list.css?v=1.0">
   <script src="ajax_controller.js?v=1.0"></script>
   <script src="geolocation.js?v=1.0"></script>
@@ -316,4 +334,17 @@ document.getElementById("search-keyword").addEventListener("keyup", function(eve
 </footer>
 
 </body>
+
+<script>
+if ('serviceWorker' in navigator) {
+  //console.log("Will the service worker register?");
+  navigator.serviceWorker.register('service_worker.js')
+  .then(function(reg){
+    //console.log("Yes, it did.");
+  }).catch(function(err) {
+    //console.log("No it didn't. This happened: ", err)
+  });
+}
+</script>
+
 </html>

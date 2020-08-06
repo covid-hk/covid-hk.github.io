@@ -1,0 +1,21 @@
+﻿{
+  "name":"COVID-HK",
+  "short_name":"COVID-HK",
+  "icons":[
+  {
+    "src":"covid_icon192.png",
+    "sizes":"192x192",
+    "type":"image/png"
+  },
+  {
+    "src":"covid_icon512.png",
+    "sizes":"512x512",
+    "type":"image/png"
+  }],
+  "background_color":"#ffffff",
+  "theme_color":"#ffffff",
+  "display":"standalone",
+  "orientation":"portrait",
+  "start_url":"/",
+  "scope":"."
+}
