@@ -271,6 +271,19 @@ function onClickShowPopulation() {
   fadeInOut();
 }
 
+function onClickShowBuildingType($element) {
+  $element = $($element);
+
+  // Make sure at least one value must be checked
+  let checkedVal = $('input[name="input-building-type"]:checked').map(function(){ return this.value; }).toArray();
+  if (checkedVal.length == 0) {
+    $element.prop("checked", true);
+    return false;
+  }
+
+  refreshUI();
+}
+
 function refreshUI() {
   if ($('#input-group-distance').css('display') == 'none' && isValidUserLocation()) {
     // Custom fadeIn to display as inline-block
@@ -548,9 +561,10 @@ function constructBuildingListTable(data) {
   else {
     html += '<i class="far fa-clock"></i> 日期<br/>Date';
   }
+  // https://www.w3schools.com/icons/fontawesome5_icons_arrows.asp
   html += '</div>';
   html += '<div class="col-6">';
-  html += '<i class="far fa-building"></i> 大廈名單<br/>Building name';
+  html += '<i class="far fa-building"></i> 大廈名單<br/>Building Name';
   html += '</div>';
   html += '<div class="col-3">';
   html += '<i class="fas fa-biohazard"></i> 個案<br/>Cases';
@@ -564,6 +578,7 @@ function constructBuildingListTable(data) {
     result_count = 0;
   }
   else {
+    let show_building_types = $('input[name="input-building-type"]:checked').map(function(){ return this.value; }).toArray();
     let show_new_only = $('#show-new-only').is(':checked');
     let keyword = $("#search-keyword").val().toLowerCase();
     let keyword_as_int = 0;
@@ -608,6 +623,10 @@ function constructBuildingListTable(data) {
       }
       // Handle the case when case list is not case numbers, e.g. 台灣衛生福利部疾病管制署通報的個案
       if (row['case'].length == 0) {
+        filtered = true;
+      }
+      // 顯示大廈類別
+      if (!show_building_types.includes(row['type']['en'])) {
         filtered = true;
       }
       // 顯示新增個案 only

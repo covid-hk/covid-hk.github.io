@@ -249,6 +249,23 @@ document.getElementById("search-keyword").addEventListener("keyup", function(eve
               </label>
             </div>
           </b></div>
+          <div style="display:inline-block;width:100%;max-width:600px;margin-top:10px;font-size:0.75rem;" id="input-group-building-type"><b>
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <span><i class='far fa-building'></i> 大廈類別 Building Type</span>
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label" for="show-residential">
+                <input type="checkbox" class="form-check-input toggle" id="show-residential" name="input-building-type" value="Residential" onclick="onClickShowBuildingType(this)" checked> 住宅
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label" for="show-non-residential">
+                <input type="checkbox" class="form-check-input toggle" id="show-non-residential" name="input-building-type" value="Non-Residential" onclick="onClickShowBuildingType(this)" checked> 非住宅
+              </label>
+            </div>
+          </b></div>
           <div style="display:inline-block;width:100%;max-width:600px;margin-top:15px;font-size:0.8rem;"><b>
             <label for="show-new-only">顯示全部個案</label>
             <input id="show-new-only" type="checkbox" class="switch toggle" onclick="refreshUI();">
