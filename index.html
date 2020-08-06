@@ -351,9 +351,9 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('service_worker.js')
     .then(function(reg){
       //console.log("Yes, it did.");
-      button.onclick = function() {
-        registration.update();
-      };
+      //button.onclick = function() {
+        reg.update();
+      //};
     }).catch(function(err) {
       //console.log("No it didn't. This happened: ", err)
     });
