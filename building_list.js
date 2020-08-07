@@ -7,7 +7,10 @@ window.addEventListener('beforeinstallprompt', (e) => {
   deferredPrompt = e;
   // Update UI to notify the user they can add to home screen
   downloadAppBtn = $('#downloadAppBtn');
-  $(downloadAppBtn).parent().parent().slideDown(2000);
+  if (typeof $(downloadAppBtn).attr('data-shown') === 'undefined') {
+    $(downloadAppBtn).attr('data-shown', 'true');
+    $(downloadAppBtn).parent().parent().slideDown(2000);
+  }
 
   $(downloadAppBtn).on('click', (e) => {
     // Show the prompt
