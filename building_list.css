@@ -44,7 +44,7 @@ a {
   vertical-align: middle;
 }
 
-.navbar a, .navbar a:hover {
+.navbar a, .navbar a:hover, .navbar .btn-link {
   color: white;
 }
 
