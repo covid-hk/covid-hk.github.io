@@ -1,22 +1,22 @@
 var deferredPrompt;
 var downloadAppBtn;
-window.addEventListener('beforeinstallprompt', (e) => {
+$(window).on('load'/*'beforeinstallprompt'*/, (e) => {
   // Prevent Chrome 67 and earlier from automatically showing the prompt
   e.preventDefault();
   // Stash the event so it can be triggered later.
   deferredPrompt = e;
   // Update UI to notify the user they can add to home screen
-  downloadAppBtn = document.querySelector('#downloadAppBtn');
-  downloadAppBtn.style.display = 'block';
+  downloadAppBtn = $('#downloadAppBtn');
+  $(downloadAppBtn).parent().parent().slideDown(2000);
 
-  downloadAppBtn.addEventListener('click', (e) => {
-    // hide our user interface that shows our A2HS button
-    downloadAppBtn.style.display = 'none';
+  $(downloadAppBtn).on('click', (e) => {
     // Show the prompt
     deferredPrompt.prompt();
     // Wait for the user to respond to the prompt
     deferredPrompt.userChoice.then((choiceResult) => {
         if (choiceResult.outcome === 'accepted') {
+          // hide our user interface that shows our A2HS button
+          $(downloadAppBtn).parent().parent().slideUp(1000);
           //console.log('User accepted the A2HS prompt');
         } else {
           //console.log('User dismissed the A2HS prompt');
@@ -201,7 +201,7 @@ function getCookie(cname) {
 
 // When the user clicks on the button, scroll to the top of the document
 function backToTop() {
-  let offsetTop = $('.button-wrap').offset().top;
+  let offsetTop = $('#header-update-time').offset().top;
   window.scrollTo({ top: offsetTop, behavior: 'smooth' });
 }
 

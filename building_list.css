@@ -43,6 +43,13 @@ a {
   justify-content: center;
   vertical-align: middle;
 }
+.navbar .navbar-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  width: 100%;
+}
 
 .navbar a, .navbar a:hover, .navbar .btn-link {
   color: white;
