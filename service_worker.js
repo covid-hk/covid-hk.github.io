@@ -1,55 +1,52 @@
 ﻿/**
  * https://codelabs.developers.google.com/codelabs/add-to-home-screen/index.html
- * https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Add_to_home_screen
- * https://stackoverflow.com/questions/38826397/add-to-home-screen-functionality-using-javascript
- * https://pjchender.github.io/2018/03/05/pwa-服務工作線程（service-workers）/
-**/
-
-/**
- * https://w3c.github.io/ServiceWorker/#navigator-service-worker-getRegistrations
- * https://www.w3.org/TR/service-workers/
  * https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerContainer
  * https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/update
+ * https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Add_to_home_screen
+ * https://developer.mozilla.org/zh-CN/docs/Web/API/Service_Worker_API/Using_Service_Workers
+ * https://developers.google.com/web/fundamentals/app-install-banners
+ * https://developers.google.com/web/fundamentals/primers/service-workers
  * https://developers.google.com/web/fundamentals/primers/service-workers/lifecycle
  * https://developers.google.com/web/fundamentals/primers/service-workers/registration
-**/
-
-/**
- * https://love2dev.com/blog/how-to-uninstall-a-service-worker/
+ * https://developers.google.com/web/updates/2018/06/a2hs-updates
  * https://github.com/NekR/self-destroying-sw
  * https://github.com/w3c/ServiceWorker/issues/614
+ * https://love2dev.com/blog/how-to-uninstall-a-service-worker/
+ * https://pjchender.github.io/2018/03/05/pwa-服務工作線程（service-workers）/
+ * https://stackoverflow.com/questions/38826397/add-to-home-screen-functionality-using-javascript
  * https://stackoverflow.com/questions/46424367/how-to-unregister-and-remove-old-service-worker
+ * https://w3c.github.io/ServiceWorker/#navigator-service-worker-getRegistrations
+ * https://www.w3.org/TR/service-workers/
 **/
 
-/**
- * https://developers.google.com/web/fundamentals/primers/service-workers
- * https://developers.google.com/web/fundamentals/app-install-banners
- * https://developers.google.com/web/updates/2018/06/a2hs-updates
-**/
-
-var CACHE_NAME = 'covid-cache-v1';
+var CACHE_NAME = 'covid-cache-v2';
 var urlsToCache = [
-  '/'
+  '/',
+  '/index.html',
+  '/building_list.css',
+  '/ajax_controller.js',
+  '/building_list.js',
+  '/cases_chart.js',
+  '/enhanced_sur.js',
+  '/geolocation.js',
+  '/covid_icon128.png',
+  '/covid_icon192.png',
+  '/covid_icon512.png'
 ];
 
 self.addEventListener('install', function(event) {
-  /*
   self.skipWaiting();
-  */
-  /*
   // Perform install steps
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(function(cache) {
-        console.log('Opened cache');
+        //console.log('Opened cache');
         return cache.addAll(urlsToCache);
       })
   );
-  */
 });
 
 self.addEventListener('fetch', function(event) {
-  /*
   event.respondWith(
     caches.match(event.request)
       .then(function(response) {
@@ -58,7 +55,13 @@ self.addEventListener('fetch', function(event) {
           return response;
         }
 
-        return fetch(event.request).then(
+        // IMPORTANT: Clone the request. A request is a stream and
+        // can only be consumed once. Since we are consuming this
+        // once by cache and once by the browser for fetch, we need
+        // to clone the response.
+        var fetchRequest = event.request.clone();
+
+        return fetch(fetchRequest).then(
           function(response) {
             // Check if we received a valid response
             if(!response || response.status !== 200 || response.type !== 'basic') {
@@ -81,21 +84,10 @@ self.addEventListener('fetch', function(event) {
         );
       })
     );
-  */
 });
 
 self.addEventListener('activate', function(event) {
-  /*
-  self.registration.unregister()
-  .then(function() {
-    return self.clients.matchAll();
-  })
-  .then(function(clients) {
-    clients.forEach(client => client.navigate(client.url))
-  });
-  */
-  /*
-  var cacheWhitelist = ['covid-cache-v98', 'covid-cache-v99'];
+  var cacheWhitelist = [CACHE_NAME, 'covid-pages-cache-v1', 'covid-blog-posts-cache-v1'];
 
   event.waitUntil(
     caches.keys().then(function(cacheNames) {
@@ -108,5 +100,4 @@ self.addEventListener('activate', function(event) {
       );
     })
   );
-  */
 });

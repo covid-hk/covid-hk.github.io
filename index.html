@@ -338,24 +338,13 @@ document.getElementById("search-keyword").addEventListener("keyup", function(eve
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function() {
-    /*
-    navigator.serviceWorker.getRegistrations()
-    .then(function(registrations) {
-      for(let registration of registrations) {
-        registration.unregister()
-      }
+    navigator.serviceWorker.register('/service_worker.js').then(function(registration) {
+      registration.update();
+      // Registration was successful
+      //console.log('ServiceWorker registration successful with scope: ', registration.scope);
     }).catch(function(err) {
-    });
-    */
-    //console.log("Will the service worker register?");
-    navigator.serviceWorker.register('service_worker.js')
-    .then(function(reg){
-      //console.log("Yes, it did.");
-      //button.onclick = function() {
-        reg.update();
-      //};
-    }).catch(function(err) {
-      //console.log("No it didn't. This happened: ", err)
+      // registration failed :(
+      //console.log('ServiceWorker registration failed: ', err);
     });
   });
 }
