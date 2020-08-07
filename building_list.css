@@ -16,6 +16,38 @@ a {
   color: #0069d9; /* Bootstrap default: #007bff */
 }
 
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 98;
+  border: none;
+  outline: none;
+  background-color: #007bff;
+  color: white;
+  font-size: 20px;
+  white-space: nowrap;
+  opacity: 0.8;
+}
+
+.navbar .container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.navbar .navbar-left, .navbar .navbar-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+}
+
+.navbar a, .navbar a:hover {
+  color: white;
+}
+
 /* How To Create a Scroll To Top Button */
 /* https://www.w3schools.com/howto/howto_js_scroll_to_top.asp */
 
@@ -30,9 +62,9 @@ a {
   background-color: #007bff; /* Set a background color */
   color: white; /* Text color */
   cursor: pointer; /* Add a mouse pointer on hover */
-  padding: 5px 11px; /* Some padding */
+  padding: 0 11px; /* Some padding */
   border-radius: 30px; /* Rounded corners */
-  font-size: 20px; /* Increase font size */
+  font-size: 36px; /* Increase font size */
   opacity: 0.5;
 }
 
