@@ -102,6 +102,7 @@ self.addEventListener('activate', function(event) {
   );
 });
 
+/*
 let deferredPrompt;
 const downloadAppBtn = document.querySelector('#downloadAppBtn');
 downloadAppBtn.style.display = 'none';
@@ -130,3 +131,4 @@ window.addEventListener('beforeinstallprompt', (e) => {
       });
   });
 });
+*/
