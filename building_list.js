@@ -130,7 +130,8 @@ function onReadyBuildingListDataInit() {
 }
 
 function onReadyFileTimeDataInit() {
-  $('#header-update-time').html($('<span><i class="far fa-clock"></i>&nbsp;&nbsp;更新時間: '+moment(csv_obj['filetime'][0].file_time, 'YYYY-MM-DDTHH:mm:ss').format('M月D日 h:mma')+'</span>').hide().fadeIn(2000));
+  let last_file_time = Math.max.apply(Math, csv_obj['filetime'].map(function(obj) { return moment(obj.file_time, 'YYYY-MM-DDTHH:mm:ss'); }));
+  $('#header-update-time').html($('<span><i class="far fa-clock"></i>&nbsp;&nbsp;更新時間: '+moment(last_file_time).format('M月D日 h:mma')+'</span>').hide().fadeIn(2000));
 }
 
 function onReadyGoogleApisMapsDataInit() {
