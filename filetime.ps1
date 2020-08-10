@@ -4,6 +4,8 @@
 $filetimecsvfilename = "filetime.csv"
 $filetimecsvfilepath = Join-Path $PSScriptRoot $filetimecsvfilename
 
+$waitToCallGoogleApisMaps = $false
+
 if (![System.IO.File]::Exists($filetimecsvfilepath)) {
   # filetime.csv init
   Set-Content -Path $filetimecsvfilepath -Value "file_time,file_name,file_md5" -Force
@@ -37,6 +39,9 @@ else {
         $filetime = (Get-Item $filepath).LastWriteTime.ToLocalTime().ToString("yyyy-MM-ddTHH:mm:ss")
         $filename = $_."file_name"
         $filemd5 = $md5
+        if ($filename -eq "googleapis_maps.csv") {
+          $waitToCallGoogleApisMaps = $true
+        }
       }
       $file_time += $filetime
       $file_name += $filename
@@ -47,4 +52,8 @@ else {
   for ($i = 0; $i -lt $file_md5.Count; $i++) {
     Add-Content -Path $filetimecsvfilepath -Value "$($file_time[$i]),$($file_name[$i]),$($file_md5[$i])" -Force
   }
+}
+
+if ($waitToCallGoogleApisMaps -eq $true) {
+  & .\googleapis_maps.ps1
 }
