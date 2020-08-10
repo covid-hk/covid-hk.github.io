@@ -56,20 +56,20 @@ function getBuildingListCsv(callback) {
         // if list_chi & list_eng not match
         else if (ajax_retry_times < ajax_retry_times_max && isAjaxDone(['building_list_chi']) && isAjaxDone(['building_list_eng'])) {
           ++ajax_retry_times;
-          getBuildingListCsv();
+          getBuildingListCsv(callback);
         }
       }
       // if no result
       else if (ajax_retry_times < ajax_retry_times_max) {
         ++ajax_retry_times;
-        getBuildingListCsv();
+        getBuildingListCsv(callback);
       }
     },
     error: function()
     {
       if (ajax_retry_times < ajax_retry_times_max) {
         ++ajax_retry_times;
-        getBuildingListCsv();
+        getBuildingListCsv(callback);
       }
     }
   });
@@ -88,20 +88,20 @@ function getBuildingListCsv(callback) {
         // if list_chi & list_eng not match
         else if (ajax_retry_times < ajax_retry_times_max && isAjaxDone(['building_list_chi']) && isAjaxDone(['building_list_eng'])) {
           ++ajax_retry_times;
-          getBuildingListCsv();
+          getBuildingListCsv(callback);
         }
       }
       // if no result
       else if (ajax_retry_times < ajax_retry_times_max) {
         ++ajax_retry_times;
-        getBuildingListCsv();
+        getBuildingListCsv(callback);
       }
     },
     error: function()
     {
       if (ajax_retry_times < ajax_retry_times_max) {
         ++ajax_retry_times;
-        getBuildingListCsv();
+        getBuildingListCsv(callback);
       }
     }
   });
@@ -125,14 +125,14 @@ function getBuildingListChiCsv(callback) {
       // if no result
       else if (ajax_retry_times < ajax_retry_times_max) {
         ++ajax_retry_times;
-        getBuildingListChiCsv();
+        getBuildingListChiCsv(callback);
       }
     },
     error: function()
     {
       if (ajax_retry_times < ajax_retry_times_max) {
         ++ajax_retry_times;
-        getBuildingListChiCsv();
+        getBuildingListChiCsv(callback);
       }
     }
   });
@@ -155,14 +155,14 @@ function getCasesCsv(callback) {
       // if no result
       else if (ajax_retry_times < ajax_retry_times_max) {
         ++ajax_retry_times;
-        getCasesCsv();
+        getCasesCsv(callback);
       }
     },
     error: function()
     {
       if (ajax_retry_times < ajax_retry_times_max) {
         ++ajax_retry_times;
-        getCasesCsv();
+        getCasesCsv(callback);
       }
     }
   });
@@ -185,14 +185,14 @@ function getCaseDetailsCsv(callback) {
       // if no result
       else if (ajax_retry_times < ajax_retry_times_max) {
         ++ajax_retry_times;
-        getCaseDetailsCsv();
+        getCaseDetailsCsv(callback);
       }
     },
     error: function()
     {
       if (ajax_retry_times < ajax_retry_times_max) {
         ++ajax_retry_times;
-        getCaseDetailsCsv();
+        getCaseDetailsCsv(callback);
       }
     }
   });
@@ -213,14 +213,14 @@ function getFileTimeCsv(callback) {
       // if no result
       else if (ajax_retry_times < ajax_retry_times_max) {
         ++ajax_retry_times;
-        getFileTimeCsv();
+        getFileTimeCsv(callback);
       }
     },
     error: function()
     {
       if (ajax_retry_times < ajax_retry_times_max) {
         ++ajax_retry_times;
-        getFileTimeCsv();
+        getFileTimeCsv(callback);
       }
     }
   });
@@ -229,7 +229,7 @@ function getFileTimeCsv(callback) {
 function getGoogleApisMapsCsv(callback) {
   $.ajax({
     type: "GET",
-    url: domain[ajax_retry_times_max] + "googleapis_maps.csv?t=" + unixtimestamp,
+    url: domain[ajax_retry_times] + "googleapis_maps" + (ajax_retry_times == 0 ? "_copy" : "") + ".csv?t=" + unixtimestamp,
     dataType: "text",
     success: function(response)
     {
@@ -239,17 +239,17 @@ function getGoogleApisMapsCsv(callback) {
         callback();
       }
       // if no result
-      //else if (ajax_retry_times < ajax_retry_times_max) {
-      //  ++ajax_retry_times;
-      //  getGoogleApisMapsCsv();
-      //}
+      else if (ajax_retry_times < ajax_retry_times_max) {
+        ++ajax_retry_times;
+        getGoogleApisMapsCsv(callback);
+      }
     },
     error: function()
     {
-      //if (ajax_retry_times < ajax_retry_times_max) {
-      //  ++ajax_retry_times;
-      //  getGoogleApisMapsCsv();
-      //}
+      if (ajax_retry_times < ajax_retry_times_max) {
+        ++ajax_retry_times;
+        getGoogleApisMapsCsv(callback);
+      }
     }
   });
 }
@@ -269,14 +269,14 @@ function getPopulationCsv(callback) {
       // if no result
       //else if (ajax_retry_times < ajax_retry_times_max) {
       //  ++ajax_retry_times;
-      //  getPopulationCsv();
+      //  getPopulationCsv(callback);
       //}
     },
     error: function()
     {
       //if (ajax_retry_times < ajax_retry_times_max) {
       //  ++ajax_retry_times;
-      //  getPopulationCsv();
+      //  getPopulationCsv(callback);
       //}
     }
   });
