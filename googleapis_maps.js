@@ -3,6 +3,22 @@
 
 var googleapis_maps_hashmap = [];
 
+String.prototype.isNumber = function(){
+  return /^\d+$/.test(this);
+}
+
+String.prototype.isInteger = function(){
+  return /^-?\d+$/.test(this);
+}
+
+String.prototype.isFloat = function(){
+  return /^-?\d+(?:[.,]\d*?)?$/.test(this);
+}
+
+String.prototype.toCsvQuotedField = function(){
+  return this && (this.includes(',') ? ('"' + this + '"') : this);
+}
+
 $(document).ready(function(){
   getBuildingListChiCsv(onReadyCsv);
   getGoogleApisMapsCsv(onReadyCsv);
@@ -18,7 +34,13 @@ function onReadyCsv() {
 }
 
 function onReadyGoogleApisMapsDataInit() {
-  googleapis_maps_hashmap = new Map(csv_obj['googleapis_maps'].map(item => [item['地區']+','+item['大廈名單'], item['地區']+','+item['大廈名單']+','+item['name']+','+item['lat']+','+item['lng']]));
+  googleapis_maps_hashmap = new Map(csv_obj['googleapis_maps'].map(item => [item['地區']+','+item['大廈名單'], {
+    '地區': item['地區'],
+    '大廈名單': item['大廈名單'],
+    'name': item['name'],
+    'lat': item['lat'],
+    'lng': item['lng'] }])
+  );
 }
 
 function getLatLongFromGoogleMapApi() {
@@ -32,7 +54,10 @@ function getLatLongFromGoogleMapApi() {
 
   $('#result').append('地區,大廈名單,name,lat,lng<br/>');
   googleapis_maps_hashmap.forEach(function (value, key, map) {
-    $('#result').append(value + '<br/>');
+    //if (!value['lat'].toString().isFloat() || !value['lng'].toString().isFloat()) {
+    //  console.log(value);
+    //}
+    $('#result').append(value['地區'] + ',' + value['大廈名單'].toCsvQuotedField() + ',' + value['name'].toCsvQuotedField() + ',' + value['lat'] + ',' + value['lng'] + '<br/>');
   });
 
   let q = new Queue();
@@ -88,15 +113,8 @@ function getLatLongFromGoogleMapApi() {
           if (status === google.maps.places.PlacesServiceStatus.OK) {
             if (results.length > 0) {
               let geometry = results[0].geometry.location.toJSON();
-              let building2 = building;
-              if (building2.includes(',')) {
-                building2 = '"' + building2 + '"';
-              }
-              let googlename2 = results[0].name;
-              if (googlename2.includes(',')) {
-                googlename2 = '"' + googlename2 + '"';
-              }
-              $('#result').append(district + ',' + building2 + ',' + googlename2 + ',' + geometry.lat + ',' + geometry.lng + '<br/>');
+              let googlename = results[0].name;
+              $('#result').append(district + ',' + building.toCsvQuotedField() + ',' + googlename.toCsvQuotedField() + ',' + geometry.lat + ',' + geometry.lng + '<br/>');
             }
           }
           else if (status === google.maps.places.PlacesServiceStatus.INVALID_REQUEST) {
