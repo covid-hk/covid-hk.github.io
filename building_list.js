@@ -550,6 +550,7 @@ var result_cases = [];
 
 function filterResultSet(data) {
   result_set = [];
+  result_cases = [];
 
   let user_latitude = user_location.latitude;
   let user_longitude = user_location.longitude;
@@ -592,6 +593,7 @@ function filterResultSet(data) {
 
   if(typeof(data[0]) === 'undefined') {
     result_set = [];
+    result_cases = [];
   }
   else {
     let show_building_types = $('input[name="input-building-type"]:checked').map(function(){ return this.value; }).toArray();
