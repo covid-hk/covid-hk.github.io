@@ -70,7 +70,8 @@
   <script src="building_list.js?v=1.0"></script>
   <script src="cases_chart.js?v=1.0"></script>
   <script src="enhanced_sur.js?v=1.0"></script>
-  <!--<script defer src="custom.js?v=1.0"></script>-->
+  <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCvDdQhtNVIILsG0iAA17CXUCZ0WS3T7Zg"></script>
+  <script defer src="googlemap.js?v=1.0"></script>
 </head>
 <body>
   <div class="navbar">
@@ -316,6 +317,22 @@ document.getElementById("search-keyword").addEventListener("keyup", function(eve
     </div>
     <div class="row">
       <div class="col" id="wrapper-table-building"></div>
+      <div class="modal fade" id="caseMapModal">
+        <div class="modal-dialog modal-dialog-centered modal-xl" style="height:80%">
+          <div class="modal-content" style="height:100%">
+            <div class="modal-header">
+              <h6 class="modal-title" style="width:100%">
+              </h6>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body" id="caseMap" style="width:100%;height:100%;">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">關閉 Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="modal fade" id="caseDetailModal">
         <div class="modal-dialog modal-dialog-centered modal-xl">
           <div class="modal-content">

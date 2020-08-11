@@ -331,7 +331,8 @@ function refreshUI() {
 
   $('#wrapper-table-building-loading').show();
   $('#wrapper-table-building').hide();
-  let html = constructBuildingListTable(building_list_dedup);
+  filterResultSet(building_list_dedup);
+  let html = constructBuildingListTable();
   setTimeout(function(){
     $('#wrapper-table-building').html($(html).hide().fadeIn(2000));
     $('#wrapper-table-building').show();
@@ -544,7 +545,12 @@ function getBadgePriority(badge) {
   return priority;
 }
 
-function constructBuildingListTable(data) {
+var result_set = [];
+var result_cases = [];
+
+function filterResultSet(data) {
+  result_set = [];
+
   let user_latitude = user_location.latitude;
   let user_longitude = user_location.longitude;
 
@@ -584,33 +590,8 @@ function constructBuildingListTable(data) {
     });
   }
 
-  /* Bootstrap 4 style grid as table */
-  /* https://www.codeply.com/go/IDBemcEAyL */
-  let html = '<div class="col-12 grid-striped table table-condensed table-hover table-striped" id="table-building">';
-
-  html += '<div class="row py-2 font-weight-bold">';
-  html += '<div class="col-3">';
-  if (isValidUserLocation()) {
-    html += '<i class="fas fa-crosshairs"></i> 距離<br/>Distance';
-  }
-  else {
-    html += '<i class="far fa-clock"></i> 日期<br/>Date';
-  }
-  // https://www.w3schools.com/icons/fontawesome5_icons_arrows.asp
-  html += '</div>';
-  html += '<div class="col-6">';
-  html += '<i class="far fa-building"></i> 大廈名單<br/>Building Name';
-  html += '</div>';
-  html += '<div class="col-3">';
-  html += '<i class="fas fa-biohazard"></i> 個案<br/>Cases';
-  html += '</div>';
-  html += '</div>';
-
-  let html_inner = '';
-  let result_cases = [];
-  let result_count = 0;
   if(typeof(data[0]) === 'undefined') {
-    result_count = 0;
+    result_set = [];
   }
   else {
     let show_building_types = $('input[name="input-building-type"]:checked').map(function(){ return this.value; }).toArray();
@@ -638,14 +619,13 @@ function constructBuildingListTable(data) {
           break;
         }
       }
-      let distance = row['distance'];
       let filtered = true;
       // 選擇 地區
       if (keyword === '' && row['dist']['id'] === $('input[name="input-district"]:checked').val()) {
         filtered = false;
       }
       // 選擇 距離
-      if (keyword === '' && distance <= distance_range) {
+      if (keyword === '' && row['distance'] <= distance_range) {
         filtered = false;
       }
       // 輸入 個案編號
@@ -669,69 +649,20 @@ function constructBuildingListTable(data) {
         filtered = true;
       }
       if (!filtered) {
-        html_inner += '<div class="row py-2">';
-        html_inner += '<div class="col-3">';
-        if (isValidUserLocation()) {
-          if (isValidLocation(row['lat'], row['lng'])) {
-            // badge = distance (success, warning, danger, dark)
-            let badge = 'success';
-            if (distance <= 400.0) {
-              badge = 'dark';
-            }
-            else if (distance <= 800.0) {
-              badge = 'danger';
-            }
-            else if (distance <= 1600.0) {
-              badge = 'warning';
-            }
-            html_inner += '<h5 style="margin-bottom:0;">';
-            html_inner += '<span class="badge badge-' + badge + '">';
-            let bearing = getFormattedBearing(row['bearing']);
-            if (bearing === 'N') {
-              html_inner += '<i class="far fa-arrow-alt-circle-up"></i> ';
-            }
-            else if (bearing === 'E') {
-              html_inner += '<i class="far fa-arrow-alt-circle-right"></i> ';
-            }
-            else if (bearing === 'S') {
-              html_inner += '<i class="far fa-arrow-alt-circle-down"></i> ';
-            }
-            else if (bearing === 'W') {
-              html_inner += '<i class="far fa-arrow-alt-circle-left"></i> ';
-            }
-            html_inner += getFormattedDistance(distance);
-            html_inner += '</span>';
-            html_inner += '</h5>';
-            html_inner += (row['date'] === '' ? '' : (moment(row['date'], 'YYYY-MM-DD').format('M月D日')));
-          }
-          else {
-            html_inner += (row['date'] === '' ? '' : (moment(row['date'], 'YYYY-MM-DD').format('M月D日') + '<br/>' + moment(row['date'], 'YYYY-MM-DD').format('MMM Do')));
-          }
-        }
-        else {
-          html_inner += (row['date'] === '' ? '' : (moment(row['date'], 'YYYY-MM-DD').format('M月D日') + '<br/>' + moment(row['date'], 'YYYY-MM-DD').format('MMM Do')));
-        }
-        html_inner += '</div>';
-        html_inner += '<div class="col-6">';
-        if (is_new_case) {
-          html_inner += '<i class="fas fa-biohazard" style="color:red;"></i> ';
-        }
-        html_inner += '<a href="http://maps.google.com/maps?q=' + row['buil']['ch'] + '+' + row['dist']['ch'] + '" target="_blank">' + row['dist']['ch'] + ' ' + row['buil']['ch'] + '</a>';
-        html_inner += '<br/>';
-        html_inner += '<a href="http://maps.google.com/maps?q=' + row['buil']['en'] + '+' + row['dist']['en'] + '" target="_blank">' + row['buil']['en'] + ', ' + row['dist']['en'] + '</a>';
-        html_inner += '</div>';
-        html_inner += '<div class="col-3">';
-        html_inner += '<h4>';
-        html_inner += '<span data-toggle="modal" data-target="#caseDetailModal" onclick="constructCaseDetailsModal($(this))" data-buil-ch="' + row['buil']['ch'] + '" data-buil-en="' + row['buil']['en'] + '" data-dist-ch="' + row['dist']['ch'] + '" data-dist-en="' + row['dist']['en'] + '" data-badge="' + row['badge'] + '" data-cases="' + row['case'].join(',') + '">';
-        html_inner += '<a href="javascript:void(0)" data-toggle-disabled="tooltip" title="' + row['case'].join(', ') + '">';
-        html_inner += '<span class="badge badge-' + row['badge'] + '">' + row['case'].length + '</span>';
-        html_inner += '</a>';
-        html_inner += '</span>';
-        html_inner += '</h4>';
-        html_inner += '</div>';
-        html_inner += '</div>';
+        let result_row = [];
+        result_row['dist'] = row['dist'];
+        result_row['buil'] = row['buil'];
+        result_row['type'] = row['type'];
+        result_row['date'] = row['date'];
+        result_row['case'] = row['case'];
+        result_row['is_new_case'] = is_new_case;
+        result_row['badge'] = row['badge'];
+        result_row['lat'] = row['lat'];
+        result_row['lng'] = row['lng'];
+        result_row['distance'] = row['distance'];
+        result_row['bearing'] = row['bearing'];
+        result_set.push(result_row);
         result_cases = result_cases.concat(row['case']);
-        result_count++;
       }
     });
     // dedup result_cases
@@ -741,8 +672,101 @@ function constructBuildingListTable(data) {
     result_cases.sort();
     result_cases.reverse();
   }
+}
 
-  if (result_count == 0) {
+function constructBuildingListTable() {
+  /* Bootstrap 4 style grid as table */
+  /* https://www.codeply.com/go/IDBemcEAyL */
+  let html = '<div class="col-12 grid-striped table table-condensed table-hover table-striped" id="table-building">';
+
+  html += '<div class="row py-2 font-weight-bold">';
+  html += '<div class="col-3">';
+  if (isValidUserLocation()) {
+    html += '<i class="fas fa-crosshairs"></i> 距離<br/>Distance';
+  }
+  else {
+    html += '<i class="far fa-clock"></i> 日期<br/>Date';
+  }
+  // https://www.w3schools.com/icons/fontawesome5_icons_arrows.asp
+  html += '</div>';
+  html += '<div class="col-6">';
+  html += '<i class="far fa-building"></i> 大廈名單<br/>Building Name';
+  html += '</div>';
+  html += '<div class="col-3">';
+  html += '<i class="fas fa-biohazard"></i> 個案<br/>Cases';
+  html += '</div>';
+  html += '</div>';
+
+  let html_inner = '';
+  if (result_set.length == 0) {
+  }
+  else {
+    $.each(result_set, function( index, row ) {
+      html_inner += '<div class="row py-2">';
+      html_inner += '<div class="col-3">';
+      if (isValidUserLocation()) {
+        if (isValidLocation(row['lat'], row['lng'])) {
+          // badge = distance (success, warning, danger, dark)
+          let badge = 'success';
+          if (row['distance'] <= 400.0) {
+            badge = 'dark';
+          }
+          else if (row['distance'] <= 800.0) {
+            badge = 'danger';
+          }
+          else if (row['distance'] <= 1600.0) {
+            badge = 'warning';
+          }
+          html_inner += '<h5 style="margin-bottom:0;">';
+          html_inner += '<span class="badge badge-' + badge + '">';
+          let bearing = getFormattedBearing(row['bearing']);
+          if (bearing === 'N') {
+            html_inner += '<i class="far fa-arrow-alt-circle-up"></i> ';
+          }
+          else if (bearing === 'E') {
+            html_inner += '<i class="far fa-arrow-alt-circle-right"></i> ';
+          }
+          else if (bearing === 'S') {
+            html_inner += '<i class="far fa-arrow-alt-circle-down"></i> ';
+          }
+          else if (bearing === 'W') {
+            html_inner += '<i class="far fa-arrow-alt-circle-left"></i> ';
+          }
+          html_inner += getFormattedDistance(row['distance']);
+          html_inner += '</span>';
+          html_inner += '</h5>';
+          html_inner += (row['date'] === '' ? '' : (moment(row['date'], 'YYYY-MM-DD').format('M月D日')));
+        }
+        else {
+          html_inner += (row['date'] === '' ? '' : (moment(row['date'], 'YYYY-MM-DD').format('M月D日') + '<br/>' + moment(row['date'], 'YYYY-MM-DD').format('MMM Do')));
+        }
+      }
+      else {
+        html_inner += (row['date'] === '' ? '' : (moment(row['date'], 'YYYY-MM-DD').format('M月D日') + '<br/>' + moment(row['date'], 'YYYY-MM-DD').format('MMM Do')));
+      }
+      html_inner += '</div>';
+      html_inner += '<div class="col-6">';
+      if (row['is_new_case']) {
+        html_inner += '<i class="fas fa-biohazard" style="color:red;"></i> ';
+      }
+      html_inner += '<a href="http://maps.google.com/maps?q=' + row['buil']['ch'] + '+' + row['dist']['ch'] + '" target="_blank">' + row['dist']['ch'] + ' ' + row['buil']['ch'] + '</a>';
+      html_inner += '<br/>';
+      html_inner += '<a href="http://maps.google.com/maps?q=' + row['buil']['en'] + '+' + row['dist']['en'] + '" target="_blank">' + row['buil']['en'] + ', ' + row['dist']['en'] + '</a>';
+      html_inner += '</div>';
+      html_inner += '<div class="col-3">';
+      html_inner += '<h4>';
+      html_inner += '<span data-toggle="modal" data-target="#caseDetailModal" onclick="constructCaseDetailsModal($(this))" data-buil-ch="' + row['buil']['ch'] + '" data-buil-en="' + row['buil']['en'] + '" data-dist-ch="' + row['dist']['ch'] + '" data-dist-en="' + row['dist']['en'] + '" data-badge="' + row['badge'] + '" data-cases="' + row['case'].join(',') + '">';
+      html_inner += '<a href="javascript:void(0)" data-toggle-disabled="tooltip" title="' + row['case'].join(', ') + '">';
+      html_inner += '<span class="badge badge-' + row['badge'] + '">' + row['case'].length + '</span>';
+      html_inner += '</a>';
+      html_inner += '</span>';
+      html_inner += '</h4>';
+      html_inner += '</div>';
+      html_inner += '</div>';
+    });
+  }
+
+  if (result_set.length == 0) {
     html += '<div class="row py-2">';
     html += '<div class="col-3">';
     html += '</div>';
@@ -756,9 +780,16 @@ function constructBuildingListTable(data) {
   else {
     html += '<div class="row py-2">';
     html += '<div class="col-3">';
+    html += '<h4>';
+    html += '<span data-toggle="modal" data-target="#caseMapModal" onclick="constructCaseMapModal()">';
+    html += '<a href="javascript:void(0)" data-toggle-disabled="tooltip" title="">';
+    html += '<span class="badge badge-primary"><i class="fas fa-map-marked-alt"></i></span>';
+    html += '</a>';
+    html += '</span>';
+    html += '</h4>';
     html += '</div>';
     html += '<div class="col-6">';
-    html += '<mark style="font-size:0.8rem;"><i class="fas fa-search"></i> 找到 <b>'+result_count+'</b> 座相關大廈<br/><b>'+result_count+'</b> Building(s) Found<br/><i class="far fa-hand-point-right"></i> 個案數字查看詳情 <i class="fas fa-project-diagram"></i><br/><i class="far fa-hand-point-down"></i> 大廈名稱打開地圖 <i class="fas fa-map-marked-alt"></i><br/>(<i class="fas fa-biohazard" style="color:red;"></i> 表示涉及新增個案)</mark>';
+    html += '<mark style="font-size:0.8rem;"><i class="fas fa-search"></i> 找到 <b>'+result_set.length+'</b> 座相關大廈<br/><b>'+result_set.length+'</b> Building(s) Found<br/><i class="far fa-hand-point-right"></i> 個案數字查看詳情 <i class="fas fa-project-diagram"></i><br/><i class="far fa-hand-point-down"></i> 大廈名稱打開地圖 <i class="fas fa-map-marked-alt"></i><br/>(<i class="fas fa-biohazard" style="color:red;"></i> 表示涉及新增個案)</mark>';
     html += '</div>';
     html += '<div class="col-3">';
     html += '<h4>';

@@ -29,6 +29,7 @@ var urlsToCache = [
   '/cases_chart.js',
   '/enhanced_sur.js',
   '/geolocation.js',
+  '/googlemap.js',
   '/covid_icon128.png',
   '/covid_icon192.png',
   '/covid_icon512.png'
