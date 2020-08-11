@@ -89,6 +89,9 @@ function constructCaseMapBody() {
   zoomLevel = zoomLevel - 1;
   zoomLevel = Math.min(zoomLevel, ZOOM_MAX);
 
+//new google.maps.LatLngBounds()
+//https://mtwmt.github.io/googlemap_bounds/
+
   let myLatlng = new google.maps.LatLng(user_latitude, user_longitude);
   let mapOptions = {
     zoom: zoomLevel,
@@ -99,9 +102,19 @@ function constructCaseMapBody() {
   let map = new google.maps.Map(document.getElementById("caseMap"), mapOptions);
 
   $.each(result_set, function( index, row ) {
+    let point = new google.maps.LatLng(row['lat'], row['lng']);
+    let data = row['buil']['ch'];
+    let infowindow = new google.maps.InfoWindow({
+      content: data
+    });
     let marker = new google.maps.Marker({
       position: new google.maps.LatLng(row['lat'], row['lng']),
-      title: row['buil']['ch']
+      title: row['buil']['ch'],
+      draggable: false,
+      animation: google.maps.Animation.DROP,
+    });
+    google.maps.event.addListener(marker, 'click', function() {
+      infowindow.open(map, marker);
     });
 
     // To add the marker to the map, call setMap();
