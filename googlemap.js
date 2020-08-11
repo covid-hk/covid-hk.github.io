@@ -1,4 +1,5 @@
 /* https://developers.google.com/maps/documentation/javascript/markers */
+/* https://mtwmt.github.io/googlemap_bounds/ */
 /* https://coderwall.com/p/t3wjxq/optimal-zoom-level-in-google-maps */
 
 const MEAN_RADIUS_EARTH_IN_KM = 6371;
@@ -55,6 +56,8 @@ function constructCaseMapHeader() {
   return html;
 }
 
+var activeInfoWindow = null;
+
 function constructCaseMapBody() {
   let min_lat = 22.6;
   let max_lat = 22.1;
@@ -89,9 +92,6 @@ function constructCaseMapBody() {
   zoomLevel = zoomLevel - 1;
   zoomLevel = Math.min(zoomLevel, ZOOM_MAX);
 
-//new google.maps.LatLngBounds()
-//https://mtwmt.github.io/googlemap_bounds/
-
   let myLatlng = new google.maps.LatLng(user_latitude, user_longitude);
   let mapOptions = {
     zoom: zoomLevel,
@@ -101,23 +101,42 @@ function constructCaseMapBody() {
   }
   let map = new google.maps.Map(document.getElementById("caseMap"), mapOptions);
 
+  // 新增多點坐標顯示
+  //let bounds = new google.maps.LatLngBounds();
+
   $.each(result_set, function( index, row ) {
-    let point = new google.maps.LatLng(row['lat'], row['lng']);
-    let data = row['buil']['ch'];
+    let point = new google.maps.LatLng(parseFloat(row['lat']), parseFloat(row['lng']));
+    let data = row['dist']['ch'] + ' ' + row['buil']['ch'] + '<br/>' + row['buil']['en'] + ', ' + row['dist']['en'];
     let infowindow = new google.maps.InfoWindow({
       content: data
     });
     let marker = new google.maps.Marker({
-      position: new google.maps.LatLng(row['lat'], row['lng']),
-      title: row['buil']['ch'],
+      position: point,
+      //title: data,
       draggable: false,
       animation: google.maps.Animation.DROP,
     });
+
+    // 將所有座標加到可視地圖裡
+    //bounds.extend(point);
+
     google.maps.event.addListener(marker, 'click', function() {
+      if (activeInfoWindow) { activeInfoWindow.close(); }
       infowindow.open(map, marker);
+      activeInfoWindow = infowindow;
     });
 
     // To add the marker to the map, call setMap();
     marker.setMap(map);
   });
+
+  // 繪製到地圖
+  //map.fitBounds(bounds);
+
+  // 觀察經緯度的變化
+  //google.maps.event.addListener(map, 'bounds_changed', function() {
+  //  let bounds = map.getBounds();
+  //  let NE = bounds.getNorthEast();
+  //  let SW = bounds.getSouthWest();
+  //});
 }

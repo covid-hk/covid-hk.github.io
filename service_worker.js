@@ -19,17 +19,17 @@
  * https://www.w3.org/TR/service-workers/
 **/
 
-var CACHE_NAME = 'covid-cache-v2.16';
+var CACHE_NAME = 'covid-cache-v2.17';
 var urlsToCache = [
   '/',
   '/index.html',
   '/building_list.css',
   '/ajax_controller.js',
-  '/building_list.js?v=2.16',
+  '/building_list.js?v=1.0',
   '/cases_chart.js',
   '/enhanced_sur.js',
   '/geolocation.js',
-  '/googlemap.js',
+  '/googlemap.js?v=1.0',
   '/covid_icon128.png',
   '/covid_icon192.png',
   '/covid_icon512.png'
