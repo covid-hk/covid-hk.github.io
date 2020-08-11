@@ -39,7 +39,7 @@ else {
         $filetime = (Get-Item $filepath).LastWriteTime.ToLocalTime().ToString("yyyy-MM-ddTHH:mm:ss")
         $filename = $_."file_name"
         $filemd5 = $md5
-        if ($filename -eq "googleapis_maps.csv") {
+        if ($filename -eq "building_list_chi.csv" -OR $filename -eq "googleapis_maps.csv") {
           $waitToCallGoogleApisMaps = $true
         }
       }
