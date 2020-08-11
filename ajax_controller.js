@@ -229,7 +229,7 @@ function getFileTimeCsv(callback) {
 function getGoogleApisMapsCsv(callback) {
   $.ajax({
     type: "GET",
-    url: domain[ajax_retry_times_max] + "googleapis_maps" + (ajax_retry_times == 0 ? "" : "") + ".csv?t=" + unixtimestamp,
+    url: domain[ajax_retry_times] + "googleapis_maps" + (ajax_retry_times == 0 ? "_copy" : "") + ".csv?t=" + unixtimestamp,
     dataType: "text",
     success: function(response)
     {
