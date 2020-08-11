@@ -25,7 +25,7 @@ var urlsToCache = [
   '/index.html',
   '/building_list.css',
   '/ajax_controller.js',
-  '/building_list.js',
+  '/building_list.js?v=2.16',
   '/cases_chart.js',
   '/enhanced_sur.js',
   '/geolocation.js',
