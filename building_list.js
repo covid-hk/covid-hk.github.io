@@ -782,13 +782,9 @@ function constructBuildingListTable() {
   else {
     html += '<div class="row py-2">';
     html += '<div class="col-3">';
-    html += '<h4 style="font-size:2.25rem;">';
-    html += '<span data-toggle="modal" data-target="#caseMapModal" onclick="constructCaseMapModal()">';
-    html += '<a href="javascript:void(0)" data-toggle-disabled="tooltip" title="">';
-    html += '<span class="badge badge-primary"><i class="fas fa-map-marked-alt"></i></span>';
-    html += '</a>';
-    html += '</span>';
-    html += '</h4>';
+    html += '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#caseMapModal" onclick="constructCaseMapModal()" style="box-shadow:0 0 0 0.2rem rgba(38,143,255,.5);">';
+    html += '<i class="fas fa-map-marked-alt" style="font-size:1.25rem;"></i>';
+    html += '</button>';
     html += '</div>';
     html += '<div class="col-6">';
     html += '<mark style="font-size:0.8rem;"><i class="fas fa-search"></i> 找到 <b>'+result_set.length+'</b> 座相關大廈<br/><b>'+result_set.length+'</b> Building(s) Found<br/><i class="far fa-hand-point-right"></i> 個案數字查看詳情 <i class="fas fa-project-diagram"></i><br/><i class="far fa-hand-point-down"></i> 大廈名稱打開地圖 <i class="fas fa-map-marked-alt"></i><br/>(<i class="fas fa-biohazard" style="color:red;"></i> 表示涉及新增個案)</mark>';

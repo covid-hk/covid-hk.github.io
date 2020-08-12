@@ -5,7 +5,7 @@
 const MEAN_RADIUS_EARTH_IN_KM = 6371;
 const DEG_TO_RAD_DIVISOR = 57.2957795;
 const ZOOM_FACTOR = 1.6446;
-const ZOOM_MAX = 21;
+const ZOOM_MAX = 19; // 21;
 
 window.mapCanvas = $('#caseMapModal');
 
