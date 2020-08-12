@@ -5,7 +5,7 @@
 const MEAN_RADIUS_EARTH_IN_KM = 6371;
 const DEG_TO_RAD_DIVISOR = 57.2957795;
 const ZOOM_FACTOR = 1.6446;
-const ZOOM_MAX = 19; // 21;
+const ZOOM_MAX = 17; // 21;
 
 window.mapCanvas = $('#caseMapModal');
 
@@ -88,8 +88,8 @@ function constructCaseMapBody() {
   //}
 
   // generate optimal zoom level for Mediterranean area
-  let zoomLevel = optimalZoomLevel(max_lat, min_lat, max_lng, min_lng);
-  zoomLevel = zoomLevel - 1;
+  let adjustLatLng = 0.002;
+  let zoomLevel = optimalZoomLevel(parseFloat(max_lat) + parseFloat(adjustLatLng), parseFloat(min_lat) - parseFloat(adjustLatLng), parseFloat(max_lng) + parseFloat(adjustLatLng), parseFloat(min_lng) - parseFloat(adjustLatLng));
   zoomLevel = Math.min(zoomLevel, ZOOM_MAX);
 
   let myLatlng = new google.maps.LatLng(user_latitude, user_longitude);
