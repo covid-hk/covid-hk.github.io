@@ -329,9 +329,13 @@ function refreshUI() {
     setCookie("covid_hk_district_id", $('input[name="input-district"]:checked').val(), 7);
   }
 
+  filterResultSet(building_list_dedup);
+  refreshBuildingListTable();
+}
+
+function refreshBuildingListTable() {
   $('#wrapper-table-building-loading').show();
   $('#wrapper-table-building').hide();
-  filterResultSet(building_list_dedup);
   let html = constructBuildingListTable();
   setTimeout(function(){
     $('#wrapper-table-building').html($(html).hide().fadeIn(2000));
@@ -676,26 +680,79 @@ function filterResultSet(data) {
   }
 }
 
+function onClickSortTable(sort_by) {
+  if (false) {}
+  else if (sort_by === 'distance') {
+    // Sort result_set by distance
+    result_set.sort(function(a, b) {
+      return (a['distance'] - b['distance']);
+    });
+  }
+  else if (sort_by === 'date') {
+    // Sort result_set by date
+    result_set.sort(function(a, b) {
+      if (a['date'] < b['date']) {
+        return -1 * -1;
+      }
+      else if (a['date'] > b['date']) {
+        return 1 * -1;
+      }
+      else {
+        return 0;
+      }
+    });
+  }
+  else if (sort_by === 'name') {
+    // Sort result_set by name
+    result_set.sort(function(a, b) {
+      if (a['dist']['ch'] < b['dist']['ch']) {
+        return -1;
+      }
+      else if (a['dist']['ch'] > b['dist']['ch']) {
+        return 1;
+      }
+      else {
+        if (a['buil']['ch'].replace(/\s/g,'') < b['buil']['ch'].replace(/\s/g,'')) {
+          return -1;
+        }
+        else if (a['buil']['ch'].replace(/\s/g,'') > b['buil']['ch'].replace(/\s/g,'')) {
+          return 1;
+        }
+        else {
+          return 0;
+        }
+      }
+      return 0;
+    });
+  }
+  else if (sort_by === 'cases') {
+    // Sort result_set by cases
+    result_set.sort(function(a, b) {
+      return (a['case'].length - b['case'].length) * -1;
+    });
+  }
+  refreshBuildingListTable();
+}
+
 function constructBuildingListTable() {
   /* Bootstrap 4 style grid as table */
   /* https://www.codeply.com/go/IDBemcEAyL */
   let html = '<div class="col-12 grid-striped table table-condensed table-hover table-striped" id="table-building">';
 
-  html += '<div class="row py-2 font-weight-bold">';
+  html += '<div class="row py-2 font-weight-bold" style="white-space:nowrap;">';
   html += '<div class="col-3">';
   if (isValidUserLocation()) {
-    html += '<i class="fas fa-crosshairs"></i> 距離 <button type="button" class="btn btn-link" style="display:none;padding:0;"><i class="fas fa-sort-numeric-up"></i></button><br/>Distance';
+    html += '<i class="fas fa-crosshairs"></i> 距離 <button type="button" class="btn btn-link" style="padding:0;" onclick="onClickSortTable(\'distance\');"><i class="fas fa-sort-numeric-up"></i></button><br/>Distance';
   }
   else {
-    html += '<i class="far fa-clock"></i> 日期 <button type="button" class="btn btn-link" style="display:none;padding:0;"><i class="fas fa-sort-numeric-down-alt"></i></button><br/>Date';
+    html += '<i class="far fa-clock"></i> 日期 <button type="button" class="btn btn-link" style="padding:0;" onclick="onClickSortTable(\'date\');"><i class="fas fa-sort-numeric-down-alt"></i></button><br/>Date';
   }
-  // https://www.w3schools.com/icons/fontawesome5_icons_arrows.asp
   html += '</div>';
   html += '<div class="col-6">';
-  html += '<i class="far fa-building"></i> 大廈名單 <button type="button" class="btn btn-link" style="display:none;padding:0;"><i class="fas fa-sort-alpha-up"></i></button><br/>Building Name';
+  html += '<i class="far fa-building"></i> 大廈名單 <button type="button" class="btn btn-link" style="padding:0;" onclick="onClickSortTable(\'name\');"><i class="fas fa-sort-alpha-up"></i></button><br/>Building Name';
   html += '</div>';
   html += '<div class="col-3">';
-  html += '<i class="fas fa-biohazard"></i> 個案 <button type="button" class="btn btn-link" style="display:none;padding:0;"><i class="fas fa-sort-amount-down"></i></button><br/>Cases';
+  html += '<i class="fas fa-biohazard"></i> 個案 <button type="button" class="btn btn-link" style="padding:0;" onclick="onClickSortTable(\'cases\');"><i class="fas fa-sort-amount-down"></i></button><br/>Cases';
   html += '</div>';
   html += '</div>';
 
