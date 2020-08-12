@@ -48,7 +48,7 @@ function getLatLongFromGoogleMapApi($district, $building) {
 }
 
 function convertToGoogleApisMapsHashmap($array) {
-  $hashmap = @{}
+  $hashmap = New-Object System.Collections.Hashtable # @{}
   $array | foreach { $hashmap[$_.地區 + "," + $_.大廈名單] = $_ }
   return $hashmap
 }
@@ -78,7 +78,7 @@ ForEach-Object {
 
   $building_list_chi += New-Object -TypeName PSObject -Property @{地區 = $district; 大廈名單 = $building}
 }
-$building_list_chi = $building_list_chi | Sort-Object -Unique -Property 地區,大廈名單
+$building_list_chi = $building_list_chi | Sort-Object -Property 地區,大廈名單 # | Get-Unique –AsString
 
 $googleapis_maps = @()
 $filepath = Join-Path $PSScriptRoot "googleapis_maps.csv"
@@ -91,7 +91,7 @@ ForEach-Object {
   $lng = $_.lng
   $googleapis_maps += New-Object -TypeName PSObject -Property @{地區 = $district; 大廈名單 = $building; name = $googlename; lat = $lat; lng = $lng}
 }
-$googleapis_maps = $googleapis_maps | Sort-Object -Unique -Property 地區,大廈名單
+$googleapis_maps = $googleapis_maps | Sort-Object -Property 地區,大廈名單 # | Get-Unique –AsString
 $googleapis_maps_hashmap = convertToGoogleApisMapsHashmap $googleapis_maps
 
 $results = @()
@@ -115,7 +115,7 @@ ForEach-Object {
     }
   }
 }
-$results = $results | Sort-Object -Unique -Property 地區,大廈名單
+$results = $results | Sort-Object -Property 地區,大廈名單 # | Get-Unique –AsString
 
 $filepath = Join-Path $PSScriptRoot "googleapis_maps_copy.csv"
 #$results |
