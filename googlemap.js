@@ -1,10 +1,17 @@
-/* https://developers.google.com/maps/documentation/javascript/markers */
-/* https://mtwmt.github.io/googlemap_bounds/ */
-/* https://coderwall.com/p/t3wjxq/optimal-zoom-level-in-google-maps */
+/**
+ * https://developers.google.com/maps/documentation/javascript/markers
+ * https://mtwmt.github.io/googlemap_bounds/
+ * https://coderwall.com/p/t3wjxq/optimal-zoom-level-in-google-maps
+ *
+ * https://developers.google.com/maps/documentation/javascript/custom-markers
+ * https://stackoverflow.com/questions/7095574/google-maps-api-3-custom-marker-color-for-default-dot-marker
+ * https://medium.com/free-code-camp/how-to-change-javascript-google-map-marker-color-8a72131d1207
+ * https://sites.google.com/site/gmapsdevelopment/
+**/
 
 const MEAN_RADIUS_EARTH_IN_KM = 6371;
 const DEG_TO_RAD_DIVISOR = 57.2957795;
-const ZOOM_FACTOR = 1.6446;
+const ZOOM_FACTOR = 1.6446; // 1.6446;
 const ZOOM_MAX = 17; // 21;
 
 window.mapCanvas = $('#caseMapModal');
@@ -32,6 +39,17 @@ function optimalZoomLevel(maxLat, minLat, maxLng, minLng) {
   minLng = toRadians(minLng);
   let greatCircleDistance = haversine(maxLat, minLat, maxLng, minLng);
   return Math.floor(8 - Math.log(ZOOM_FACTOR * greatCircleDistance / Math.sqrt(2 * (minMapDimension * minMapDimension))) / Math.log(2));
+}
+
+function pinSymbol(color) {
+  return {
+    path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z M -2,-30 a 2,2 0 1,1 4,0 2,2 0 1,1 -4,0',
+    fillColor: color,
+    fillOpacity: 1,
+    strokeColor: '#000',
+    strokeWeight: 2,
+    scale: 1,
+  };
 }
 
 function constructCaseMapModal() {
@@ -88,8 +106,7 @@ function constructCaseMapBody() {
   //}
 
   // generate optimal zoom level for Mediterranean area
-  let adjustLatLng = 0.002;
-  let zoomLevel = optimalZoomLevel(parseFloat(max_lat) + parseFloat(adjustLatLng), parseFloat(min_lat) - parseFloat(adjustLatLng), parseFloat(max_lng) + parseFloat(adjustLatLng), parseFloat(min_lng) - parseFloat(adjustLatLng));
+  let zoomLevel = optimalZoomLevel(max_lat, min_lat, max_lng, min_lng);
   zoomLevel = Math.min(zoomLevel, ZOOM_MAX);
 
   let myLatlng = new google.maps.LatLng(user_latitude, user_longitude);
@@ -105,16 +122,52 @@ function constructCaseMapBody() {
   //let bounds = new google.maps.LatLngBounds();
 
   $.each(result_set, function( index, row ) {
-    let point = new google.maps.LatLng(parseFloat(row['lat']), parseFloat(row['lng']));
-    let data = row['dist']['ch'] + ' ' + row['buil']['ch'] + '<br/>' + row['buil']['en'] + ', ' + row['dist']['en'];
+    // Add some random value to handle when two map pins have same lat lng values on the map canvas
+    let lat = parseFloat(row['lat']) + (Math.random() / 25000.0);
+    let lng = parseFloat(row['lng']) + (Math.random() / 25000.0);
+    let point = new google.maps.LatLng(lat, lng);
+    let data = '';
+    data += row['dist']['ch'] + ' ' + row['buil']['ch'];
+    data += '<br/>';
+    data += row['buil']['en'] + ', ' + row['dist']['en'];
+    data += '<br/>';
+    data += '<span class="badge badge-' + row['badge'] + '">' + row['case'].length + '</span>';
+    let color = '';
+    switch (row['badge']) {
+      case 'dark':
+        color = '#343a40';
+        break;
+      case 'danger':
+        color = '#dc3545';
+        break;
+      case 'warning':
+        color = '#ffc107';
+        break;
+      case 'info':
+        color = '#17a2b8';
+        break;
+      case 'primary':
+        color = '#007bff';
+        break;
+      case 'secondary':
+        color = '#6c757d';
+        break;
+      case 'light':
+      default:
+        color = '#f8f9fa';
+        break;
+    }
     let infowindow = new google.maps.InfoWindow({
       content: data
     });
     let marker = new google.maps.Marker({
+      //map: map,
       position: point,
       //title: data,
       draggable: false,
       animation: google.maps.Animation.DROP,
+      zIndex: row['case'].length,
+      icon: pinSymbol(color),
     });
 
     // 將所有座標加到可視地圖裡
