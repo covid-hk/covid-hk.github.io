@@ -684,18 +684,18 @@ function constructBuildingListTable() {
   html += '<div class="row py-2 font-weight-bold">';
   html += '<div class="col-3">';
   if (isValidUserLocation()) {
-    html += '<i class="fas fa-crosshairs"></i> 距離<br/>Distance';
+    html += '<i class="fas fa-crosshairs"></i> 距離 <button type="button" class="btn btn-link" style="display:none;padding:0;"><i class="fas fa-sort-numeric-up"></i></button><br/>Distance';
   }
   else {
-    html += '<i class="far fa-clock"></i> 日期<br/>Date';
+    html += '<i class="far fa-clock"></i> 日期 <button type="button" class="btn btn-link" style="display:none;padding:0;"><i class="fas fa-sort-numeric-down-alt"></i></button><br/>Date';
   }
   // https://www.w3schools.com/icons/fontawesome5_icons_arrows.asp
   html += '</div>';
   html += '<div class="col-6">';
-  html += '<i class="far fa-building"></i> 大廈名單<br/>Building Name';
+  html += '<i class="far fa-building"></i> 大廈名單 <button type="button" class="btn btn-link" style="display:none;padding:0;"><i class="fas fa-sort-alpha-up"></i></button><br/>Building Name';
   html += '</div>';
   html += '<div class="col-3">';
-  html += '<i class="fas fa-biohazard"></i> 個案<br/>Cases';
+  html += '<i class="fas fa-biohazard"></i> 個案 <button type="button" class="btn btn-link" style="display:none;padding:0;"><i class="fas fa-sort-amount-down"></i></button><br/>Cases';
   html += '</div>';
   html += '</div>';
 
@@ -782,7 +782,7 @@ function constructBuildingListTable() {
   else {
     html += '<div class="row py-2">';
     html += '<div class="col-3">';
-    html += '<h4>';
+    html += '<h4 style="font-size:2.25rem;">';
     html += '<span data-toggle="modal" data-target="#caseMapModal" onclick="constructCaseMapModal()">';
     html += '<a href="javascript:void(0)" data-toggle-disabled="tooltip" title="">';
     html += '<span class="badge badge-primary"><i class="fas fa-map-marked-alt"></i></span>';
@@ -797,7 +797,7 @@ function constructBuildingListTable() {
     html += '<h4>';
     html += '<span data-toggle-disabled="modal" data-target="#caseDetailModal" data-badge="light" data-cases="' + result_cases.join(',') + '">';
     html += '<a href="javascript:void(0)" data-toggle="tooltip" title="' + result_cases.join(', ') + '">';
-    html += '<span class="badge badge-light">' + result_cases.length + '</span>';
+    html += '<span class="badge badge-primary">' + result_cases.length + '</span>';
     html += '</a>';
     html += '</span>';
     html += '</h4>';
