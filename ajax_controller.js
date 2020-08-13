@@ -45,6 +45,10 @@ function getBuildingListCsv(callback) {
     type: "GET",
     url: domain[ajax_retry_times] + "building_list_chi.csv?t=" + unixtimestampper15mins,
     dataType: "text",
+    //dataType: "jsonp",
+    //jsonpCallback: callback,
+    //crossDomain: true,
+    cache: false,
     success: function(response)
     {
       csv_obj['building_list_chi'] = $.csv.toObjects(response);
@@ -77,6 +81,10 @@ function getBuildingListCsv(callback) {
     type: "GET",
     url: domain[ajax_retry_times] + "building_list_eng.csv?t=" + unixtimestampper15mins,
     dataType: "text",
+    //dataType: "jsonp",
+    //jsonpCallback: callback,
+    //crossDomain: true,
+    cache: false,
     success: function(response)
     {
       csv_obj['building_list_eng'] = $.csv.toObjects(response);
@@ -115,6 +123,10 @@ function getBuildingListChiCsv(callback) {
     type: "GET",
     url: domain[ajax_retry_times] + "building_list_chi.csv?t=" + unixtimestampper15mins,
     dataType: "text",
+    //dataType: "jsonp",
+    //jsonpCallback: callback,
+    //crossDomain: true,
+    cache: false,
     success: function(response)
     {
       csv_obj['building_list_chi'] = $.csv.toObjects(response);
@@ -145,6 +157,10 @@ function getCasesCsv(callback) {
     type: "GET",
     url: domain[ajax_retry_times] + "latest_situation_of_reported_cases_covid_19_chi.csv?t=" + unixtimestampper15mins,
     dataType: "text",
+    //dataType: "jsonp",
+    //jsonpCallback: callback,
+    //crossDomain: true,
+    cache: false,
     success: function(response)
     {
       csv_obj['latest_reported_cases'] = $.csv.toObjects(response);
@@ -175,6 +191,10 @@ function getCaseDetailsCsv(callback) {
     type: "GET",
     url: domain[ajax_retry_times] + "enhanced_sur_covid_19_chi.csv?t=" + unixtimestampper15mins,
     dataType: "text",
+    //dataType: "jsonp",
+    //jsonpCallback: callback,
+    //crossDomain: true,
+    cache: false,
     success: function(response)
     {
       csv_obj['case_details'] = $.csv.toObjects(response);
@@ -203,6 +223,10 @@ function getFileTimeCsv(callback) {
     type: "GET",
     url: domain[ajax_retry_times] + "filetime.csv?t=" + unixtimestampper15mins,
     dataType: "text",
+    //dataType: "jsonp",
+    //jsonpCallback: callback,
+    //crossDomain: true,
+    cache: false,
     success: function(response)
     {
       csv_obj['filetime'] = $.csv.toObjects(response);
@@ -231,6 +255,10 @@ function getGoogleApisMapsCsv(callback) {
     type: "GET",
     url: domain[ajax_retry_times] + "googleapis_maps" + (ajax_retry_times == 0 ? "_copy" : "") + ".csv?t=" + unixtimestamp,
     dataType: "text",
+    //dataType: "jsonp",
+    //jsonpCallback: callback,
+    //crossDomain: true,
+    cache: false,
     success: function(response)
     {
       csv_obj['googleapis_maps'] = $.csv.toObjects(response);
@@ -259,6 +287,10 @@ function getPopulationCsv(callback) {
     type: "GET",
     url: domain[ajax_retry_times_max] + "population2019.csv?t=" + unixtimestampper15mins,
     dataType: "text",
+    //dataType: "jsonp",
+    //jsonpCallback: callback,
+    //crossDomain: true,
+    cache: false,
     success: function(response)
     {
       csv_obj['population'] = $.csv.toObjects(response);
