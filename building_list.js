@@ -369,6 +369,7 @@ function mergeBuildingList() {
     // Data bug, special handling temporarily
     if (false) { }
     else if (csv_obj['building_list_chi'][i]['地區'].startsWith('九龍城')) { obj['dist'] = map_dist['九龍城']; }
+    else if (csv_obj['building_list_chi'][i]['地區'].startsWith('油尖旺區')) { obj['dist'] = map_dist['油尖旺']; }
     else if (obj['buil']['ch'].startsWith('加州花園')) { obj['dist'] = map_dist['元朗']; }
     else if (obj['buil']['ch'].startsWith('天富苑')) { obj['dist'] = map_dist['元朗']; }
     else if (obj['buil']['ch'].startsWith('天恒邨')) { obj['dist'] = map_dist['元朗']; }
