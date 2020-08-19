@@ -375,6 +375,7 @@ function mergeBuildingList() {
     else if (obj['buil']['ch'].startsWith('天富苑')) { obj['dist'] = map_dist['元朗']; }
     else if (obj['buil']['ch'].startsWith('天恒邨')) { obj['dist'] = map_dist['元朗']; }
     else if (obj['buil']['ch'].startsWith('天澤邨')) { obj['dist'] = map_dist['元朗']; }
+    else if (obj['buil']['ch'].startsWith('天澤商場')) { obj['dist'] = map_dist['元朗']; }
     else if (obj['buil']['ch'].startsWith('寶達邨')) { obj['dist'] = map_dist['觀塘']; }
     else if (obj['buil']['ch'].startsWith('愛民邨')) { obj['dist'] = map_dist['九龍城']; }
     else if (obj['buil']['ch'].startsWith('樂華(北)邨')) { obj['dist'] = map_dist['觀塘']; }
