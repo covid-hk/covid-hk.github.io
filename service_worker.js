@@ -19,20 +19,21 @@
  * https://www.w3.org/TR/service-workers/
 **/
 
-var CACHE_NAME = 'covid-cache-v2.22';
+var CACHE_NAME = 'covid-cache-v2.23';
+var unixtimestamp = Math.floor(Date.now() / 1000);
 var urlsToCache = [
   '/',
-  '/index.html',
-  '/building_list.css',
-  '/ajax_controller.js?v=1.0',
-  '/building_list.js?v=1.0',
-  '/cases_chart.js',
-  '/enhanced_sur.js',
-  '/geolocation.js',
-  '/googlemap.js?v=1.0',
-  '/covid_icon128.png',
-  '/covid_icon192.png',
-  '/covid_icon512.png'
+  '/index.html?t=' + unixtimestamp,
+  '/building_list.css?t=' + unixtimestamp,
+  '/ajax_controller.js?t=' + unixtimestamp,
+  '/building_list.js?t=' + unixtimestamp,
+  '/cases_chart.js?t=' + unixtimestamp,
+  '/enhanced_sur.js?t=' + unixtimestamp,
+  '/geolocation.js?t=' + unixtimestamp,
+  '/googlemap.js?t=' + unixtimestamp,
+  '/covid_icon128.png?t=' + unixtimestamp,
+  '/covid_icon192.png?t=' + unixtimestamp,
+  '/covid_icon512.png?t=' + unixtimestamp
 ];
 
 self.addEventListener('install', function(event) {
