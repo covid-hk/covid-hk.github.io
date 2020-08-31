@@ -113,22 +113,45 @@ function constructCaseLineSummary() {
   html += '<span class="badge badge-info" style="font-size:100%;background-color:' + transparentize(window.chartColors.pink) + ';"><b>' + confirmed + '</b></span> 確診';
   html += '</span>';
   //html += '</mark>';
+  html += '<br/><br/>';
+  html += '<label for="show-last-days">顯示全部</label> ';
+  html += '<input id="show-last-days" type="checkbox" class="switch toggle" onclick="drawLineChart();" checked> ';
+  html += '<label for="show-last-days">顯示最近30日</label>';
   return html;
 }
 
 function drawLineChart() {
-  let ctx = document.getElementById( "case_line_chart" ),
-  line_chart = new Chart(ctx, {
+  let show_last_days = $('#show-last-days').is(':checked') ? 30 : -1;
+  let date_range = getDateRange();
+  let data_new = aggregatedCaseCount["新增"];
+  let data_hospitalised = aggregatedCaseCount["留院"];
+  let data_death = aggregatedCaseCount["死亡"];
+  let data_discharge = aggregatedCaseCount["出院"];
+  let data_confirmed = aggregatedCaseCount["確診"];
+  if (show_last_days > 0) {
+    date_range = date_range.slice(date_range.length - show_last_days);
+    data_new = data_new.slice(data_new.length - show_last_days);
+    data_hospitalised = data_hospitalised.slice(data_hospitalised.length - show_last_days);
+    data_death = data_death.slice(data_death.length - show_last_days);
+    data_discharge = data_discharge.slice(data_discharge.length - show_last_days);
+    data_confirmed = data_confirmed.slice(data_confirmed.length - show_last_days);
+  }
+  $( "#case_line_chart" ).empty();
+  $( "#case_line_chart" ).append( '<canvas id="case_line_chart_canvas"></canvas>' );
+  let canvas = document.getElementById( "case_line_chart_canvas" );
+  let context = canvas.getContext('2d');
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  let line_chart = new Chart(canvas, {
     type: "bar",
     data: {
-      labels: getDateRange(),
+      labels: date_range,
       datasets: [{
         type: "bar",
         label: '新增 New',
         backgroundColor: transparentize(window.chartColors.red),
         borderColor: window.chartColors.red,
         borderWidth: 1,
-        data: aggregatedCaseCount["新增"]
+        data: data_new
       }, {
         hidden: true,
         type: "bar",
@@ -136,7 +159,7 @@ function drawLineChart() {
         backgroundColor: transparentize(window.chartColors.orange),
         borderColor: window.chartColors.orange,
         borderWidth: 1,
-        data: aggregatedCaseCount["留院"]
+        data: data_hospitalised
       }, {
         hidden: true,
         type: "bar",
@@ -144,7 +167,7 @@ function drawLineChart() {
         backgroundColor: transparentize(window.chartColors.black),
         borderColor: window.chartColors.black,
         borderWidth: 1,
-        data: aggregatedCaseCount["死亡"]
+        data: data_death
       }, {
         hidden: true,
         type: "bar",
@@ -152,7 +175,7 @@ function drawLineChart() {
         backgroundColor: transparentize(window.chartColors.green),
         borderColor: window.chartColors.green,
         borderWidth: 1,
-        data: aggregatedCaseCount["出院"]
+        data: data_discharge
       }, {
         hidden: true,
         type: "line",
@@ -160,7 +183,7 @@ function drawLineChart() {
         backgroundColor: transparentize(window.chartColors.pink),
         borderColor: window.chartColors.pink,
         borderWidth: 1,
-        data: aggregatedCaseCount["確診"],
+        data: data_confirmed,
         fill: false
       }]
     },
@@ -188,8 +211,8 @@ function drawLineChart() {
 }
 
 function drawBarChart() {
-  let ctx = document.getElementById( "case_bar_chart" ),
-  line_chart = new Chart(ctx, {
+  let canvas = document.getElementById( "case_bar_chart" );
+  let bar_chart = new Chart(canvas, {
     type: "horizontalBar",
     data: {
       labels: ["80-"+caseCount["確診年紀最大"]+"歲", "70-79歲", "60-69歲", "50-59歲", "40-49歲", "30-39歲", "20-29歲", ""+caseCount["確診年紀最小"]+"-19歲"],
@@ -231,8 +254,9 @@ function drawBarChart() {
 }
 
 function drawPieChart() {
-  let ctx = document.getElementById( 'case_pie_chart' ).getContext('2d');
-  pie_chart = new Chart(ctx, {
+  let canvas = document.getElementById( 'case_pie_chart' );
+  let context = canvas.getContext('2d');
+  let pie_chart = new Chart(context, {
     //type: 'pie',
     type: 'doughnut',
     data: {
