@@ -1,75 +1,4 @@
 District,Building name,Last date of residence of the case(s),Related probable/confirmed cases
-Wong Tai Sin,"Lok Yan House, Tsz Lok Estate",,4660
-Yau Tsim Mong,"Block 5, Prosperous Garden",,4661
-Kowloon City,Kam Tong Building,,4662
-Kwun Tong,"Kai Shun House, Kai Tin Estate",,4663
-Sham Shui Po,"Stage 5, Mei Foo Sun Chuen",,4664
-Kowloon City,Kam Tong Building,,4665
-North,Ping Yeung San Tsuen,,4667
-Yuen Long,"Yiu Foo House, Tin Yiu (I) Estate",,4668
-Yuen Long,"Yiu Foo House, Tin Yiu (I) Estate",,4669
-Yuen Long,"Yiu Foo House, Tin Yiu (I) Estate",,4670
-Yuen Long,"Yat Chi House, Tin Yat Estate",,4671
-Eastern,"Block 5, Aldrich Garden",,4672
-Southern,L'hotel Island South,,4673
-Southern,L'hotel Island South,,4674
-Southern,L'hotel Island South,,4675
-Yuen Long,"Chai Fu House, Tin Fu Court",,4676
-Kwun Tong,"Low Block, Tsui Nam House, Tsui Ping (North) Estate",,4677
-Kwun Tong,"Sau Tak House, Sau Mau Ping South Estate",,4678
-Yau Tsim Mong,"Block 2, Charming Garden",,4679
-Yau Tsim Mong,Best Western Plus Hotel Kowloon,,4680
-Tsuen Wan,"Chung Shue House, Lei Muk Shue Estate",,4681
-Kwai Tsing,Kwai Po Building,,4682
-Eastern,"Block 9, Aldrich Garden",,4683
-Sham Shui Po,"Phase 5, Mei Foo Sun Chuen",,4684
-Sham Shui Po,"Hoi Shun House, Hoi Lai Estate",,4685
-Eastern,"Block 5, Cheerful Garden",,4686
-Eastern,"Wah Hei House, Tung Hei Court",,4688
-Eastern,"Block A, Comfort Gardens",,4689
-Yau Tsim Mong,"Silka Seaview Hotel, Hong Kong",,4690
-Kowloon City,Tung Hing Building,,4691
-Yuen Long,"Yat Chi House, Tin Yat Estate",,4692
-Kowloon City,"Block 1, Hunghom Gardens",,4693
-Kowloon City,"Block 1, Hunghom Gardens",,4694
-Yau Tsim Mong,Wah Po Mansion,,4695
-Tsuen Wan,Fu Yung House,,4696
-Tsuen Wan,"Silka Tsuen Wan, Hong Kong",,4697
-Sham Shui Po,"Mei Leong House, Shek Kip Mei Estate",,4700
-Sai Kung,"Tower 5A, Phase 4B, Wings At Sea II, Lohas Park",,4701
-Sai Kung,"Wo Yat House, Wo Ming Court",,4702
-Kwai Tsing,Win Fong Heights,,4703
-Yuen Long,"Yat Chi House, Tin Yat Estate",,4704
-Yuen Long,"Yat Chi House, Tin Yat Estate",,4705
-Yuen Long,"Tower 9, Central Park Towers II",,4706
-Central & Western,Ramada Hong Kong Harbour View,,4707
-Kowloon City,Tung Hing Building,,4708
-Sham Shui Po,"Stage 5, Mei Foo Sun Chuen",,4709
-Tsuen Wan,"Block L, Allway Gardens",,4711
-Tsuen Wan,"Block 3, Lei Muk Shue Estate",,4712
-Central & Western,Luen Yau Apartments,,4713
-Tsuen Wan,"Block 3, Lei Muk Shue Estate",,4714
-Tsuen Wan,"Block 3, Lei Muk Shue Estate",,4715
-Tsuen Wan,"Block 3, Lei Muk Shue Estate",,4716
-Tsuen Wan,"Block 3, Lei Muk Shue Estate",,4717
-Tsuen Wan,"Block 3, Lei Muk Shue Estate",,4718
-Yuen Long,"Shing Chi House, Tin Shing Court",,4719
-Wong Tai Sin,"Hing Tung House, Tung Tau (II) Estate",,4720
-Kwun Tong,"Kui Tai House, On Tai Estate",,4721
-Kwai Tsing,Hotel COZI‧Oasis,,4722
-Kwai Tsing,"Hiu Kwai House, Kwai Chung Estate",,4722
-Tsuen Wan,L'hotel Nina et Convention Centre,,4723
-Yau Tsim Mong,Metropark Hotel Mongkok,,4723
-Yau Tsim Mong,Po On Building,,4724
-Yuen Long,"Tower 9, Central Park Towers II",,4725
-Kowloon City,"Block 1, Hunghom Gardens",,4726
-Tsuen Wan,Fu Yung House,,4727
-Kwai Tsing,"Hong Yam House, On Yam Estate",,4728
-Tuen Mun,"Block 2, Sun Tuen Mun Centre",,4729
-Yau Tsim Mong,75-77 Ki Lung Street,,4730
-Southern,"Wah Cheong House, Wah Fu (II) Estate",,4731
-Kowloon City,"Shun Man House, Oi Man Estate",,4732
-Eastern,"Block J, Kornhill",,4733
 Tsuen Wan,"Chung Shue House, Lei Muk Shue Estate",,4738
 Eastern,"Block 9, Aldrich Garden",,4739
 Yuen Long,"Yat Chi House, Tin Yat Estate",,4740
@@ -196,37 +125,28 @@ Sai Kung,Pik Uk Prison,,4877
 Tuen Mun,Castle Peak Bay Immigration Centre,,4877
 Wan Chai,"Novotel Century Hong Kong, Wan Chai",,4878
 Wong Tai Sin,"Kai Fai House, Choi Wan (II) Estate",,4879
-Sha Tin,Sun Chui Shopping Centre (non-residential),09/08/2020,"1536, 2075, 2294, 4429"
-Sai Kung,Choi Ming Shopping Centre (non-residential),09/08/2020,"1594, 2627, 4241"
-Wong Tai Sin,Kam Pik House Choi Hung Estate (non-residential),09/08/2020,"1612, 1671, 2009, 2032, 2766, 2897, 3437, 3438, 4091"
-Sham Shui Po,So Uk Shopping Centre (non-residential),09/08/2020,"1817, 2922, 4226"
-Wong Tai Sin,Temple Mall North (non-residential),09/08/2020,"2214, 3129, 3946, 4094"
-Central & Western,Smithfield Municipal Services Building (non-residential),09/08/2020,"2531, 2753, 4149"
-Kwai Tsing,Cheung Hong Estate Commercial Complex No.1 (non-residential),09/08/2020,"3512, 3892, 3952, 3978, 4043, 4111"
-Kwun Tong,MegaBox (non-residential),09/08/2020,"3578, 4084, 4241"
-Eastern,Gold Mine Building (non-residential),09/08/2020,"4213, 4228"
-Wong Tai Sin,Kwong Fat Building (non-residential),10/08/2020,"1639, 1862, 2187, 4290"
-Yau Tsim Mong,Grand Plaza (non-residential),10/08/2020,"2164, 2574, 4338"
-Tai Po,Reve Plaza (non-residential),10/08/2020,"3323, 4163"
-Tai Po,Fu Shin Shopping Centre (non-residential),10/08/2020,"3873, 4316, 4438"
-Sham Shui Po,Golden Computer Arcade (non-residential),10/08/2020,"3894, 4338"
-Tsuen Wan,Shun Hing Building (non-residential),10/08/2020,"4413, 4540"
-Yau Tsim Mong,Gala Place (non-residential),11/08/2020,"1610, 1640, 1875, 2027, 2186, 2652, 3291, 4175"
-Tuen Mun,Tai Hing Estate Commercial Complex (non-residential),11/08/2020,"2119, 2939, 3461, 4242"
-Tuen Mun,Butterfly Plaza Tai Hing (non-residential),11/08/2020,"3156, 4381"
-Yau Tsim Mong,Mong Kok Building (non-residential),11/08/2020,"3996, 4264"
-Wan Chai,Times Square (non-residential),11/08/2020,"4175, 4119"
-Kwun Tong,Kai Tin Shopping Centre (non-residential),11/08/2020,"4191, 4200"
-Wong Tai Sin,Tsz Wan Shan Shopping Centre (non-residential),12/08/2020,"1311, 1312, 1404, 1444, 1477, 1491, 1507, 1508, 1520, 1538, 1549, 1555, 1556, 1564, 1565, 1570, 1579, 1583, 1586, 1588, 1601, 1603, 1604, 1622, 1637, 1643, 1667, 1669, 1680, 1683, 1698, 1702, 1703, 1705, 1709, 1719, 1720, 1744, 1757, 1761, 1773, 1775, 1779, 1786, 1819, 1845, 1862, 1896, 1902, 1944, 1956, 1959, 1963, 2006, 2121, 2122, 2123, 2130, 2187, 2237, 2259, 2273, 2285, 2298, 2321, 2349, 2380, 2428, 2738, 2903, 2994, 3002, 3310, 3655, 3656, 3657, 3816, 3820, 3915, 3925, 4290, 4313, 4330"
-Sha Tin,Freshall (Sha Kok Market) (non-residential),12/08/2020,"2294, 3250, 3619, 3642, 4267, 4268, 4310"
-Eastern,Paradise Mall (non-residential),12/08/2020,"2927, 3085, 4304, 4437"
-Kwun Tong,MTR Kowloon Bay Depot (non-residential),12/08/2020,"3317, 3966, 4292"
-Sha Tin,Fortune City One Market (non-residential),12/08/2020,"3335, 4268"
-Tuen Mun,Shan King Commercial Centre (non-residential),12/08/2020,"4005, 4373"
-Kowloon City,Site 5 & 6 Wonderful Worlds of Whampoa (non-residential),12/08/2020,"4243, 4292"
-Kwun Tong,Shun Lee Market (non-residential),12/08/2020,"4294, 4311"
-Sai Kung,Tsui Lam Market Place (non-residential),12/08/2020,"4297, 4298"
-Yau Tsim Mong,Cheong Wah Commercial Building (non-residential),12/08/2020,"4425, 4539"
+Tsuen Wan,Sam Wo Building,,4880
+Sha Tin,Sheung Keng Hau Tsuen,,4881
+Tsuen Wan,"Low Block, Shek Lan House, Shek Wai Kok Estate",,4882
+Kwai Tsing,"Fu Pong House, Tai Wo Hau Estate",,4884
+Kwun Tong,"Cheung Pak House, Hong Pak Court",,4885
+Wong Tai Sin,"Kam Wan House, Choi Hung Estate",,4886
+Sai Kung,"Tower 5A, Phase 4B, Wings At Sea II, Lohas Park",,4887
+Sha Tin,"Sun Fong House, Sun Chui Estate",,4888
+Kwai Tsing,"Fu Pong House, Tai Wo Hau Estate",,4889
+Kwai Tsing,"Fu Pong House, Tai Wo Hau Estate",,4890
+Sha Tin,"Wai Sam House, Lung Hang Estate",,4892
+Tuen Mun,"Mei Tai House, Fu Tai Estate",,4893
+Tuen Mun,"High Block, Ting Hong House, On Ting Estate",,4894
+Tsuen Wan,"Silka Far East, Hong Kong",,4895
+Wan Chai,"The Charterhouse, Causewaybay Hong Kong",,4896
+Sha Tin,"Sun Fong House, Sun Chui Estate",,4897
+Kwun Tong,"Sau Wong House, Sau Mau Ping South Estate",,4898
+Sha Tin,"Wai Sam House, Lung Hang Estate",,4899
+Tuen Mun,"King Lai House, Shan King Estate",,4901
+Kwun Tong,"Sau Wong House, Sau Mau Ping South Estate",,4910
+Yau Tsim Mong,15 Temple Street,,4912
+Yuen Long,"Tsz Ping House, Tin Tsz Estate",,4914
 Wan Chai,Immigration Tower (non-residential),13/08/2020,"1542, 1584, 1765, 2104, 2134, 2448, 2696, 3026, 4482"
 Tai Po,Tai Yuen Shopping Centre (non-residential),13/08/2020,"2090, 2854, 2991, 3390, 4438"
 Tsuen Wan,Tsuen Fung Centre (non-residential),13/08/2020,"3728, 4495"
@@ -235,13 +155,12 @@ Wan Chai,Hong Kong Sanatorium & Hospital (non-residential),14/08/2020,"1848, 218
 Kwun Tong,Millennium City 3 (non-residential),14/08/2020,"2396, 2434, 2535, 2635, 2720, 2742, 2811, 2822, 2854, 2894, 2927, 2953, 2982, 3231, 3405, 4158, 4468"
 Tsuen Wan,OP Mall (non-residential),14/08/2020,"2529, 2690, 4495"
 Kwun Tong,Tsui Ping (North) Shopping Circuit (non-residential),14/08/2020,"2807, 2833, 3055, 4148, 4372"
-Kwai Tsing,Tai Wo Hau Shopping Centre (non-residential),14/08/2020,"3172, 4225, 4389"
 Wan Chai,Haven Court (non-residential),14/08/2020,"3664, 4199, 4401"
 North,Metropolis Plaza (non-residential),14/08/2020,"3975, 4494"
 Kwun Tong,1 Hung To Road No. 1 Hung To Canteen (non-residential),14/08/2020,"4186, 4387"
 Kowloon City,Foka Building 東門冰室 (non-residential),14/08/2020,"4549, 4550"
-Yuen Long,Tai Kiu Market (non-residential),15/08/2020,"1471, 1561, 2286, 2995, 3460, 3480, 3966, 4034, 4337, 4521"
 Tuen Mun,San Hui Market (non-residential),15/08/2020,"1471, 1561, 1907, 1931, 2154, 2381, 2458, 2493, 2598, 2691, 2889, 3386, 3395, 3742, 4446"
+Yuen Long,Tai Kiu Market (non-residential),15/08/2020,"1471, 1561, 2286, 2995, 3460, 3480, 3966, 4034, 4337, 4521"
 North,Luen Wo Hui Municipal Services Building (non-residential),15/08/2020,"1568, 2167, 2357, 2770, 2991, 4638"
 North,Shek Wu Hui Municipal Services Building (non-residential),15/08/2020,"1947, 1989, 2053, 2072, 2179, 2284, 2393, 2576, 2912, 2913, 3207, 3536, 3948, 4003, 4027, 4105, 4143, 4423"
 Tuen Mun,Yan Tin Market (non-residential),15/08/2020,"3803, 4577"
@@ -287,84 +206,43 @@ Yau Tsim Mong,Wah Yuen Factory Building (non-residential),21/08/2020,"4185, 4294
 Yuen Long,T Town (non-residential),21/08/2020,"4568, 4676, 4692"
 Kowloon City,67 Pak Tai Street (non-residential),21/08/2020,"4636, 4662, 4665"
 Eastern,114 Shau Kei Wan Road (non-residential),21/08/2020,"4638, 4647"
-Kwun Tong,Sau Mau Ping Shopping Centre (non-residential),22/08/2020,"1863, 1865, 1897, 2031, 2035, 2071, 2449, 2623, 2902, 4529, 4678"
 Tsuen Wan,On Fung Building (non-residential),22/08/2020,"4024, 4340, 4696"
 Yuen Long,Tin Shui Shopping Centre (non-residential),22/08/2020,"4676, 4725"
 Yau Tsim Mong,Mau Lam Commercial Building (non-residential),22/08/2020,"4693, 4694"
-Eastern,Lee & Man Commercial Center (non-residential),23/08/2020,4685
-Central & Western,Admiralty Centre Mixian Sense (non-residential),23/08/2020,4692
-Central & Western,Admiralty Centre McDonald's (non-residential),23/08/2020,4692
-Central & Western,123 Belcher's Street (non-residential),23/08/2020,4713
-Yau Tsim Mong,Kalok Building (non-residential),23/08/2020,4724
-Sha Tin,Wai Wah Centre (non-residential),23/08/2020,4728
-Sha Tin,Wai Wah Centre 雲桂香米線專門店 (non-residential),23/08/2020,4728
-Yau Tsim Mong,China Ferry Terminal (non-residential),23/08/2020,4731
-Yau Tsim Mong,26 Kimberley Road Ramen Bari-Uma (non-residential),23/08/2020,4757
-Tsuen Wan,Smartland Lucky Dragon Palace Royal Cantonese Cuisine (non-residential),23/08/2020,4778
-Tsuen Wan,Yeung Uk Road Municipal Services Building (non-residential),23/08/2020,"1652, 1859, 2196, 2261, 2239, 3047, 3117, 3244, 3254, 3976, 4022, 4023, 4024, 4177, 4217, 4413, 4457, 4540, 4696, 4778"
 Yau Tsim Mong,Mong Kok Market (non-residential),23/08/2020,"2195, 3052, 3972, 4700"
 Tuen Mun,Leung King Plaza (non-residential),23/08/2020,"2319, 2707, 3582, 4286, 4309, 4339, 4374, 4412, 4430, 4431, 4467, 4587, 4599, 4658, 4729"
 Yuen Long,Tin Yan Shopping Centre (non-residential),23/08/2020,"3587, 3772, 4704"
 Yuen Long,Tin Chak Shopping Centre (non-residential),23/08/2020,"4456, 4496, 4704"
 Tsuen Wan,Block 3 Lei Muk Shue Estate (non-residential),23/08/2020,"4681, 4682, 4683, 4728, 4751, 4784, 4837"
 Sham Shui Po,Hoi Lai Shopping Centre (non-residential),23/08/2020,"4685, 4701"
-Kowloon City,Ka Wai Plaza (non-residential),24/08/2020,4693
-Tsuen Wan,73 Yuen Tun Circuit (non-residential),24/08/2020,4696
-Kowloon City,Tung Hing Building 金苑粉麵 (non-residential),24/08/2020,4708
-Kowloon City,61 Mei King Street 海南廚房 (non-residential),24/08/2020,4708
-Kowloon City,70 Lok Shan Road (non-residential),24/08/2020,4708
-Kowloon City,76 Lok Shan Road (non-residential),24/08/2020,4708
-Tsuen Wan,Union Building (non-residential),24/08/2020,4727
-Tuen Mun,Tin King Estate Tin Tsui House (non-residential),24/08/2020,4729
-Tuen Mun,Leung King Plaza Kai Kee Restaurant (non-residential),24/08/2020,4729
-Tuen Mun,Block 2 Glorious Garden (non-residential),24/08/2020,4729
-Yau Tsim Mong,Silver Commercial Building (non-residential),24/08/2020,4730
-Yau Tsim Mong,Champion Building (non-residential),24/08/2020,4757
-Central & Western,"MTR Hong Kong Station Tim Ho Wan, the Dim-Sum Specialists (non-residential)",24/08/2020,4764
-Kwun Tong,Lotus Tower 3 Kwun Tong Garden Estate Super Super Congee & Noodle (non-residential),24/08/2020,4771
-Wan Chai,The Hong Kong Cricket Club (non-residential),24/08/2020,4801
-Yuen Long,YOHO Mall II (non-residential),24/08/2020,4818
-Sham Shui Po,Hung Yu Mansion (non-residential),24/08/2020,4840
 Tuen Mun,Leung King Plaza Kam Tai Pan (non-residential),24/08/2020,"4412, 4599, 4628, 4658, 4729"
 Yau Tsim Mong,The Forest (non-residential),24/08/2020,"4604, 4700, 4785"
-Kowloon City,27 Lion Rock Road Saigon Pho (non-residential),25/08/2020,4741
-Kowloon City,Kowloon West Regional Police Headquarters (non-residential),25/08/2020,4756
-Sha Tin,Fu Fai Garden Shopping Arcade (non-residential),25/08/2020,4756
-Yau Tsim Mong,Chung Wo Building 牧牛冰室 (non-residential),25/08/2020,4756
-Yau Tsim Mong,Hang Shing Building (non-residential),25/08/2020,4833
 Kowloon City,Man Sang Commercial Building (non-residential),25/08/2020,"4741, 4767"
-Sha Tin,MOSTown Street (Phase 3) Kitchen One Roast Goose (non-residential),26/08/2020,4756
-Yuen Long,Manhattan Plaza (non-residential),26/08/2020,4791
-Yuen Long,CCC Kei Yuen College (non-residential),26/08/2020,4818
-Eastern,Supernova Stand (non-residential),26/08/2020,4828
 Sham Shui Po,Pei Ho Street Municipal Services Building Cooked Food Centre (non-residential),26/08/2020,"1435, 1558, 1980, 1997, 2234, 4309, 4746"
 Yuen Long,Yuen Fat House (non-residential),26/08/2020,"4772, 4791"
 Wan Chai,Hopewell Centre (non-residential),26/08/2020,"4799, 4811"
 Central & Western,Admiralty Centre Tower II (non-residential),27/08/2020,4761
-Wong Tai Sin,Tai Shing Street Market (non-residential),27/08/2020,4767
 Wong Tai Sin,Lok Fu Plaza (non-residential),27/08/2020,4767
+Wong Tai Sin,Tai Shing Street Market (non-residential),27/08/2020,4767
 Tsuen Wan,Belvedere Square (non-residential),27/08/2020,4786
 Kwai Tsing,Win Fong Heights (non-residential),27/08/2020,4786
 Kwun Tong,Electrial and Mechanical Services Department Headquarters (non-residential),27/08/2020,4787
 Wan Chai,Trust Tower (non-residential),27/08/2020,4799
 Central & Western,Pacific Place (non-residential),27/08/2020,4800
 Yuen Long,Ho Shun Lee Shopping Centre (non-residential),27/08/2020,4818
-Tuen Mun,H.A.N.D.S Shopping Centre (non-residential),27/08/2020,4820
 Sai Kung,TKO Spot (non-residential),27/08/2020,"1596, 1861, 1983, 2066, 2473, 2608, 3787, 4201, 4761, 4762, 4763"
 Kwai Tsing,MTR Kwai Fong Station (non-residential),27/08/2020,"4416, 4460, 4480, 4786"
 Kwun Tong,Choi Tak Shopping Centre (non-residential),27/08/2020,"4764, 4771"
 Kwun Tong,Lower Ngau Tau Kok Estate Plaza (non-residential),27/08/2020,"4776, 4785, 4812"
 Yau Tsim Mong,Best Western Plus Hotel Kowloon (non-residential),28/08/2020,4768
 Kwun Tong,Amoy Plaza Phase 4 Hak Ka Hut (non-residential),28/08/2020,4774
-Kowloon City,Tung Hing Building (non-residential),28/08/2020,4779
 Yau Tsim Mong,The ONE East Ocean‧Lafayette (non-residential),28/08/2020,4779
+Kowloon City,Tung Hing Building (non-residential),28/08/2020,4779
 Wan Chai,Hong Kong Police Headquarters (non-residential),28/08/2020,4798
 Kwun Tong,Lei Yue Mun Plaza Fairwood (non-residential),28/08/2020,4800
 Kwun Tong,Upper Ngau Tau Kok Estate Shopping Centre Maxim's MX (non-residential),28/08/2020,4814
 Tuen Mun,Tuen Mun Town Plaza Phase 2 Pho Le (non-residential),28/08/2020,4820
-Yau Tsim Mong,66 Reclamation Street (non-residential),28/08/2020,4833
 Wong Tai Sin,Fung Cheung House Treasure City Hot Pot Seafood Restaurant (non-residential),28/08/2020,4839
-Kwun Tong,Ngau Tau Kok Municipal Services Building (non-residential),28/08/2020,"1853, 2578, 2666, 3214, 3199, 3399, 3814, 3972, 4595, 4814"
 Kwun Tong,Lei Yue Mun Municipal Services Building (non-residential),28/08/2020,"2634, 2647, 2656, 3908, 4800"
 Kwun Tong,Upper Ngau Tau Kok Estate Shopping Centre (non-residential),28/08/2020,"4785, 4812"
 Sham Shui Po,Trade Square Fulum Restaurant (non-residential),28/08/2020,"4790, 4868"
@@ -373,8 +251,8 @@ Yuen Long,Hing Fat House McDonald's (non-residential),29/08/2020,4818
 Tsuen Wan,Heung Che Street Market (non-residential),29/08/2020,"4696, 4727, 4816"
 Wong Tai Sin,Chuk Yuen Market (non-residential),30/08/2020,4839
 Eastern,480 King's Road (non-residential),30/08/2020,4845
-Yau Tsim Mong,Yiu Chung Building Ming's Kitchen (non-residential),30/08/2020,4852
 Yau Tsim Mong,Carprio Mansion McDonald's (non-residential),30/08/2020,4852
+Yau Tsim Mong,Yiu Chung Building Ming's Kitchen (non-residential),30/08/2020,4852
 Yau Tsim Mong,T.A.L. Building (non-residential),30/08/2020,4872
 Yau Tsim Mong,Victoria Mall (non-residential),30/08/2020,"4491, 4679, 4764, 4872"
 Yuen Long,YOHO Mall II Tai Hing (non-residential),30/08/2020,"4809, 4810"
@@ -382,44 +260,69 @@ Wan Chai,Hoi Shing Building (non-residential),31/08/2020,4828
 Yau Tsim Mong,Wai Hing Building Tiffany Restaurant (non-residential),31/08/2020,4839
 Yau Tsim Mong,MTR Kowloon Station McDonald's (non-residential),31/08/2020,4845
 Yuen Long,Yuen Long Landmark Pizza Hut (non-residential),31/08/2020,4858
-Yau Tsim Mong,Hang Shing Building 363-373 Nathan Road (non-residential),31/08/2020,4874
 Yuen Long,+WOO Phase 2 Saizeriya Italian Restaurant (non-residential),31/08/2020,4875
+Kowloon City,Ching Long Shopping Centre Golden Phoenix Restaurant (non-residential),31/08/2020,4889
 Sham Shui Po,Pei Ho Street Municipal Services Building (non-residential),31/08/2020,"1557, 1608, 1611, 1808, 1852, 1905, 1926, 1927, 2056, 2057, 2140, 2186, 2283, 2292, 2482, 2652, 3156, 3351, 3465, 3765, 3839, 4682, 4840"
 Yau Tsim Mong,ELEMENTS (non-residential),31/08/2020,"1715, 3057, 4011, 4077, 4569, 4845"
 Yuen Long,Tung Yick Market (non-residential),31/08/2020,"2172, 3318, 3480, 4521, 4537, 4858"
-Yau Tsim Mong,Cité 33 (non-residential),01/09/2020,4827
+Yau Tsim Mong,Hang Shing Building 363-373 Nathan Road (non-residential),31/08/2020,"4833, 4874"
 Wong Tai Sin,Chui King House Choi Hung Estate (non-residential),01/09/2020,4827
+Yau Tsim Mong,Cité 33 (non-residential),01/09/2020,4827
 Kwun Tong,MegaBox IKEA Restaurant (non-residential),01/09/2020,4841
 Kwun Tong,Shun Lee Disciplined Services Quarters Tower 1 (non-residential),01/09/2020,4841
 North,Flora Plaza (non-residential),01/09/2020,4851
 Sha Tin,Enterprise Place (non-residential),01/09/2020,4852
+Tsuen Wan,7 Chuen Lung Street (non-residential),01/09/2020,4880
+Kowloon City,Ching Long Shopping Centre McDonald's (non-residential),01/09/2020,4889
 Yau Tsim Mong,Tai Kok Tsui Municipal Service Building (non-residential),01/09/2020,"4159, 4185, 4839"
 Yau Tsim Mong,Honland Building Café de Coral (non-residential),01/09/2020,"4827, 4852"
+Yau Tsim Mong,66 Reclamation Street (non-residential),01/09/2020,"4833, 4898"
 Kwai Tsing,Block 8 Kwai Shing West Estate (non-residential),02/09/2020,4840
 Yau Tsim Mong,2W Sai Yeung Choi Street South 101肉燥飯專門店 (non-residential),02/09/2020,4841
-Wong Tai Sin,Suet Fung House (non-residential),02/09/2020,4853
 Yuen Long,Kam Bo Building Ming Chuan Noodle Hut (non-residential),02/09/2020,4858
 Yuen Long,Pau Cheung Square (non-residential),02/09/2020,4858
 Yau Tsim Mong,Langham Place (non-residential),02/09/2020,"1297, 1641, 2008, 2186, 3296, 3369, 3386, 3826, 4447, 4573, 4841"
+Kwun Tong,Sau Mau Ping Shopping Centre (non-residential),02/09/2020,"1863, 1865, 1897, 2031, 2035, 2071, 2449, 2623, 2902, 4529, 4678, 4910"
 Sham Shui Po,Po On Road Municipal Services Building (non-residential),02/09/2020,"2234, 2410, 2728, 2924, 3351, 3831, 3992, 4115, 4226, 4291, 4840"
+Wong Tai Sin,Suet Fung House (non-residential),02/09/2020,"4853, 4869"
 North,Wah Sum Shopping Centre (non-residential),03/09/2020,4851
-Kowloon City,6 Shim Luen Street (non-residential),03/09/2020,4853
 Kowloon City,3 Hok Ling Street Pak Mei Kai Fast Food (non-residential),03/09/2020,4853
-Kowloon City,Genius Court (non-residential),03/09/2020,4855
-Kowloon City,23 South Wall Road (non-residential),03/09/2020,4855
+Kowloon City,6 Shim Luen Street (non-residential),03/09/2020,4853
 Kowloon City,10 Nga Tsin Long Road (non-residential),03/09/2020,4855
+Kowloon City,23 South Wall Road (non-residential),03/09/2020,4855
 Kowloon City,28 Nga Tsin Long Road 昌記新城茶餐廳 (non-residential),03/09/2020,4855
-Wong Tai Sin,Tung Wui Estate Wui Chi House (non-residential),03/09/2020,4855
+Kwun Tong,Chevalier Commercial Centre (non-residential),03/09/2020,4855
+Kowloon City,Genius Court (non-residential),03/09/2020,4855
 Wong Tai Sin,Tung Tau (II) Estate On Tung House Jade Palace Chinese Restaurant (non-residential),03/09/2020,4855
-Tsuen Wan,Nina Mall 1 Dim Sum Bar (non-residential),03/09/2020,4874
+Wong Tai Sin,Tung Wui Estate Wui Chi House (non-residential),03/09/2020,4855
 Sham Shui Po,83B-C & 85C Broadway Street Fulum Palace (non-residential),03/09/2020,4874
+Tsuen Wan,Nina Mall 1 Dim Sum Bar (non-residential),03/09/2020,4874
 Yau Tsim Mong,Lippo Sun Plaza (non-residential),03/09/2020,4875
-Sha Tin,Transport City Building (non-residential),03/09/2020,"4824, 4854"
+Kwun Tong,Ngau Tau Kok Municipal Services Building (non-residential),03/09/2020,"1853, 2578, 2666, 3214, 3199, 3399, 3814, 3972, 4595, 4814, 4885"
 Yau Tsim Mong,Honland Building (non-residential),04/09/2020,4852
 Southern,Chi Fu Landmark (non-residential),04/09/2020,4856
 Islands,JoysMark Shopping Centre (non-residential),04/09/2020,4866
-Sham Shui Po,West Kowloon Magistrates' Courts (non-residential),04/09/2020,4871
 Sham Shui Po,Lai Chi Kok Reception Centre (non-residential),04/09/2020,4871
-Sham Shui Po,Hing Lung Building (non-residential),04/09/2020,"4867, 4872"
+Sham Shui Po,West Kowloon Magistrates' Courts (non-residential),04/09/2020,4871
+Kwun Tong,On Kay Commercial Centre Ka Ho Restaurant (non-residential),04/09/2020,4885
+Kwun Tong,"Tak Ying House, Tak Tin Estate (non-residential)",04/09/2020,4885
+Sham Shui Po,Garment Centre (non-residential),04/09/2020,4893
+Tuen Mun,Yan Oi Market (non-residential),04/09/2020,4894
+Tuen Mun,Yo Mart (non-residential),04/09/2020,4894
+Tuen Mun,H.A.N.D.S Shopping Centre (non-residential),04/09/2020,"4820, 4894"
 Wong Tai Sin,Chuk Yuen Plaza Chuk Yuen Restaurant (non-residential),05/09/2020,4862
 Wan Chai,L'Wanchai JINLIN PALACE (non-residential),05/09/2020,4879
+Yau Tsim Mong,Edward Mansion (non-residential),05/09/2020,4880
+Tsuen Wan,Yeung Uk Road Municipal Services Building (non-residential),05/09/2020,"1652, 1859, 2196, 2261, 2239, 3047, 3117, 3244, 3254, 3976, 4022, 4023, 4024, 4177, 4217, 4413, 4457, 4540, 4696, 4778, 4882"
+Kwai Tsing,Tai Wo Hau Shopping Centre (non-residential),05/09/2020,"3172, 4225, 4389, 4890"
+Sha Tin,Transport City Building (non-residential),05/09/2020,"4824, 4854, 4881, 4884, 4888, 4892"
+Sham Shui Po,Hing Lung Building (non-residential),05/09/2020,"4867, 4872, 4873"
+Wong Tai Sin,Ngau Chi Wan Municipal Services Building (non-residential),06/09/2020,4886
+Tuen Mun,Fu Tai Shopping Centre (non-residential),06/09/2020,4893
+Wan Chai,The Charterhouse (non-residential),06/09/2020,4896
+Tuen Mun,Wai Cheung Industrial Centre 農家好廚 (non-residential),06/09/2020,4901
+Yuen Long,8 Kuk Ting Street 煇記香港仔魚蛋粉 (non-residential),06/09/2020,4914
+Wan Chai,Fashion Walk Food Street Burgeroom (non-residential),07/09/2020,4912
+Tuen Mun,Tuen Mun Town Plaza Phase 1 Noble Dim Sum (non-residential),08/09/2020,4901
+Yuen Long,Full Yau Court (non-residential),08/09/2020,4914
+Yau Tsim Mong,Pak Shing Building McDonald's (non-residential),09/09/2020,4912
