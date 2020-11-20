@@ -19,7 +19,7 @@
  * https://www.w3.org/TR/service-workers/
 **/
 
-var CACHE_NAME = 'covid-cache-v2.24';
+var CACHE_NAME = 'covid-cache-v2.25';
 var unixtimestamp = Math.floor(Date.now() / 1000);
 var urlsToCache = [
   '/',
