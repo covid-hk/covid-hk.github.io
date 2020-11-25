@@ -1,8 +1,4 @@
 District,Building name,Last date of residence of the case(s),Related probable/confirmed cases
-Yau Tsim Mong,Novotel Hong Kong Nathan Road Kowloon,,5376
-Islands,"Tower 3, The Visionary",,5377
-Yau Tsim Mong,"Kowloon Shangri-La, Hong Kong",,5379
-Islands,Hong Kong Skycity Marriott Hotel,,5380
 Tai Po,"Hing Wo House, Po Nga Court",,5382
 Sha Tin,"Golden Comfort Court, Phase 2, Golden Lion Garden",,5384
 Islands,"Tower 3, the Visionary",,5388
@@ -117,7 +113,7 @@ Sai Kung,"Tower 1, The Grandiose",,5551
 Sai Kung,"Tower 3, Le Prestige, LOHAS Park",,5552
 Wan Chai,"6 Dragon Terrace, Dragon Court",,5553
 Southern,"Block 21, Baguio Villa",,5554
-Wan Chai,451 Lockhart Road,,5555
+Wan Chai,Lockhart House 451 Lockhart Road,,5555
 Kwun Tong,"Block 34, Laguna City",,5556
 Central & Western,"Block 2, Garden Terrace",,5557
 Kwai Tsing,"Silka Tsuen Wan, Hong Kong",,5558
@@ -156,7 +152,7 @@ Yuen Long,Ko Po San Tsuen,,5592
 Yuen Long,"Goodview Court, Yuen Long",,5593
 Eastern,"Block 3, City Garden",,5594
 Central & Western,The Morgan,,5595
-Wan Chai,Paterson Building,,5596
+Wan Chai,"Block C, Paterson Building",,5596
 Central & Western,Sea View Mansion,,5597
 Central & Western,Birchwood Place,,5598
 Yuen Long,"M9, Yoho Midtown",,5599
@@ -197,7 +193,7 @@ Wan Chai,Celeste Court,,5634
 Wan Chai,"Lai Kit Lau, Lai Tak Tsuen",,5636
 Wong Tai Sin,"Tower 1, Lions Rise",,5637
 Kowloon City,Sunderland Estate,,5638
-Islands,63 Tong Fuk Tsuen Village,,5639
+Islands,Tong Fuk Tsuen Village,,5639
 Wan Chai,"Block A, Evergreen Villa",,5640
 Southern,"Block 2, South Wave Court",,5641
 Sha Tin,"Fook Hoi House, Lek Yuen Estate",,5642
@@ -250,26 +246,91 @@ Tai Po,Phase I Casa Marina,,5695
 Tsuen Wan,Hoi Pa San Tsuen,,5696
 Sham Shui Po,"Block 19, Shek Kip Mei Estate",,5697
 Tsuen Wan,Hoi Pa San Tsuen,,5698
+Pending,Pending,,5699
 Central & Western,Tai Fat Building,,5700
 Wan Chai,"Block E, Beverly Hill",,5701
 Kwun Tong,"Block 17, Laguna City",,5702
+Sai Kung,"Wo Yat House, Wo Ming Court",,5703
+Sha Tin,"Mei King House, Mei Tin Estate",,5704
+Islands,Hong Kong Skycity Marriott Hotel,,5706
+Islands,Hong Kong Skycity Marriott Hotel,,5707
+Wong Tai Sin,Dragon Glory Mansion,,5708
+Islands,Hong Kong Skycity Marriott Hotel,,5710
+Sai Kung,"Block 6, On Ning Garden",,5711
+Yau Tsim Mong,Best Western Plus Hotel Kowloon,,5712
+Wan Chai,"Block D, Evergreen Villa",,5713
+Wan Chai,Broadwood Park,,5714
+Central & Western,"Block 1, Connaught Garden",,5715
+Central & Western,"Block 2, Garden Terrace",,5716
+Wan Chai,Hong Kong Mansion,,5719
+Southern,"Block 4, Repulse Bay Garden",,5720
+Kowloon City,Diamond Mansion,,5721
+Yau Tsim Mong,Prudential Hotel,,5722
+Tuen Mun,Sun Fung Wai,,5723
+Central & Western,"Block 2, Garden Terrace",,5724
+Tai Po,"Chung Chun House, Chung Nga Court",,5725
+Sai Kung,"Tower 3, The Mediterranean",,5726
+Sha Tin,"Block 6, World-wide Gardens",,5727
+Wan Chai,Broadview Villa,,5728
+Central & Western,Wah Koon Building,,5729
+Sha Tin,"Tower 1, Court D, Dragons Range",,5730
+Sai Kung,O Pui Village,,5731
+Wan Chai,Broadview Villa,,5733
+Sham Shui Po,Chiat Hing Building,,5734
+Islands,"Heung Yat House, Yat Tung Estate",,5735
+Tai Po,Ping Long Tsuen,,5736
+Kwun Tong,"Sheung Wing House, Upper Ngau Tau Kok Estate",,5737
+Sha Tin,"Pok On House, Pok Hong Estate",,5738
+Tai Po,Mei Sun Building,,5739
+Tsuen Wan,"Block D, Ting Kau Villa",,5740
+Sha Tin,Shu Tak Building,,5741
+Sha Tin,"Wing Shui House, Lek Yuen Estate",,5742
+Sha Tin,"Yiu Wing House, Yiu On Estate",,5743
+Islands,"Heung Yat House, Yat Tung Estate",,5744
+Kwai Tsing,"Ching Mui House, Cheung Ching Estate",,5745
+Kwai Tsing,"Shing Lok House, Kwai Shing East Estate",,5746
+Kwai Tsing,"Tower 10, Tierra Verde",,5747
+Tuen Mun,"Leung Shui House, Leung King Estate",,5748
+Tuen Mun,"Leung Shui House, Leung King Estate",,5749
+Yuen Long,Shek Po Tsuen,,5750
+Yau Tsim Mong,"Winfield Building, 847-865 Canton Road",,5751
+Tuen Mun,"Oi Chi House, Yau Oi Estate",,5752
+Tai Po,Shuen Wan Chan Uk,,5753
+Sai Kung,"Tower 2, Alto Residences",,5754
+Sai Kung,Silver Terrace,,5755
+Tai Po,Ping Long Villa,,5756
+Yuen Long,"Chung Lau House, Tin Chung Court",,5757
+Yau Tsim Mong,West Hotel,,5758
+Central & Western,Ramada Hong Kong Harbour View Hotel,,5759
+Yau Tsim Mong,West Hotel,,5761
+Yau Tsim Mong,Bell House,,5762
+Sham Shui Po,"Man On House, Tai Hang Sai Estate",,5763
+Yau Tsim Mong,15 Yim Po Fong Street,,5764
+North,"Block 3, Tsui Lai Garden",,5765
+Kowloon City,"Block A, Merit Industrial Centre",,5766
+Sham Shui Po,"Stage 3, Mei Foo Sun Chuen, 64 Broadway",,5767
+Kwai Tsing,"Fung King House, Lai King Estate",,5768
+Yau Tsim Mong,Kwong Yuen Building,,5769
+Sham Shui Po,Capitol Building,,5770
+Kwai Tsing,"Yat Kwai House, Kwai Chung Estate",,5771
+Yau Tsim Mong,561 Nathan Road,,5772
+Sha Tin,"Sun Hok House, Sun Chui Estate",,5773
+Sha Tin,"Sun Kit House, Sun Chui Estate",,5774
+Kowloon City,"Block G, Lok Man Sun Chuen",,5775
+Sham Shui Po,"Begonia House, So Uk Estate",,5776
+Eastern,"Ngan Chun House, Tung Chun Court",,5777
+Southern,"Tung Hing House , Lei Tung Estate",,5778
+Eastern,11 Ming Yuen Western Street,,5779
+Tai Po,"Block 10, Serenity Park",,5780
+Wong Tai Sin,"Ching Yi House, Tsz Ching Estate",,5781
+Yau Tsim Mong,Po Ling Building,,5782
 Southern,1 Heung Yip Road (non-residential),31/10/2020,"5332, 5342"
-Sha Tin,New Town Plaza Phase I Tristar Kitchen (non-residential),06/11/2020,"5375, 5382"
 Wan Chai,Everbright Centre (non-residential),06/11/2020,"5375, 5384"
+Sha Tin,New Town Plaza Phase I Tristar Kitchen (non-residential),06/11/2020,"5375, 5382"
 Islands,Citygate (non-residential),06/11/2020,"5388, 5389"
 Kowloon City,Comfort Court Tak Cheong Noodle (non-residential),07/11/2020,"5367, 5371"
 Sha Tin,SKH Holy Spirit Primary School (non-residential),07/11/2020,"5375, 5382"
 Tsuen Wan,Tsuen Wan Plaza Super Star Chinese Cuisine (non-residential),07/11/2020,"5399, 5444"
-Sha Tin,Kings Wing Plaza 1 台豐台灣美食 (non-residential),09/11/2020,5399
-Sha Tin,Kings Wing Plaza 1 狀元橋米線 (non-residential),09/11/2020,5399
-Sha Tin,Kings Wing Plaza 1 麗島小廚 (non-residential),09/11/2020,5399
-Kwun Tong,Sino Industrial Plaza 祥和食堂 (non-residential),09/11/2020,5427
-Tuen Mun,Richland Garden Shopping Arcade 小桃園餐廳小廚 (non-residential),09/11/2020,5427
-Kwai Tsing,Kwai Chung Shopping Centre (non-residential),09/11/2020,5427
-Sha Tin,Chuen Fai Centre 裕發粉麵茶餐廳 (non-residential),09/11/2020,5432
-Sha Tin,University Health Centre The Chinese University of Hong Kong (non-residential),09/11/2020,5432
-Sha Tin,Li Ping Medical Library The Chinese University of Hong Kong (non-residential),09/11/2020,5432
-Wan Chai,Windsor House Genki Sushi (non-residential),09/11/2020,5435
 Tsuen Wan,L'hotel Nina et Convention Centre Ru Chinese Restaurant (non-residential),09/11/2020,"5399, 5444"
 Sha Tin,Grandtech Centre (non-residential),10/11/2020,5399
 Sha Tin,New Trade Plaza 永興食堂 (non-residential),10/11/2020,5399
@@ -290,10 +351,10 @@ Wong Tai Sin,Fung Tak Estate Community Centre (non-residential),11/11/2020,5455
 Tai Po,Tai Po Hui Market (non-residential),11/11/2020,5457
 Central & Western,One-Eight-One Hotel The Tea Room (non-residential),11/11/2020,5470
 Central & Western,Chong Yip Shopping Centre (non-residential),11/11/2020,5470
+Sham Shui Po,Tung Lee Building (non-residential),11/11/2020,5721
 Sha Tin,Sun Tin Wai Estate Commercial Complex (non-residential),12/11/2020,5446
 Yau Tsim Mong,Pioneer Centre Chiu Garden (non-residential),12/11/2020,5456
 Yuen Long,"G/F, MTR Yuen Long Station (non-residential)",12/11/2020,5470
-Sha Tin,Belair Gardens Commercial Complex Hsin Kuang Banquet Hall (non-residential),12/11/2020,5674
 Tuen Mun,Shan King Estate Commercial Centre (non-residential),13/11/2020,5498
 Islands,Commercial Centre 1 Yat Tung Shopping Centre (non-residential),13/11/2020,5506
 Yau Tsim Mong,Silvercord Social Place (non-residential),13/11/2020,5509
@@ -309,6 +370,7 @@ Yuen Long,Yoho Mall II (non-residential),15/11/2020,5470
 Kwai Tsing,Kwai Shing West Estate Shopping Centre Lung Shun Hin Seafood Restaurant (non-residential),15/11/2020,5474
 Southern,19 Island Road (non-residential),15/11/2020,5487
 Sai Kung,Alto Residences (non-residential),15/11/2020,5515
+Kowloon City,Edward Mansion (non-residential),15/11/2020,5721
 Sha Tin,HomeSquare Jasmine (non-residential),15/11/2020,"5501, 5505"
 Sham Shui Po,Centre 600 (non-residential),16/11/2020,5470
 Wan Chai,Fortune Centre (non-residential),16/11/2020,5484
@@ -323,6 +385,7 @@ Yuen Long,"G/F, Good View Building, 61-65 Tai Tong Road (non-residential)",16/11
 Sham Shui Po,Nob Hill Square Betterment Banquet Hall (non-residential),16/11/2020,5579
 Tai Po,2 On Cheung Road (non-residential),16/11/2020,5661
 Yau Tsim Mong,Chuang's London Plaza (non-residential),16/11/2020,"5439, 5472"
+Kowloon City,Screen World Site 8 The Whampoa ClubONE Spotlight (non-residential),16/11/2020,"5638, 5757"
 Islands,The Visionary (non-residential),17/11/2020,5506
 Kwun Tong,Laguna Plaza (non-residential),17/11/2020,5507
 Yau Tsim Mong,W Hong Kong Sing Yin Cantonese Dining (non-residential),17/11/2020,5509
@@ -332,9 +395,11 @@ Wan Chai,Fourtuna Court (non-residential),17/11/2020,5514
 Tsuen Wan,KOLOUR • Tsuen Wan I Nam Kee Spring Roll Noodle (non-residential),17/11/2020,5518
 Kwai Tsing,Shing Mun Valley Swimming Pool (non-residential),17/11/2020,5518
 Yau Tsim Mong,33 Fife Street (non-residential),17/11/2020,5533
+Tai Po,69 Tai Mei Tuk Village Chung Shing Thai Restaurant (non-residential),17/11/2020,5534
 Yau Tsim Mong,"G/F, Far East Mansion (non-residential)",17/11/2020,5538
 Yuen Long,Yoho Mall I Peking Garden (non-residential),17/11/2020,5542
 Wan Chai,Leighton Hill Community Hall (non-residential),17/11/2020,5572
+North,North District Town Hall (non-residential),17/11/2020,"5747, 5765"
 Kwun Tong,Yung Fung Shee Memorial Centre (non-residential),18/11/2020,5507
 Sai Kung,Tseung Kwan O Plaza (non-residential),18/11/2020,5509
 Sai Kung,"Tower 2, Twin Peaks (non-residential)",18/11/2020,5509
@@ -352,27 +417,34 @@ Sham Shui Po,CST Sky Cuisine (non-residential),18/11/2020,5634
 Sham Shui Po,Cheung Sha Wan Plaza Glorious Chinese Restaurant (non-residential),18/11/2020,5634
 Yau Tsim Mong,Park Hovan Commercial Building (non-residential),18/11/2020,5661
 Wan Chai,25 Shan Kwong Road (non-residential),18/11/2020,"5446, 5585"
-Central & Western,9 Des Voeux Road West (non-residential),18/11/2020,"5513, 5515, 5545, 5547, 5550, 5585, 5597, 5632, 5638, 5656, 5659, 5690, 5700"
-Wan Chai,Great Smart Tower (non-residential),18/11/2020,"5515, 5547"
+Central & Western,9 Des Voeux Road West (non-residential),18/11/2020,"5513, 5515, 5545, 5547, 5550, 5585, 5597, 5632, 5638, 5656, 5659, 5690, 5700, 5719, 5729, 5733"
 Wan Chai,W square (non-residential),18/11/2020,"5515, 5548, 5550, 5661"
+Wan Chai,Great Smart Tower (non-residential),18/11/2020,"5515, 5547, 5748"
 Wan Chai,Chinaweal Centre (non-residential),18/11/2020,"5516, 5587"
-Wong Tai Sin,Yue Xiu Plaza Hsin Kuang Banquet Hall (non-residential),18/11/2020,"5532, 5547, 5561, 5568, 5574, 5592, 5634, 5672, 5674, 5688"
+Wong Tai Sin,Yue Xiu Plaza Hsin Kuang Banquet Hall (non-residential),18/11/2020,"5532, 5547, 5561, 5568, 5574, 5592, 5634, 5672, 5674, 5688, 5771, 5739, 5747, 5781"
 Eastern,EAST Hong Kong Hotel (non-residential),19/11/2020,5503
 Sham Shui Po,Park Fook Industrial Building (non-residential),19/11/2020,5532
 Kwai Tsing,Kentucky Industrial Building (non-residential),19/11/2020,5547
 Sha Tin,MOS Centre (Shopping Centre) (non-residential),19/11/2020,5574
 Wan Chai,450 Lockhart Road (non-residential),19/11/2020,5585
 Central & Western,Sheung Wan Market and Cooked Food Centre (non-residential),19/11/2020,5597
+Eastern,"Wai Sing Mansion, Sing Fai Terrace Men Wah Bing Teng (non-residential)",19/11/2020,5617
+Eastern,One Island East (non-residential),19/11/2020,5617
 Wan Chai,Wan Chai Market (non-residential),19/11/2020,5619
 Kwun Tong,Ngau Tau Kok Municipal Services Building (non-residential),19/11/2020,5633
+Sha Tin,Ma On Shan Centre 傷心酸辣粉 (non-residential),19/11/2020,5644
+Sha Tin,Kwong Yuen Community Hall (non-residential),19/11/2020,5658
 Eastern,18 Wang On Road Chop Chop 食神叉燒 (non-residential),19/11/2020,5661
 Eastern,Maylun Apartments (non-residential),19/11/2020,5661
 Kowloon City,To Kwa Wan Market (non-residential),19/11/2020,5663
 Wan Chai,The Hong Kong Jockey Club Happy Valley Clubhouse (non-residential),19/11/2020,5690
-Wan Chai,Sunshine Plaza (non-residential),19/11/2020,"5487, 5500, 5502, 5503, 5513, 5514, 5515, 5516, 5517, 5520, 5524, 5530, 5531, 5532, 5538, 5541, 5544, 5545, 5546, 5547, 5548, 5550, 5551, 5554, 5555, 5556, 5557, 5567, 5597, 5638, 5640"
-Wan Chai,Richmond Plaza (non-residential),19/11/2020,"5514, 5515, 5520, 5544, 5545, 5548, 5557"
+Southern,Ocean Park (non-residential),19/11/2020,5741
+Yau Tsim Mong,BCC Building (non-residential),19/11/2020,5778
+Tai Po,Tai Po Plaza Tsui Wah Restaurant (non-residential),19/11/2020,5780
+Wan Chai,Sunshine Plaza (non-residential),19/11/2020,"5487, 5500, 5502, 5503, 5513, 5514, 5515, 5516, 5517, 5520, 5524, 5530, 5531, 5532, 5538, 5541, 5544, 5545, 5546, 5547, 5548, 5550, 5551, 5554, 5555, 5556, 5557, 5567, 5597, 5638, 5640, 5713, 5722, 5726, 5729"
+Wan Chai,Richmond Plaza (non-residential),19/11/2020,"5514, 5515, 5520, 5544, 5545, 5548, 5557, 5719"
 Yau Tsim Mong,BCC Building Palladium International Dance Club (non-residential),19/11/2020,"5518, 5532, 5609, 5641, 5669, 5682, 5683, 5688"
-Yau Tsim Mong,Mary Building (non-residential),19/11/2020,"5578, 5680, 5681"
+Yau Tsim Mong,Mary Building (non-residential),19/11/2020,"5578, 5680, 5681,5721"
 Sha Tin,Heng On Commercial Centre (non-residential),20/11/2020,5526
 Sham Shui Po,Festival Walk (non-residential),20/11/2020,5534
 Yau Tsim Mong,The Beacon (non-residential),20/11/2020,5607
@@ -382,10 +454,32 @@ Eastern,Fuk Lee Buildling Po Woo Restaurant (non-residential),20/11/2020,5627
 Sham Shui Po,Hong Kong Institute of Technology Cheung Sha Wan Campus (non-residential),20/11/2020,5629
 Yau Tsim Mong,Hollywood Plaza (non-residential),20/11/2020,5631
 Sham Shui Po,"Block C, Hong Kong Industrial Centre (non-residential)",20/11/2020,5634
+Sha Tin,"G/F, Sunshine City Phase 1 (non-residential)",20/11/2020,5644
 Kwun Tong,Kwong Tin Shopping Centre Grand Pleasure Seafood Restaurant (non-residential),20/11/2020,5690
-Wan Chai,SUP Tower (non-residential),20/11/2020,"5567, 5627, 5632, 5679"
-Yau Tsim Mong,Golden Era Plaza (non-residential),20/11/2020,"5568, 5606, 5607, 5608, 5609, 5670, 5671, 5675, 5676, 5682, 5683, 5689"
-Southern,ABBA Commerical Building (non-residential),20/11/2020,"5625, 5641"
-Kwun Tong,Kai Yip Commercial Centre Double Happiness Restaurant (non-residential),20/11/2020,"5669, 5688, 5689"
+SAI KUNG,MCP CENTRAL (non-residential),20/11/2020,5718
+Central & Western,Far East Consortium Building (non-residential),20/11/2020,5755
+Sha Tin,"No. 23-31, Ground Floor, Sun Kit House, Sun Chui Estate (non-residential)",20/11/2020,5774
+Wan Chai,SUP Tower (non-residential),20/11/2020,"5567, 5627, 5632, 5679, 5708"
+Southern,Abba Commerical Building (non-residential),20/11/2020,"5625, 5641, 5723"
+Sha Tin,Belair Gardens Commercial Complex Hsin Kuang Banquet Hall (non-residential),20/11/2020,"5642, 5674, 5742, 5751"
+Kwun Tong,Kai Yip Commercial Centre Double Happiness Restaurant (non-residential),20/11/2020,"5669, 5688, 5689, 5703 5762, 5774"
+Sha Tin,Sha Tin Town Hall (non-residential),20/11/2020,"5747, 5753"
 Wong Tai Sin,Galaxy Factory Building (non-residential),21/11/2020,5677
 Eastern,Customs Headquarters Building (non-residential),21/11/2020,5685
+Sha Tin,Mei Lam Shopping Cenrtre Victoria Harbour Roasted Goose Seafood Restaurant (non-residential),21/11/2020,5704
+Tuen Mun,Sun Tuen Mun Shhopping Centre Double Happiness Restaurant (non-residential),21/11/2020,5708
+Wan Chai,Chuang's Enterprises Building Stellar House (non-residential),21/11/2020,5715
+Tuen Mun,San Hui Market (non-residential),21/11/2020,5723
+Islands,1 Tung Fai Road (non-residential),21/11/2020,5735
+Eastern,Winner House (non-residential),21/11/2020,5774
+Sham Shui Po,481 Castle Peak Road (non-residential),21/11/2020,5777
+Sha Tin,New Town Plaza (non-residential),21/11/2020,5780
+Yau Tsim Mong,Golden Era Plaza (non-residential),21/11/2020,"5568, 5606, 5607, 5608, 5609, 5670, 5671, 5675, 5676, 5682, 5683, 5689, 5703, 5708, 5711, 5725,5734, 5737, 5738, 5740, 5743, 5745, 5750, 5751, 5754, 5762, 5764, 5767, 5769, 5772, 5773, 5774, 5775, 5776, 5782,"
+Sha Tin,Union Hospital (non-residential),21/11/2020,"5672, 5730"
+Central & Western,Bank of China Building China Club (non-residential),21/11/2020,"5728, 5733"
+Yau Tsim Mong,Harbour Plazas Metropolis (non-residential),22/11/2020,5721
+Wan Chai,36 Jardine's Bazaar (non-residential),22/11/2020,5737
+Sha Tin,Heng On Sports centre (non-residential),23/11/2020,5743
+Sha Tin,Ma On Shan Sports Centre (non-residential),23/11/2020,5743
+Yau Tsim Mong,Winfield Building (non-residential),23/11/2020,5751
+Sha Tin,Lung Hang Estate Community Centre (non-residential),14/11/2020,5721
