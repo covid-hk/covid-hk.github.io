@@ -25,6 +25,10 @@ function onReadyCaseDetailsDataInit() {
 
 function groupCasesByDate() {
   for (let i = 0; i < csv_obj['case_details'].length; i++) {
+    // Data bug, special handling temporarily
+    if (typeof csv_obj['case_details'][i]['﻿個案編號'] !== 'undefined') {
+      csv_obj['case_details'][i]['個案編號'] = csv_obj['case_details'][i]['﻿個案編號'];
+    }
     if (csv_obj['case_details'][i]['確診/疑似個案'] == '疑似') { continue; }
     let case_number = parseInt(csv_obj['case_details'][i]['個案編號'], 10);
     let case_date = parseInt(moment(csv_obj['case_details'][i]['報告日期'], 'DD/MM/YYYY').format('YYYYMMDD'), 10) - 20200000;
