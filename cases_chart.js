@@ -88,7 +88,7 @@ function calAggregatedCaseCount() {
 function constructCaseLineSummary() {
   let update_date = csv_obj['latest_reported_cases'][csv_obj['latest_reported_cases'].length - 1]['更新日期'];
   // Update the update_date on index page
-  csv_obj['filetime'].push({'file_time': moment(update_date, 'DD/MM/YYYY').format('YYYY-MM-DD')});
+  csv_obj['filetime'].push({'file_time': moment(update_date, 'DD/MM/YYYY').format('YYYY-MM-DDTHH:mm:ss'), 'file_name': 'latest_situation_of_reported_cases_covid_19_chi.csv'});
   onReadyFileTimeDataInit();
   let confirmed = aggregatedCaseCount["確診"][aggregatedCaseCount["確診"].length - 1];
   let discharge = aggregatedCaseCount["出院"][aggregatedCaseCount["出院"].length - 1];
