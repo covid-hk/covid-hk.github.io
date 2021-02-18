@@ -106,7 +106,7 @@ $(window).scroll(function(){
 });
 
 function onReadyCsv() {
-  if (isAjaxDone(['building_list_chi', 'building_list_eng', 'case_details', 'latest_reported_cases'])) {
+  if (isAjaxDone(['building_list_chi', 'building_list_eng', 'case_details', 'latest_reported_cases', 'population'])) {
     setTimeout(function(){
       onReadyBuildingListDataInit();
       onReadyCaseDetailsDataInit();
@@ -114,6 +114,9 @@ function onReadyCsv() {
     }, 0);
     setTimeout(function() {
       onReadyCasesDataInit();
+    }, 2000);
+    setTimeout(function(){
+      onReadyPopulationDataInit();
     }, 2000);
   }
   if (isAjaxDone(['filetime'])) {
@@ -125,11 +128,6 @@ function onReadyCsv() {
     setTimeout(function(){
       onReadyGoogleApisMapsDataInit();
     }, 0);
-  }
-  if (isAjaxDone(['population'])) {
-    setTimeout(function(){
-      onReadyPopulationDataInit();
-    }, 2000);
   }
 }
 
