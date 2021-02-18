@@ -56,7 +56,7 @@ function getBuildingListCsv(callback) {
     cache: false,
     success: function(response)
     {
-      response = response.contents;
+      response = JSON.parse(JSON.stringify(response.contents));
       csv_obj['building_list_chi'] = $.csv.toObjects(response);
       if (csv_obj['building_list_chi'].length > 0) {
         onCompleteAjax('building_list_chi');
@@ -97,7 +97,7 @@ function getBuildingListCsv(callback) {
     cache: false,
     success: function(response)
     {
-      response = response.contents;
+      response = JSON.parse(JSON.stringify(response.contents));
       csv_obj['building_list_eng'] = $.csv.toObjects(response);
       if (csv_obj['building_list_eng'].length > 0) {
         onCompleteAjax('building_list_eng');
@@ -144,7 +144,7 @@ function getBuildingListChiCsv(callback) {
     cache: false,
     success: function(response)
     {
-      response = response.contents;
+      response = JSON.parse(JSON.stringify(response.contents));
       csv_obj['building_list_chi'] = $.csv.toObjects(response);
       if (csv_obj['building_list_chi'].length > 0) {
         onCompleteAjax('building_list_chi');
@@ -183,7 +183,7 @@ function getCasesCsv(callback) {
     cache: false,
     success: function(response)
     {
-      response = response.contents;
+      response = JSON.parse(JSON.stringify(response.contents));
       csv_obj['latest_reported_cases'] = $.csv.toObjects(response);
       if (csv_obj['latest_reported_cases'].length > 0) {
         onCompleteAjax('latest_reported_cases');
@@ -222,7 +222,7 @@ function getCaseDetailsCsv(callback) {
     cache: false,
     success: function(response)
     {
-      response = response.contents;
+      response = JSON.parse(JSON.stringify(response.contents));
       csv_obj['case_details'] = $.csv.toObjects(response);
       if (csv_obj['case_details'].length > 0) {
         onCompleteAjax('case_details');
