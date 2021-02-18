@@ -112,8 +112,8 @@ function onReadyCsv() {
     }, 0);
     setTimeout(function(){
       onReadyGoogleApisMapsDataInit();
-      onReadyBuildingListDataInit();
       onReadyCaseDetailsDataInit();
+      onReadyBuildingListDataInit();
       chooseDefaultDistrict();
     }, 0);
     setTimeout(function() {
