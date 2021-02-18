@@ -1,9 +1,8 @@
 var domain = [];
-domain[0] = "https://www.chp.gov.hk/files/misc/";
-domain[1] = "https://colorpalette.ddns.net:8443/";
-domain[2] = "https://covid-hk.ddns.net:8443/";
-domain[3] = "https://covid-hk.github.io/";
-var ajax_retry_times = 1; // special handling: start from 1 instead of 0
+domain[0] = "https://colorpalette.ddns.net:8443/";
+domain[1] = "https://covid-hk.ddns.net:8443/";
+domain[2] = "https://covid-hk.github.io/";
+var ajax_retry_times = 0;
 var ajax_retry_times_max = domain.length - 1;
 
 var unixtimestamp = Math.floor(Date.now() / 1000);
@@ -47,7 +46,7 @@ function getBuildingListCsv(callback) {
     type: "GET",
     url: "https://api.allorigins.win/get?url=" +
          encodeURIComponent(
-           domain[0] + "building_list_chi.csv?t=" + unixtimestampper15mins
+           "https://www.chp.gov.hk/files/misc/" + "building_list_chi.csv?t=" + unixtimestampper15mins
          ),
     dataType: "json",
     //dataType: "text",
@@ -88,7 +87,7 @@ function getBuildingListCsv(callback) {
     type: "GET",
     url: "https://api.allorigins.win/get?url=" +
          encodeURIComponent(
-           domain[0] + "building_list_eng.csv?t=" + unixtimestampper15mins
+           "https://www.chp.gov.hk/files/misc/" + "building_list_eng.csv?t=" + unixtimestampper15mins
          ),
     dataType: "json",
     //dataType: "text",
@@ -135,7 +134,7 @@ function getBuildingListChiCsv(callback) {
     type: "GET",
     url: "https://api.allorigins.win/get?url=" +
          encodeURIComponent(
-           domain[0] + "building_list_chi.csv?t=" + unixtimestampper15mins
+           "https://www.chp.gov.hk/files/misc/" + "building_list_chi.csv?t=" + unixtimestampper15mins
          ),
     dataType: "json",
     //dataType: "text",
@@ -174,7 +173,7 @@ function getCasesCsv(callback) {
     type: "GET",
     url: "https://api.allorigins.win/get?url=" +
          encodeURIComponent(
-           domain[0] + "latest_situation_of_reported_cases_covid_19_chi.csv?t=" + unixtimestampper15mins
+           "https://www.chp.gov.hk/files/misc/" + "latest_situation_of_reported_cases_covid_19_chi.csv?t=" + unixtimestampper15mins
          ),
     dataType: "json",
     //dataType: "text",
@@ -213,7 +212,7 @@ function getCaseDetailsCsv(callback) {
     type: "GET",
     url: "https://api.allorigins.win/get?url=" +
          encodeURIComponent(
-           domain[0] + "enhanced_sur_covid_19_chi.csv?t=" + unixtimestampper15mins
+           "https://www.chp.gov.hk/files/misc/" + "enhanced_sur_covid_19_chi.csv?t=" + unixtimestampper15mins
          ),
     dataType: "json",
     //dataType: "text",
@@ -248,19 +247,14 @@ function getCaseDetailsCsv(callback) {
 function getFileTimeCsv(callback) {
   $.ajax({
     type: "GET",
-    url: "https://api.allorigins.win/get?url=" +
-         encodeURIComponent(
-           domain[ajax_retry_times] + "filetime.csv?t=" + unixtimestampper15mins
-         ),
-    dataType: "json",
-    //dataType: "text",
+    url: domain[ajax_retry_times] + "filetime.csv?t=" + unixtimestampper15mins,
+    dataType: "text",
     //dataType: "jsonp",
     //jsonpCallback: callback,
     //crossDomain: true,
     cache: false,
     success: function(response)
     {
-      response = response.contents;
       csv_obj['filetime'] = $.csv.toObjects(response);
       if (csv_obj['filetime'].length > 0) {
         onCompleteAjax('filetime');
@@ -285,19 +279,14 @@ function getFileTimeCsv(callback) {
 function getGoogleApisMapsCsv(callback) {
   $.ajax({
     type: "GET",
-    url: "https://api.allorigins.win/get?url=" +
-         encodeURIComponent(
-           domain[ajax_retry_times] + "googleapis_maps" + (ajax_retry_times < ajax_retry_times_max ? "_copy" : "") + ".csv?t=" + unixtimestamp
-         ),
-    dataType: "json",
-    //dataType: "text",
+    url: domain[ajax_retry_times] + "googleapis_maps" + (ajax_retry_times < ajax_retry_times_max ? "_copy" : "") + ".csv?t=" + unixtimestamp,
+    dataType: "text",
     //dataType: "jsonp",
     //jsonpCallback: callback,
     //crossDomain: true,
     cache: false,
     success: function(response)
     {
-      response = response.contents;
       csv_obj['googleapis_maps'] = $.csv.toObjects(response);
       if (csv_obj['googleapis_maps'].length > 0) {
         onCompleteAjax('googleapis_maps');
@@ -322,19 +311,14 @@ function getGoogleApisMapsCsv(callback) {
 function getPopulationCsv(callback) {
   $.ajax({
     type: "GET",
-    url: "https://api.allorigins.win/get?url=" +
-         encodeURIComponent(
-           domain[ajax_retry_times_max] + "population2019.csv?t=" + unixtimestampper15mins
-         ),
-    dataType: "json",
-    //dataType: "text",
+    url: domain[ajax_retry_times_max] + "population2019.csv?t=" + unixtimestampper15mins,
+    dataType: "text",
     //dataType: "jsonp",
     //jsonpCallback: callback,
     //crossDomain: true,
     cache: false,
     success: function(response)
     {
-      response = response.contents;
       csv_obj['population'] = $.csv.toObjects(response);
       if (csv_obj['population'].length > 0) {
         onCompleteAjax('population');
