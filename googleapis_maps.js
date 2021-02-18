@@ -62,10 +62,6 @@ function getLatLongFromGoogleMapApi() {
 
   let q = new Queue();
   for (let i = 0; i < csv_obj['building_list_chi'].length; i++) {
-    // Data bug, special handling temporarily
-    if (typeof csv_obj['building_list_chi'][i]['﻿地區'] !== 'undefined') {
-      csv_obj['building_list_chi'][i]['地區'] = csv_obj['building_list_chi'][i]['﻿地區'];
-    }
     let district = csv_obj['building_list_chi'][i]['地區'];
     let building = csv_obj['building_list_chi'][i]['大廈名單'].replace(' (非住宅)', '');
 

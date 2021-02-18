@@ -351,10 +351,6 @@ function mergeBuildingList() {
   building_list = [];
   let case_details_hashmap = new Map(csv_obj['case_details'].map(item => [Number(item['個案編號']), item['報告日期']]));
   for (let i = 0; i < csv_obj['building_list_chi'].length; i++) {
-    // Data bug, special handling temporarily
-    if (typeof csv_obj['building_list_chi'][i]['﻿地區'] !== 'undefined') {
-      csv_obj['building_list_chi'][i]['地區'] = csv_obj['building_list_chi'][i]['﻿地區'];
-    }
     let obj = [];
     obj['dist'] = map_dist[csv_obj['building_list_chi'][i]['地區']];
     obj['buil'] = {'ch':csv_obj['building_list_chi'][i]['大廈名單'], 'en':csv_obj['building_list_eng'][i]['Building name']};
