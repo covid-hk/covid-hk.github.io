@@ -1,7 +1,9 @@
 var domain = [];
-domain[0] = "https://covid-hk.ddns.net:8443/"; // "https://colorpalette.ddns.net:8443/"; // "https://covid-hk.ddns.net:8443/";
-domain[1] = "https://covid-hk.github.io/";
-var ajax_retry_times = 0;
+domain[0] = "https://www.chp.gov.hk/files/misc/";
+domain[1] = "https://colorpalette.ddns.net:8443/";
+domain[2] = "https://covid-hk.ddns.net:8443/";
+domain[3] = "https://covid-hk.github.io/";
+var ajax_retry_times = 1; // special handling: start from 1 instead of 0
 var ajax_retry_times_max = domain.length - 1;
 
 var unixtimestamp = Math.floor(Date.now() / 1000);
@@ -43,14 +45,19 @@ function getBuildingListCsv(callback) {
   // https://www.chp.gov.hk/files/misc/building_list_eng.csv
   $.ajax({
     type: "GET",
-    url: domain[ajax_retry_times] + "building_list_chi.csv?t=" + unixtimestampper15mins,
-    dataType: "text",
+    url: "https://api.allorigins.win/get?url=" +
+         encodeURIComponent(
+           domain[0] + "building_list_chi.csv?t=" + unixtimestampper15mins
+         ),
+    dataType: "json",
+    //dataType: "text",
     //dataType: "jsonp",
     //jsonpCallback: callback,
     //crossDomain: true,
     cache: false,
     success: function(response)
     {
+      response = response.contents;
       csv_obj['building_list_chi'] = $.csv.toObjects(response);
       if (csv_obj['building_list_chi'].length > 0) {
         onCompleteAjax('building_list_chi');
@@ -64,29 +71,34 @@ function getBuildingListCsv(callback) {
         }
       }
       // if no result
-      else if (ajax_retry_times < ajax_retry_times_max) {
-        ++ajax_retry_times;
-        getBuildingListCsv(callback);
-      }
+      //else if (ajax_retry_times < ajax_retry_times_max) {
+      //  ++ajax_retry_times;
+      //  getBuildingListCsv(callback);
+      //}
     },
     error: function()
     {
-      if (ajax_retry_times < ajax_retry_times_max) {
-        ++ajax_retry_times;
-        getBuildingListCsv(callback);
-      }
+      //if (ajax_retry_times < ajax_retry_times_max) {
+      //  ++ajax_retry_times;
+      //  getBuildingListCsv(callback);
+      //}
     }
   });
   $.ajax({
     type: "GET",
-    url: domain[ajax_retry_times] + "building_list_eng.csv?t=" + unixtimestampper15mins,
-    dataType: "text",
+    url: "https://api.allorigins.win/get?url=" +
+         encodeURIComponent(
+           domain[0] + "building_list_eng.csv?t=" + unixtimestampper15mins
+         ),
+    dataType: "json",
+    //dataType: "text",
     //dataType: "jsonp",
     //jsonpCallback: callback,
     //crossDomain: true,
     cache: false,
     success: function(response)
     {
+      response = response.contents;
       csv_obj['building_list_eng'] = $.csv.toObjects(response);
       if (csv_obj['building_list_eng'].length > 0) {
         onCompleteAjax('building_list_eng');
@@ -100,17 +112,17 @@ function getBuildingListCsv(callback) {
         }
       }
       // if no result
-      else if (ajax_retry_times < ajax_retry_times_max) {
-        ++ajax_retry_times;
-        getBuildingListCsv(callback);
-      }
+      //else if (ajax_retry_times < ajax_retry_times_max) {
+      //  ++ajax_retry_times;
+      //  getBuildingListCsv(callback);
+      //}
     },
     error: function()
     {
-      if (ajax_retry_times < ajax_retry_times_max) {
-        ++ajax_retry_times;
-        getBuildingListCsv(callback);
-      }
+      //if (ajax_retry_times < ajax_retry_times_max) {
+      //  ++ajax_retry_times;
+      //  getBuildingListCsv(callback);
+      //}
     }
   });
 }
@@ -121,31 +133,36 @@ function getBuildingListChiCsv(callback) {
   // https://www.chp.gov.hk/files/misc/building_list_eng.csv
   $.ajax({
     type: "GET",
-    url: domain[ajax_retry_times] + "building_list_chi.csv?t=" + unixtimestampper15mins,
-    dataType: "text",
+    url: "https://api.allorigins.win/get?url=" +
+         encodeURIComponent(
+           domain[0] + "building_list_chi.csv?t=" + unixtimestampper15mins
+         ),
+    dataType: "json",
+    //dataType: "text",
     //dataType: "jsonp",
     //jsonpCallback: callback,
     //crossDomain: true,
     cache: false,
     success: function(response)
     {
+      response = response.contents;
       csv_obj['building_list_chi'] = $.csv.toObjects(response);
       if (csv_obj['building_list_chi'].length > 0) {
         onCompleteAjax('building_list_chi');
         callback();
       }
       // if no result
-      else if (ajax_retry_times < ajax_retry_times_max) {
-        ++ajax_retry_times;
-        getBuildingListChiCsv(callback);
-      }
+      //else if (ajax_retry_times < ajax_retry_times_max) {
+      //  ++ajax_retry_times;
+      //  getBuildingListChiCsv(callback);
+      //}
     },
     error: function()
     {
-      if (ajax_retry_times < ajax_retry_times_max) {
-        ++ajax_retry_times;
-        getBuildingListChiCsv(callback);
-      }
+      //if (ajax_retry_times < ajax_retry_times_max) {
+      //  ++ajax_retry_times;
+      //  getBuildingListChiCsv(callback);
+      //}
     }
   });
 }
@@ -155,31 +172,36 @@ function getCasesCsv(callback) {
   // https://www.chp.gov.hk/files/misc/latest_situation_of_reported_cases_covid_19_chi.csv
   $.ajax({
     type: "GET",
-    url: domain[ajax_retry_times] + "latest_situation_of_reported_cases_covid_19_chi.csv?t=" + unixtimestampper15mins,
-    dataType: "text",
+    url: "https://api.allorigins.win/get?url=" +
+         encodeURIComponent(
+           domain[0] + "latest_situation_of_reported_cases_covid_19_chi.csv?t=" + unixtimestampper15mins
+         ),
+    dataType: "json",
+    //dataType: "text",
     //dataType: "jsonp",
     //jsonpCallback: callback,
     //crossDomain: true,
     cache: false,
     success: function(response)
     {
+      response = response.contents;
       csv_obj['latest_reported_cases'] = $.csv.toObjects(response);
       if (csv_obj['latest_reported_cases'].length > 0) {
         onCompleteAjax('latest_reported_cases');
         callback();
       }
       // if no result
-      else if (ajax_retry_times < ajax_retry_times_max) {
-        ++ajax_retry_times;
-        getCasesCsv(callback);
-      }
+      //else if (ajax_retry_times < ajax_retry_times_max) {
+      //  ++ajax_retry_times;
+      //  getCasesCsv(callback);
+      //}
     },
     error: function()
     {
-      if (ajax_retry_times < ajax_retry_times_max) {
-        ++ajax_retry_times;
-        getCasesCsv(callback);
-      }
+      //if (ajax_retry_times < ajax_retry_times_max) {
+      //  ++ajax_retry_times;
+      //  getCasesCsv(callback);
+      //}
     }
   });
 }
@@ -189,31 +211,36 @@ function getCaseDetailsCsv(callback) {
   // https://www.chp.gov.hk/files/misc/enhanced_sur_covid_19_chi.csv
   $.ajax({
     type: "GET",
-    url: domain[ajax_retry_times] + "enhanced_sur_covid_19_chi.csv?t=" + unixtimestampper15mins,
-    dataType: "text",
+    url: "https://api.allorigins.win/get?url=" +
+         encodeURIComponent(
+           domain[0] + "enhanced_sur_covid_19_chi.csv?t=" + unixtimestampper15mins
+         ),
+    dataType: "json",
+    //dataType: "text",
     //dataType: "jsonp",
     //jsonpCallback: callback,
     //crossDomain: true,
     cache: false,
     success: function(response)
     {
+      response = response.contents;
       csv_obj['case_details'] = $.csv.toObjects(response);
       if (csv_obj['case_details'].length > 0) {
         onCompleteAjax('case_details');
         callback();
       }
       // if no result
-      else if (ajax_retry_times < ajax_retry_times_max) {
-        ++ajax_retry_times;
-        getCaseDetailsCsv(callback);
-      }
+      //else if (ajax_retry_times < ajax_retry_times_max) {
+      //  ++ajax_retry_times;
+      //  getCaseDetailsCsv(callback);
+      //}
     },
     error: function()
     {
-      if (ajax_retry_times < ajax_retry_times_max) {
-        ++ajax_retry_times;
-        getCaseDetailsCsv(callback);
-      }
+      //if (ajax_retry_times < ajax_retry_times_max) {
+      //  ++ajax_retry_times;
+      //  getCaseDetailsCsv(callback);
+      //}
     }
   });
 }
@@ -221,14 +248,19 @@ function getCaseDetailsCsv(callback) {
 function getFileTimeCsv(callback) {
   $.ajax({
     type: "GET",
-    url: domain[ajax_retry_times] + "filetime.csv?t=" + unixtimestampper15mins,
-    dataType: "text",
+    url: "https://api.allorigins.win/get?url=" +
+         encodeURIComponent(
+           domain[ajax_retry_times] + "filetime.csv?t=" + unixtimestampper15mins
+         ),
+    dataType: "json",
+    //dataType: "text",
     //dataType: "jsonp",
     //jsonpCallback: callback,
     //crossDomain: true,
     cache: false,
     success: function(response)
     {
+      response = response.contents;
       csv_obj['filetime'] = $.csv.toObjects(response);
       if (csv_obj['filetime'].length > 0) {
         onCompleteAjax('filetime');
@@ -253,14 +285,19 @@ function getFileTimeCsv(callback) {
 function getGoogleApisMapsCsv(callback) {
   $.ajax({
     type: "GET",
-    url: domain[ajax_retry_times] + "googleapis_maps" + (ajax_retry_times == 0 ? "_copy" : "") + ".csv?t=" + unixtimestamp,
-    dataType: "text",
+    url: "https://api.allorigins.win/get?url=" +
+         encodeURIComponent(
+           domain[ajax_retry_times] + "googleapis_maps" + (ajax_retry_times < ajax_retry_times_max ? "_copy" : "") + ".csv?t=" + unixtimestamp
+         ),
+    dataType: "json",
+    //dataType: "text",
     //dataType: "jsonp",
     //jsonpCallback: callback,
     //crossDomain: true,
     cache: false,
     success: function(response)
     {
+      response = response.contents;
       csv_obj['googleapis_maps'] = $.csv.toObjects(response);
       if (csv_obj['googleapis_maps'].length > 0) {
         onCompleteAjax('googleapis_maps');
@@ -285,14 +322,19 @@ function getGoogleApisMapsCsv(callback) {
 function getPopulationCsv(callback) {
   $.ajax({
     type: "GET",
-    url: domain[ajax_retry_times_max] + "population2019.csv?t=" + unixtimestampper15mins,
-    dataType: "text",
+    url: "https://api.allorigins.win/get?url=" +
+         encodeURIComponent(
+           domain[ajax_retry_times_max] + "population2019.csv?t=" + unixtimestampper15mins
+         ),
+    dataType: "json",
+    //dataType: "text",
     //dataType: "jsonp",
     //jsonpCallback: callback,
     //crossDomain: true,
     cache: false,
     success: function(response)
     {
+      response = response.contents;
       csv_obj['population'] = $.csv.toObjects(response);
       if (csv_obj['population'].length > 0) {
         onCompleteAjax('population');
