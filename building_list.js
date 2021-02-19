@@ -131,10 +131,7 @@ function onReadyBuildingListDataInit() {
 
 function onReadyFileTimeDataInit() {
   let last_file_time = Math.max.apply(Math, csv_obj['filetime'].map(function(obj) { return moment(obj.file_time, 'YYYY-MM-DDTHH:mm:ss'); }));
-  /*
   $('#header-update-time').html($('<span><i class="far fa-clock"></i>&nbsp;&nbsp;更新時間: '+moment(last_file_time).format('M月D日 h:mma')+'</span>').hide().fadeIn(2000));
-  */
-  $('#header-update-time').html($('<span><i class="far fa-clock"></i>&nbsp;&nbsp;更新時間: '+moment(last_file_time).format('M月D日')+'</span>').hide().fadeIn(2000));
 }
 
 function onReadyGoogleApisMapsDataInit() {
