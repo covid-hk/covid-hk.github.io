@@ -392,7 +392,7 @@ function mergeBuildingList() {
       obj['type'] = map_type['非住宅'];
     }
     obj['case'] = csv_obj['building_list_chi'][i]['相關疑似/確診個案'].replace(/\s/g, '');
-    obj['date'] = csv_obj['building_list_chi'][i]['最後個案居住日期'];
+    obj['date'] = csv_obj['building_list_chi'][i]['個案最後到訪日期'];
     if (obj['date'] === '') {
       let case_num_array = obj['case'].split(',').map(Number);
       let last_case_num = Math.max.apply(Math, case_num_array);
