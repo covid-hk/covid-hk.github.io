@@ -70,9 +70,15 @@ function calAggregatedCaseCount() {
     let d = csv_obj['latest_reported_cases'][i]['更新日期'];
     if (moment(d, 'DD/MM/YYYY') < new Date(2020,0,22)) { continue; }
 
-    tempAggregatedCaseCount["確診"] = csv_obj['latest_reported_cases'][i]['確診個案'];
-    tempAggregatedCaseCount["死亡"] = csv_obj['latest_reported_cases'][i]['死亡'];
-    tempAggregatedCaseCount["出院"] = csv_obj['latest_reported_cases'][i]['出院'];
+    if (csv_obj['latest_reported_cases'][i]['確診個案'].isNumber()) {
+      tempAggregatedCaseCount["確診"] = csv_obj['latest_reported_cases'][i]['確診個案'];
+    }
+    if (csv_obj['latest_reported_cases'][i]['死亡'].isNumber()) {
+      tempAggregatedCaseCount["死亡"] = csv_obj['latest_reported_cases'][i]['死亡'];
+    }
+    if (csv_obj['latest_reported_cases'][i]['出院'].isNumber()) {
+      tempAggregatedCaseCount["出院"] = csv_obj['latest_reported_cases'][i]['出院'];
+    }
     if (i > 0) {
       tempAggregatedCaseCount["新增"] = csv_obj['latest_reported_cases'][i]['確診個案'] - csv_obj['latest_reported_cases'][i-1]['確診個案'];
     }
