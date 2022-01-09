@@ -79,7 +79,7 @@ function calAggregatedCaseCount() {
     if (csv_obj['latest_reported_cases'][i]['出院'].isNumber()) {
       tempAggregatedCaseCount["出院"] = csv_obj['latest_reported_cases'][i]['出院'];
     }
-    if (i > 0) {
+    if (i > 0 && csv_obj['latest_reported_cases'][i]['確診個案'].isNumber()) {
       tempAggregatedCaseCount["新增"] = csv_obj['latest_reported_cases'][i]['確診個案'] - csv_obj['latest_reported_cases'][i-1]['確診個案'];
     }
 
