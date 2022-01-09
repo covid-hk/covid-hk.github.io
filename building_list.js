@@ -391,7 +391,7 @@ function mergeBuildingList() {
       obj['buil']['en'] = obj['buil']['en'].replace(' (non-residential)', '');
       obj['type'] = map_type['非住宅'];
     }
-    obj['case'] = csv_obj['building_list_chi'][i]['相關疑似/確診個案'].replace(/\s/g, '');
+    obj['case'] = csv_obj['building_list_chi'][i]['相關個案編號'].replace(/\s/g, '');
     obj['date'] = csv_obj['building_list_chi'][i]['個案最後到訪日期'];
     if (obj['date'] === '') {
       let case_num_array = obj['case'].split(',').map(Number);
