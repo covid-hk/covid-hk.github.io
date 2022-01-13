@@ -136,9 +136,9 @@ function constructCaseLineSummary() {
   html += '<span>';
   html += '<i class="far fa-user"></i> ';
   html += '<span class="badge badge-light" style="font-size:100%;background-color:' + transparentize(window.chartColors.orange) + ';"><b>' + hospitalised + '</b></span> 住院';
-  html += ' | ';
+  html += ' + ';
   html += '<span class="badge badge-light" style="font-size:100%;background-color:' + transparentize(window.chartColors.green) + ';"><b>' + discharge + '</b></span> 出院';
-  html += ' | ';
+  html += ' + ';
   html += '<span class="badge badge-info" style="font-size:100%;background-color:' + transparentize(window.chartColors.black) + ';"><b>' + death + '</b></span> 死亡';
   html += '</span>';
   html += '<br/><br/>';
