@@ -1,5 +1,6 @@
 var aggregatedCaseCount = [];
 aggregatedCaseCount["確診"] = [];
+aggregatedCaseCount["住院"] = [];
 aggregatedCaseCount["留院"] = [];
 aggregatedCaseCount["死亡"] = [];
 aggregatedCaseCount["出院"] = [];
@@ -88,6 +89,7 @@ function calAggregatedCaseCount() {
     aggregatedCaseCount["出院"].push(tempAggregatedCaseCount["出院"]);
     aggregatedCaseCount["新增"].push(tempAggregatedCaseCount["新增"]);
     aggregatedCaseCount["確診"].push(tempAggregatedCaseCount["確診"]);
+    aggregatedCaseCount["住院"].push(tempAggregatedCaseCount["確診"] - tempAggregatedCaseCount["死亡"] - tempAggregatedCaseCount["出院"]);
     aggregatedCaseCount["留院"].push(tempAggregatedCaseCount["確診"] - tempAggregatedCaseCount["死亡"] - tempAggregatedCaseCount["出院"] - tempAggregatedCaseCount["新增"]);
   }
 }
@@ -100,29 +102,44 @@ function constructCaseLineSummary() {
   let confirmed = aggregatedCaseCount["確診"][aggregatedCaseCount["確診"].length - 1];
   let discharge = aggregatedCaseCount["出院"][aggregatedCaseCount["出院"].length - 1];
   let death = aggregatedCaseCount["死亡"][aggregatedCaseCount["死亡"].length - 1];
-  let hospitalised = aggregatedCaseCount["留院"][aggregatedCaseCount["留院"].length - 1];
+  //let hospitalised = aggregatedCaseCount["留院"][aggregatedCaseCount["留院"].length - 1];
+  let hospitalised = aggregatedCaseCount["住院"][aggregatedCaseCount["住院"].length - 1];
   let added = aggregatedCaseCount["新增"][aggregatedCaseCount["新增"].length - 1];
   let html = '';
+  //html += '<span>';
+  //html += '<i class="far fa-clock"></i> 更新日期: ' + moment(update_date, 'DD/MM/YYYY').format('YYYY-MM-DD');
+  //html += ' | ';
+  //html += '<i class="fas fa-ambulance"></i> ';
+  //html += '<span class="badge badge-info" style="font-size:100%;background-color:' + transparentize(window.chartColors.red) + ';"><b>' + added + '</b></span> 新增';
+  //html += ' + ';
+  //html += '</span>';
+  //html += '<br/><br/>';
+  ////html += '<mark>';
+  //html += '<span>';
+  //html += '<i class="far fa-user"></i> ';
+  //html += '<span class="badge badge-light" style="font-size:100%;background-color:' + transparentize(window.chartColors.orange) + ';"><b>' + hospitalised + '</b></span> 留院';
+  //html += ' + ';
+  //html += '<span class="badge badge-info" style="font-size:100%;background-color:' + transparentize(window.chartColors.black) + ';"><b>' + death + '</b></span> 死亡';
+  //html += ' + ';
+  //html += '<span class="badge badge-light" style="font-size:100%;background-color:' + transparentize(window.chartColors.green) + ';"><b>' + discharge + '</b></span> 出院';
+  //html += ' = ';
+  //html += '<span class="badge badge-info" style="font-size:100%;background-color:' + transparentize(window.chartColors.pink) + ';"><b>' + confirmed + '</b></span> 確診';
+  //html += '</span>';
+  ////html += '</mark>';
   html += '<span>';
   html += '<i class="far fa-clock"></i> 更新日期: ' + moment(update_date, 'DD/MM/YYYY').format('YYYY-MM-DD');
-  html += ' | ';
-  html += '<i class="fas fa-ambulance"></i> ';
-  html += '<span class="badge badge-info" style="font-size:100%;background-color:' + transparentize(window.chartColors.red) + ';"><b>' + added + '</b></span> 新增';
-  html += ' + ';
   html += '</span>';
   html += '<br/><br/>';
-  //html += '<mark>';
   html += '<span>';
-  html += '<i class="far fa-user"></i> ';
-  html += '<span class="badge badge-light" style="font-size:100%;background-color:' + transparentize(window.chartColors.orange) + ';"><b>' + hospitalised + '</b></span> 留院';
-  html += ' + ';
-  html += '<span class="badge badge-info" style="font-size:100%;background-color:' + transparentize(window.chartColors.black) + ';"><b>' + death + '</b></span> 死亡';
-  html += ' + ';
-  html += '<span class="badge badge-light" style="font-size:100%;background-color:' + transparentize(window.chartColors.green) + ';"><b>' + discharge + '</b></span> 出院';
-  html += ' = ';
+  html += '<i class="fas fa-ambulance"></i> ';
   html += '<span class="badge badge-info" style="font-size:100%;background-color:' + transparentize(window.chartColors.pink) + ';"><b>' + confirmed + '</b></span> 確診';
+  html += ' | ';
+  html += '<span class="badge badge-light" style="font-size:100%;background-color:' + transparentize(window.chartColors.orange) + ';"><b>' + hospitalised + '</b></span> 住院';
+  html += ' | ';
+  html += '<span class="badge badge-light" style="font-size:100%;background-color:' + transparentize(window.chartColors.green) + ';"><b>' + discharge + '</b></span> 出院';
+  html += ' | ';
+  html += '<span class="badge badge-info" style="font-size:100%;background-color:' + transparentize(window.chartColors.black) + ';"><b>' + death + '</b></span> 死亡';
   html += '</span>';
-  //html += '</mark>';
   html += '<br/><br/>';
   html += '<label for="show-last-days">顯示全部</label> ';
   html += '<input id="show-last-days" type="checkbox" class="switch toggle" onclick="drawLineChart();" checked> ';
@@ -134,7 +151,8 @@ function drawLineChart() {
   let show_last_days = $('#show-last-days').is(':checked') ? 30 : -1;
   let date_range = getDateRange();
   let data_new = aggregatedCaseCount["新增"];
-  let data_hospitalised = aggregatedCaseCount["留院"];
+  //let data_hospitalised = aggregatedCaseCount["留院"];
+  let data_hospitalised = aggregatedCaseCount["住院"];
   let data_death = aggregatedCaseCount["死亡"];
   let data_discharge = aggregatedCaseCount["出院"];
   let data_confirmed = aggregatedCaseCount["確診"];
@@ -155,38 +173,16 @@ function drawLineChart() {
     type: "bar",
     data: {
       labels: date_range,
-      datasets: [{
-        type: "bar",
-        label: '新增 New',
-        backgroundColor: transparentize(window.chartColors.red),
-        borderColor: window.chartColors.red,
-        borderWidth: 1,
-        data: data_new
-      }, {
-        hidden: true,
-        type: "bar",
-        label: '留院 Hospitalised',
-        backgroundColor: transparentize(window.chartColors.orange),
-        borderColor: window.chartColors.orange,
-        borderWidth: 1,
-        data: data_hospitalised
-      }, {
-        hidden: true,
-        type: "bar",
-        label: '死亡 Death',
-        backgroundColor: transparentize(window.chartColors.black),
-        borderColor: window.chartColors.black,
-        borderWidth: 1,
-        data: data_death
-      }, {
-        hidden: true,
-        type: "bar",
-        label: '出院 Discharge',
-        backgroundColor: transparentize(window.chartColors.green),
-        borderColor: window.chartColors.green,
-        borderWidth: 1,
-        data: data_discharge
-      }, {
+      datasets: [
+      //{
+      //  type: "bar",
+      //  label: '新增 New',
+      //  backgroundColor: transparentize(window.chartColors.red),
+      //  borderColor: window.chartColors.red,
+      //  borderWidth: 1,
+      //  data: data_new
+      //},
+      {
         hidden: true,
         type: "line",
         label: '確診 Confirmed',
@@ -195,7 +191,36 @@ function drawLineChart() {
         borderWidth: 1,
         data: data_confirmed,
         fill: false
-      }]
+      },
+      {
+        //hidden: true,
+        type: "bar",
+        //label: '留院 Hospitalised',
+        label: '住院 Hospitalised',
+        backgroundColor: transparentize(window.chartColors.orange),
+        borderColor: window.chartColors.orange,
+        borderWidth: 1,
+        data: data_hospitalised
+      },
+      {
+        hidden: true,
+        type: "bar",
+        label: '出院 Discharge',
+        backgroundColor: transparentize(window.chartColors.green),
+        borderColor: window.chartColors.green,
+        borderWidth: 1,
+        data: data_discharge
+      },
+      {
+        hidden: true,
+        type: "bar",
+        label: '死亡 Death',
+        backgroundColor: transparentize(window.chartColors.black),
+        borderColor: window.chartColors.black,
+        borderWidth: 1,
+        data: data_death
+      }
+      ]
     },
     options: {
       title: {
