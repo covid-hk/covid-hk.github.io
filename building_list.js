@@ -384,6 +384,7 @@ function mergeBuildingList() {
     else if (obj['buil']['ch'].startsWith('石籬')) { obj['dist'] = map_dist['葵青']; }
     else if (obj['buil']['ch'].startsWith('華心邨')) { obj['dist'] = map_dist['北區']; }
     else if (obj['buil']['ch'].startsWith('藍地綠怡居')) { obj['dist'] = map_dist['屯門']; }
+    else if (obj['buil']['ch'].startsWith('愛定商場')) { obj['dist'] = map_dist['屯門']; }
 
     obj['type'] = map_type['住宅'];
     if (obj['buil']['ch'].includes('非住宅')) {
