@@ -128,12 +128,13 @@ function constructCaseLineSummary() {
   ////html += '</mark>';
   html += '<span>';
   html += '<i class="far fa-clock"></i> 更新日期: ' + moment(update_date, 'DD/MM/YYYY').format('YYYY-MM-DD');
+  html += ' | ';
+  html += '<i class="fas fa-ambulance"></i> ';
+  html += '<span class="badge badge-info" style="font-size:100%;background-color:' + transparentize(window.chartColors.pink) + ';"><b>' + confirmed + '</b></span> 確診';
   html += '</span>';
   html += '<br/><br/>';
   html += '<span>';
-  html += '<i class="fas fa-ambulance"></i> ';
-  html += '<span class="badge badge-info" style="font-size:100%;background-color:' + transparentize(window.chartColors.pink) + ';"><b>' + confirmed + '</b></span> 確診';
-  html += ' | ';
+  html += '<i class="far fa-user"></i> ';
   html += '<span class="badge badge-light" style="font-size:100%;background-color:' + transparentize(window.chartColors.orange) + ';"><b>' + hospitalised + '</b></span> 住院';
   html += ' | ';
   html += '<span class="badge badge-light" style="font-size:100%;background-color:' + transparentize(window.chartColors.green) + ';"><b>' + discharge + '</b></span> 出院';
