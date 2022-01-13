@@ -279,9 +279,9 @@ function constructCaseDetailsTable(data) {
         html += '<th>';
         html += '身份';
         html += '</th>';
-        html += '<th>';
-        html += '個案分類';
-        html += '</th>';
+        //html += '<th>';
+        //html += '個案分類';
+        //html += '</th>';
         html += '</tr>';
         html += '</thead>';
         html += '<tbody>';
@@ -305,9 +305,9 @@ function constructCaseDetailsTable(data) {
       html += '<td>';
       html += row["香港/非香港居民"];
       html += '</td>';
-      html += '<td>';
-      html += row["個案分類*"];
-      html += '</td>';
+      //html += '<td>';
+      //html += row["個案分類*"];
+      //html += '</td>';
       html += '</tr>';
     });
     html += '</tbody>';
