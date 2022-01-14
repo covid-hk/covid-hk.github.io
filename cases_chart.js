@@ -303,38 +303,8 @@ function drawPieChart() {
         '九龍西',
         '新界西',
       ],
-      datasets: [{
-        label: '患者確診期間曾經出入地區',
-        labels: [
-          '新界東',
-          '九龍東',
-          '港島',
-          '九龍西',
-          '新界西',
-        ],
-        data: [
-          caseCount["確診地區新界東"],
-          caseCount["確診地區九龍東"],
-          caseCount["確診地區港島"],
-          caseCount["確診地區九龍西"],
-          caseCount["確診地區新界西"],
-        ],
-        backgroundColor: [
-          window.chartColors.東鐵綫,
-          window.chartColors.觀塘綫,
-          window.chartColors.港島綫,
-          window.chartColors.荃灣綫,
-          window.chartColors.西鐵綫,
-        ],
-        datalabels: {
-          //anchor: 'end',
-          anchor: 'center',
-          //backgroundColor: null,
-          //borderWidth: 0,
-          //anchor: 'start',
-          clamp: true,
-        }
-      }, {
+      datasets: [
+      {
         labels: [
           '北區',
           '大埔區',
@@ -398,7 +368,40 @@ function drawPieChart() {
         datalabels: {
           display: false,
         }
-      }]
+      },
+      {
+        label: '患者確診期間曾經出入地區',
+        labels: [
+          '新界東',
+          '九龍東',
+          '港島',
+          '九龍西',
+          '新界西',
+        ],
+        data: [
+          caseCount["確診地區新界東"],
+          caseCount["確診地區九龍東"],
+          caseCount["確診地區港島"],
+          caseCount["確診地區九龍西"],
+          caseCount["確診地區新界西"],
+        ],
+        backgroundColor: [
+          window.chartColors.東鐵綫,
+          window.chartColors.觀塘綫,
+          window.chartColors.港島綫,
+          window.chartColors.荃灣綫,
+          window.chartColors.西鐵綫,
+        ],
+        datalabels: {
+          //anchor: 'end',
+          anchor: 'center',
+          //backgroundColor: null,
+          //borderWidth: 0,
+          //anchor: 'start',
+          clamp: true,
+        }
+      }
+      ]
     },
     options: {
       responsive: true,
