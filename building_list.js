@@ -392,6 +392,9 @@ function mergeBuildingList() {
       obj['buil']['en'] = obj['buil']['en'].replace(' (non-residential)', '');
       obj['type'] = map_type['非住宅'];
     }
+    if (obj['buil']['ch'].endsWith('地下')) {
+      obj['buil']['ch'] = obj['buil']['ch'].replace('地下', '');
+    }
     obj['case'] = csv_obj['building_list_chi'][i]['相關個案編號'].replace(/\s/g, '');
     obj['date'] = csv_obj['building_list_chi'][i]['個案最後到訪日期'];
     if (obj['date'] === '') {
