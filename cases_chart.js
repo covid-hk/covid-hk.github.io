@@ -79,18 +79,30 @@ function calAggregatedCaseCount() {
     else if (csv_obj['latest_reported_cases'][i]['嚴重急性呼吸綜合症冠狀病毒2的陽性檢測個案'].isNumber()) {
       tempAggregatedCaseCount["確診"] = csv_obj['latest_reported_cases'][i]['嚴重急性呼吸綜合症冠狀病毒2的陽性檢測個案'];
     }
+    if (tempAggregatedCaseCount["確診"] < 0) {
+      tempAggregatedCaseCount["確診"] = 0;
+    }
     if (csv_obj['latest_reported_cases'][i]['死亡'].isNumber()) {
       tempAggregatedCaseCount["死亡"] = csv_obj['latest_reported_cases'][i]['死亡'];
     }
+    if (tempAggregatedCaseCount["死亡"] < 0) {
+      tempAggregatedCaseCount["死亡"] = 0;
+    }
     if (csv_obj['latest_reported_cases'][i]['出院'].isNumber()) {
       tempAggregatedCaseCount["出院"] = csv_obj['latest_reported_cases'][i]['出院'];
+    }
+    if (tempAggregatedCaseCount["出院"] < 0) {
+      tempAggregatedCaseCount["出院"] = 0;
     }
     tempAggregatedCaseCount["新增"] = 0;
     if (i > 0 && tempAggregatedCaseCount["確診"].isNumber()) {
       tempAggregatedCaseCount["新增"] = tempAggregatedCaseCount["確診"] - prevAggregatedCaseCount["確診"];
     }
-    prevAggregatedCaseCount["確診"] = tempAggregatedCaseCount["確診"];
+    if (tempAggregatedCaseCount["新增"] < 0) {
+      tempAggregatedCaseCount["新增"] = 0;
+    }
 
+    prevAggregatedCaseCount["確診"] = tempAggregatedCaseCount["確診"];
     aggregatedCaseCount["死亡"].push(tempAggregatedCaseCount["死亡"]);
     aggregatedCaseCount["出院"].push(tempAggregatedCaseCount["出院"]);
     aggregatedCaseCount["新增"].push(tempAggregatedCaseCount["新增"]);
