@@ -63,6 +63,7 @@ ForEach-Object {
   # Data bug, special handling temporarily
   if ($false) { }
   elseif ($district.StartsWith('九龍城')) { $district = '九龍城'; }
+  elseif ($district.StartsWith('油尖旺區')) { $district = '油尖旺'; }
   elseif ($building.StartsWith('加州花園')) { $district = '元朗'; }
   elseif ($building.StartsWith('天富苑')) { $district = '元朗'; }
   elseif ($building.StartsWith('天恒邨')) { $district = '元朗'; }
@@ -75,6 +76,8 @@ ForEach-Object {
   elseif ($building.StartsWith('石籬')) { $district = '葵青'; }
   elseif ($building.StartsWith('華心邨')) { $district = '北區'; }
   elseif ($building.StartsWith('藍地綠怡居')) { $district = '屯門'; }
+  elseif ($building.StartsWith('愛定商場')) { $district = '屯門'; }
+  elseif ($building.StartsWith('葵涌邨')) { $district = '葵青'; }
 
   $building_list_chi += New-Object -TypeName PSObject -Property @{地區 = $district; 大廈名單 = $building}
 }
