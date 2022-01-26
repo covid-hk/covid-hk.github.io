@@ -68,6 +68,7 @@ function getLatLongFromGoogleMapApi() {
     // Data bug, special handling temporarily
     if (false) { }
     else if (district.startsWith('九龍城')) { district = '九龍城'; }
+    else if (district.startsWith('油尖旺區')) { district = '油尖旺'; }
     else if (building.startsWith('加州花園')) { district = '元朗'; }
     else if (building.startsWith('天富苑')) { district = '元朗'; }
     else if (building.startsWith('天恒邨')) { district = '元朗'; }
@@ -80,6 +81,8 @@ function getLatLongFromGoogleMapApi() {
     else if (building.startsWith('石籬')) { district = '葵青'; }
     else if (building.startsWith('華心邨')) { district = '北區'; }
     else if (building.startsWith('藍地綠怡居')) { district = '屯門'; }
+    else if (building.startsWith('愛定商場')) { district = '屯門'; }
+    else if (building.startsWith('葵涌邨')) { district = '葵青'; }
 
     if (typeof googleapis_maps_hashmap.get(district + ',' + building) !== 'undefined') {
       // Check if already exists, do nothing
