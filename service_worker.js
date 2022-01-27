@@ -21,7 +21,7 @@
 
 var unixtimestamp = Math.floor(Date.now() / 1000);
 var unixtimestampper15mins = Math.floor(unixtimestamp / 1000);
-var CACHE_NAME = 'covid-cache-v20220126-3' + unixtimestampper15mins;
+var CACHE_NAME = 'covid-cache-v20220127' + unixtimestampper15mins;
 var urlsToCache = [
   '/',
   '/index.html?t=' + unixtimestamp,
