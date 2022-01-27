@@ -83,6 +83,7 @@ function getLatLongFromGoogleMapApi() {
     else if (building.startsWith('藍地綠怡居')) { district = '屯門'; }
     else if (building.startsWith('愛定商場')) { district = '屯門'; }
     else if (building.startsWith('葵涌邨')) { district = '葵青'; }
+    else if (building.startsWith('葵涌葵涌邨')) { district = '葵青'; }
 
     if (typeof googleapis_maps_hashmap.get(district + ',' + building) !== 'undefined') {
       // Check if already exists, do nothing
