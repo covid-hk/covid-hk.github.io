@@ -78,6 +78,7 @@ ForEach-Object {
   elseif ($building.StartsWith('藍地綠怡居')) { $district = '屯門'; }
   elseif ($building.StartsWith('愛定商場')) { $district = '屯門'; }
   elseif ($building.StartsWith('葵涌邨')) { $district = '葵青'; }
+  elseif ($building.StartsWith('葵涌葵涌邨')) { $district = '葵青'; }
 
   $building_list_chi += New-Object -TypeName PSObject -Property @{地區 = $district; 大廈名單 = $building}
 }
